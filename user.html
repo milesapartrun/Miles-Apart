@@ -2949,100 +2949,14 @@ function getPosterShareText(){
 
   if(!data)
     return(
-      "Ich bin Miles Apart Member 2026.\n\n"+
-      `✨ Werde jetzt Miles Apart Running Club Member! 🏃‍♂️🩵\n${MEMBERSHIP_URL}`
+      "🏃 Miles Apart Member 2026\n\n"+
+      `🏃 Jetzt Mitglied werden:\n${MEMBERSHIP_URL}`
     );
 
-  let text=
+  return(
     `🏃 ${data.name} · Miles Apart Member 2026\n\n`+
-    `MILES APART RUNNING CLUB\n`+
-    `${formatNumber(data.totalKm)} km · ${data.runCount} Läufe`;
-
-  if(data.longestDistance){
-
-    text+=
-      ` · Longest Run ${formatNumber(
-        data.longestDistance
-      )} km`;
-
-  }
-
-  if(data.level){
-
-    text+=
-      ` · ${data.level.emoji} Level ${data.level.km}`;
-
-  }
-
-  const pbParts=[];
-
-  if(data.pbs["5k"])
-    pbParts.push(
-      `5K ${formatDuration(
-        data.pbs["5k"].duration_seconds
-      )}`
-    );
-
-  if(data.pbs["10k"])
-    pbParts.push(
-      `10K ${formatDuration(
-        data.pbs["10k"].duration_seconds
-      )}`
-    );
-
-  if(data.pbs["half"])
-    pbParts.push(
-      `HM ${formatDuration(
-        data.pbs["half"].duration_seconds
-      )}`
-    );
-
-  if(data.pbs["marathon"])
-    pbParts.push(
-      `Marathon ${formatDuration(
-        data.pbs["marathon"].duration_seconds
-      )}`
-    );
-
-  if(data.pbs["100k"])
-    pbParts.push(
-      `100K ${formatDuration(
-        data.pbs["100k"].duration_seconds
-      )}`
-    );
-
-  if(data.pbs["100plus"]){
-
-    const distance=
-      Number(
-        data.pbs["100plus"].distance_km
-      );
-
-    pbParts.push(
-      `100K+ ${
-        Number.isFinite(distance)
-          ?`${formatNumber(distance)} km `
-          :""
-      }${
-        formatDuration(
-          data.pbs["100plus"].duration_seconds
-        )
-      }`
-    );
-
-  }
-
-  if(pbParts.length){
-
-    text+=
-      `\nPBs: ${pbParts.join(" · ")}`;
-
-  }
-
-  text+=
-    `\n\n✨ Werde jetzt Miles Apart Running Club Member! 🏃‍♂️🩵\n${MEMBERSHIP_URL}`;
-
-  return text;
+    `🏃 Jetzt Mitglied werden:\n${MEMBERSHIP_URL}`
+  );
 
 }
 
