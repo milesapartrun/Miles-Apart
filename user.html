@@ -781,11 +781,19 @@
     Profil wird geladen …
   </div>
 
-  <div id="profileContent" style="display:none;">
+  <!-- =======================================================
+       NEU: ÜBERSCHRIFT STEHT AUSSERHALB VON PROFILECONTENT
+  ======================================================== -->
 
-    <h1 class="member-page-title">
-      Meine Miles Apart Mitgliedsseite
-    </h1>
+  <h1
+    id="memberPageTitle"
+    class="member-page-title"
+    style="display:none;"
+  >
+    Meine Miles Apart Mitgliedsseite
+  </h1>
+
+  <div id="profileContent" style="display:none;">
 
     <section class="profile-hero">
 
@@ -3912,6 +3920,11 @@ async function initializePage(){
       "profileContent"
     );
 
+  const memberPageTitle=
+    document.getElementById(
+      "memberPageTitle"
+    );
+
   const errorState=
     document.getElementById(
       "errorState"
@@ -4000,6 +4013,9 @@ async function initializePage(){
     loadingState.style.display=
       "none";
 
+    memberPageTitle.style.display=
+      "block";
+
     profileContent.style.display=
       "block";
 
@@ -4011,6 +4027,9 @@ async function initializePage(){
     );
 
     loadingState.style.display=
+      "none";
+
+    memberPageTitle.style.display=
       "none";
 
     errorState.style.display=
