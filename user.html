@@ -1357,6 +1357,7 @@ function getCurrentRunningLevel(km){
   });
 
   return level;
+
 }
 
 function getNextRunningLevel(km){
@@ -1461,6 +1462,7 @@ function findBestRunByCategory(
   );
 
   return eligible[0];
+
 }
 
 /* =========================================================
@@ -2078,64 +2080,76 @@ function posterStatBox(
   if(emoji){
 
     /*
-     * EMOJI + LEVEL:
+     * FESTE ZWEISPALTIGE ANORDNUNG
      *
-     * Die Breite des tatsächlichen Emojis wird zuerst
-     * gemessen. Danach beginnt die Level-Schrift mit einem
-     * festen Abstand. Dadurch funktioniert die Anordnung
-     * auch bei unterschiedlich breiten Emojis sauber.
+     * Das Emoji bekommt einen eigenen festen Bereich.
+     * Der Level-Text beginnt immer an derselben Position.
+     * Dadurch kann kein Emoji den Text berühren oder
+     * überlappen – unabhängig davon, welches Emoji
+     * verwendet wird.
      */
+
+    const emojiCenterX =
+      x + 72;
+
+    const emojiCenterY =
+      y + 132;
+
+    const valueX =
+      x + 158;
+
+    const valueMaxWidth =
+      width - (valueX - x) - 28;
 
     ctx.save();
 
-    ctx.font="50px Arial, Helvetica, sans-serif";
+    ctx.font =
+      "58px Arial, Helvetica, sans-serif";
 
-    const emojiWidth=
-      Math.max(
-        50,
-        ctx.measureText(
-          emoji
-        ).width
-      );
+    ctx.textAlign =
+      "center";
+
+    ctx.textBaseline =
+      "middle";
+
+    ctx.fillStyle =
+      "#17211f";
+
+    ctx.fillText(
+      emoji,
+      emojiCenterX,
+      emojiCenterY
+    );
 
     ctx.restore();
 
-    const emojiX=
-      x+28;
-
-    const emojiY=
-      y+126;
-
-    const valueX=
-      emojiX+
-      emojiWidth+
-      24;
-
-    const valueMaxWidth=
-      width-
-      (valueX-x)-
-      28;
-
     posterText(
       ctx,
-      emoji,
-      emojiX,
-      emojiY,
+      "Level",
+      valueX,
+      y + 105,
       {
-        font:"50px Arial, Helvetica, sans-serif",
+        font:"900 42px Arial",
         color:"#17211f",
         baseline:"middle"
       }
     );
 
+    const levelNumber =
+      String(value)
+        .replace(
+          /^Level\s*/i,
+          ""
+        );
+
     posterFittedText(
       ctx,
-      value,
+      levelNumber,
       valueX,
-      y+126,
+      y + 165,
       valueMaxWidth,
-      61,
-      32,
+      42,
+      30,
       "900",
       "#17211f"
     );
@@ -2244,13 +2258,6 @@ function posterPbBox(
       Number(
         run.distance_km
       );
-
-    /*
-     * 100+ KM:
-     *
-     * Mehr vertikaler Abstand zwischen Kilometerzahl,
-     * Zeit und Pace. Die Karte selbst bleibt unverändert.
-     */
 
     posterFittedText(
       ctx,
@@ -2795,6 +2802,31 @@ function setPosterStatus(
 }
 
 /* =========================================================
+   SHARE-DATEN
+========================================================= */
+
+function createPosterShareData(
+  file
+){
+
+  return{
+
+    files:[file],
+
+    title:
+      "Miles Apart Running Club",
+
+    text:
+      getPosterShareText(),
+
+    url:
+      MEMBERSHIP_URL
+
+  };
+
+}
+
+/* =========================================================
    DOWNLOAD
 ========================================================= */
 
@@ -2826,6 +2858,11 @@ async function downloadRunnerPoster(){
         }
       );
 
+    const shareData=
+      createPosterShareData(
+        file
+      );
+
     if(
       navigator.share&&
       navigator.canShare&&
@@ -2836,15 +2873,9 @@ async function downloadRunnerPoster(){
 
       try{
 
-        await navigator.share({
-          files:[file],
-          title:
-            "Miles Apart Running Club",
-          text:
-            getPosterShareText(),
-          url:
-            MEMBERSHIP_URL
-        });
+        await navigator.share(
+          shareData
+        );
 
         setPosterStatus(
           "✓ Im Teilen-Menü kannst du das Poster direkt sichern oder teilen."
@@ -3026,10 +3057,9 @@ function getPosterShareText(){
   }
 
   /*
-   * WICHTIG:
-   * Die URL steht bewusst als echte URL am Ende.
-   * WhatsApp und andere Share-Ziele können sie dadurch
-   * als anklickbaren Link erkennen.
+   * Die URL wird sowohl als eigener URL-Wert an
+   * navigator.share() übergeben als auch als echte URL
+   * im Text mitgegeben.
    */
 
   text+=
@@ -3071,29 +3101,33 @@ async function shareRunnerPosterWhatsApp(){
         }
       );
 
-    const shareText=
-      getPosterShareText();
+    const shareData=
+      createPosterShareData(
+        file
+      );
+
+    /*
+     * Hier wird jetzt exakt dieselbe Kombination geprüft,
+     * die anschließend geteilt wird:
+     * Poster + Text + URL.
+     */
 
     if(
       navigator.share&&
       navigator.canShare&&
-      navigator.canShare({
-        files:[file]
-      })
+      navigator.canShare(
+        shareData
+      )
     ){
 
       try{
 
-        await navigator.share({
-          files:[file],
-          title:
-            "Miles Apart Running Club",
-          text:shareText,
-          url:MEMBERSHIP_URL
-        });
+        await navigator.share(
+          shareData
+        );
 
         setPosterStatus(
-          "✓ Poster, Text und Mitglieds-Link wurden zum Teilen geöffnet."
+          "✓ Poster und Mitglieds-Link wurden gemeinsam zum Teilen übergeben."
         );
 
         return;
@@ -3114,10 +3148,16 @@ async function shareRunnerPosterWhatsApp(){
 
     }
 
+    /*
+     * Fallback für Browser ohne gemeinsames Datei-Teilen.
+     * Die vollständige URL bleibt im WhatsApp-Text enthalten
+     * und kann dort als Link erkannt werden.
+     */
+
     const whatsappUrl=
       "https://wa.me/?text="+
       encodeURIComponent(
-        shareText
+        getPosterShareText()
       );
 
     window.open(
@@ -3127,7 +3167,7 @@ async function shareRunnerPosterWhatsApp(){
     );
 
     setPosterStatus(
-      "✓ WhatsApp wurde mit dem Text und dem anklickbaren Mitglieds-Link geöffnet."
+      "✓ WhatsApp wurde mit dem Text und dem Mitglieds-Link geöffnet."
     );
 
   }catch(error){
@@ -3184,29 +3224,32 @@ async function shareRunnerPosterInstagram(){
         }
       );
 
-    const shareText=
-      getPosterShareText();
+    const shareData=
+      createPosterShareData(
+        file
+      );
+
+    /*
+     * Poster + Text + URL gemeinsam an den nativen
+     * Share-Dialog übergeben.
+     */
 
     if(
       navigator.share&&
       navigator.canShare&&
-      navigator.canShare({
-        files:[file]
-      })
+      navigator.canShare(
+        shareData
+      )
     ){
 
       try{
 
-        await navigator.share({
-          files:[file],
-          title:
-            "Miles Apart Running Club",
-          text:shareText,
-          url:MEMBERSHIP_URL
-        });
+        await navigator.share(
+          shareData
+        );
 
         setPosterStatus(
-          "✓ Poster, Text und Mitglieds-Link wurden zum Teilen geöffnet. Wähle Instagram."
+          "✓ Poster und Mitglieds-Link wurden gemeinsam zum Teilen übergeben. Wähle Instagram."
         );
 
         return;
