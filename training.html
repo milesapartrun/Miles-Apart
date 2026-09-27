@@ -580,6 +580,230 @@
 
 
     /* =========================================================
+       KALENDER
+    ========================================================= */
+
+    .training-calendar {
+      position: fixed;
+      inset: 0;
+      z-index: 1100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.58);
+    }
+
+
+    .training-calendar.open {
+      display: flex;
+    }
+
+
+    .training-calendar-box {
+      width: min(100%, 440px);
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow:
+        0 25px 80px rgba(0,0,0,.25);
+    }
+
+
+    .calendar-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+
+    .calendar-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.1;
+      font-weight: 900;
+    }
+
+
+    .calendar-subtitle {
+      margin: 5px 0 0;
+      color: #777;
+      font-size: 12px;
+    }
+
+
+    .calendar-nav {
+      display: flex;
+      gap: 6px;
+    }
+
+
+    .calendar-nav button {
+      width: 38px;
+      height: 38px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      background: #fff;
+      color: #111;
+      cursor: pointer;
+      font: inherit;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+
+    .calendar-nav button:hover {
+      background: #f3f3f3;
+    }
+
+
+    .calendar-nav button:focus-visible {
+      outline: 2px solid #18b8c7;
+      outline-offset: 2px;
+    }
+
+
+    .calendar-weekdays {
+      display: grid;
+      grid-template-columns:
+        repeat(
+          7,
+          1fr
+        );
+      gap: 5px;
+      margin-bottom: 5px;
+    }
+
+
+    .calendar-weekday {
+      text-align: center;
+      padding: 5px 0;
+      color: #888;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+
+    .calendar-days {
+      display: grid;
+      grid-template-columns:
+        repeat(
+          7,
+          1fr
+        );
+      gap: 5px;
+    }
+
+
+    .calendar-day {
+      position: relative;
+      min-height: 44px;
+      border: 1px solid transparent;
+      border-radius: 7px;
+      background: #fff;
+      color: #111;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+
+    .calendar-day:hover {
+      background: #e4f8fb;
+      border-color: #18b8c7;
+    }
+
+
+    .calendar-day.empty {
+      pointer-events: none;
+    }
+
+
+    .calendar-day.today {
+      border-color: #18b8c7;
+      color: #18b8c7;
+      font-weight: 900;
+    }
+
+
+    .calendar-day.has-run {
+      background: #f0fbfc;
+    }
+
+
+    .calendar-day.has-run::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 5px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #18b8c7;
+      transform: translateX(-50%);
+    }
+
+
+    .calendar-day.today.has-run {
+      background: #e4f8fb;
+    }
+
+
+    .calendar-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+
+
+    .calendar-today-btn {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      background: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    .calendar-today-btn:hover {
+      background: #f3f3f3;
+    }
+
+
+    .calendar-close {
+      min-height: 38px;
+      padding: 0 15px;
+      border: 1px solid #111;
+      border-radius: 7px;
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    .calendar-close:hover {
+      background: #18b8c7;
+      border-color: #18b8c7;
+    }
+
+
+    /* =========================================================
        MODAL
     ========================================================= */
 
@@ -894,6 +1118,21 @@
 
       .form-row {
         grid-template-columns: 1fr;
+      }
+
+
+      .training-calendar {
+        padding: 10px;
+      }
+
+
+      .training-calendar-box {
+        padding: 19px;
+      }
+
+
+      .calendar-day {
+        min-height: 42px;
       }
 
 
@@ -1278,6 +1517,126 @@
 
 
 <!-- =========================================================
+     DATE PICKER / KALENDER
+========================================================= -->
+
+<div
+  class="training-calendar"
+  id="trainingCalendar"
+  aria-hidden="true"
+>
+
+  <div class="training-calendar-box">
+
+    <div class="calendar-head">
+
+      <div>
+
+        <h2
+          class="calendar-title"
+          id="calendarTitle"
+        >
+          Oktober 2026
+        </h2>
+
+
+        <p class="calendar-subtitle">
+          Wähle den Tag für deinen Lauf.
+        </p>
+
+      </div>
+
+
+      <div class="calendar-nav">
+
+        <button
+          type="button"
+          id="calendarPrevious"
+          aria-label="Vorheriger Monat"
+        >
+          ←
+        </button>
+
+
+        <button
+          type="button"
+          id="calendarNext"
+          aria-label="Nächster Monat"
+        >
+          →
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="calendar-weekdays">
+
+      <div class="calendar-weekday">
+        MO
+      </div>
+
+      <div class="calendar-weekday">
+        DI
+      </div>
+
+      <div class="calendar-weekday">
+        MI
+      </div>
+
+      <div class="calendar-weekday">
+        DO
+      </div>
+
+      <div class="calendar-weekday">
+        FR
+      </div>
+
+      <div class="calendar-weekday">
+        SA
+      </div>
+
+      <div class="calendar-weekday">
+        SO
+      </div>
+
+    </div>
+
+
+    <div
+      class="calendar-days"
+      id="calendarDays"
+    ></div>
+
+
+    <div class="calendar-footer">
+
+      <button
+        class="calendar-today-btn"
+        type="button"
+        id="calendarToday"
+      >
+        Heute
+      </button>
+
+
+      <button
+        class="calendar-close"
+        type="button"
+        id="closeCalendar"
+      >
+        Abbrechen
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
      ADD / EDIT RUN MODAL
 ========================================================= -->
 
@@ -1287,7 +1646,9 @@
   aria-hidden="true"
 >
 
+
   <div class="training-modal-box">
+
 
     <div class="modal-head">
 
@@ -1319,64 +1680,16 @@
 
     <form id="runForm">
 
+
       <input
         type="hidden"
         id="runDate"
       >
 
 
-      <!-- TAG -->
-
-      <div class="form-group">
-
-        <label
-          class="form-label"
-          for="runDay"
-        >
-          Tag
-        </label>
-
-
-        <select
-          class="form-control"
-          id="runDay"
-          required
-        >
-
-          <option value="1">
-            Montag
-          </option>
-
-          <option value="2">
-            Dienstag
-          </option>
-
-          <option value="3">
-            Mittwoch
-          </option>
-
-          <option value="4">
-            Donnerstag
-          </option>
-
-          <option value="5">
-            Freitag
-          </option>
-
-          <option value="6">
-            Samstag
-          </option>
-
-          <option value="0">
-            Sonntag
-          </option>
-
-        </select>
-
-      </div>
-
-
-      <!-- LAUFART -->
+      <!-- =================================================
+           LAUFART
+      ================================================== -->
 
       <div class="form-group">
 
@@ -1428,6 +1741,7 @@
 
 
       <div class="form-row">
+
 
         <div class="form-group">
 
@@ -1508,6 +1822,7 @@
 
       <div class="modal-actions">
 
+
         <button
           class="modal-btn secondary"
           id="cancelModal"
@@ -1544,12 +1859,7 @@
 
 
 <!-- =========================================================
-     SUPABASE
-     
-     Falls home.html bereits einen globalen Supabase-Client
-     erstellt, wird dieser verwendet.
-     
-     Falls nicht, wird hier derselbe Client selbst erstellt.
+     SUPABASE / AUTH
 ========================================================= -->
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -1583,6 +1893,7 @@
         SUPABASE_URL,
         SUPABASE_PUBLISHABLE_KEY
       );
+
 
     window.supabaseClient =
       supabaseClient;
@@ -1839,53 +2150,6 @@
   }
 
 
-  function applyAuthenticatedUser(
-    user
-  ) {
-
-    if (!user) {
-
-      currentUser =
-        null;
-
-      trainingPlan =
-        {};
-
-      setTrainingLocked(
-        true
-      );
-
-      renderWeek();
-
-      return;
-
-    }
-
-
-    currentUser =
-      user;
-
-
-    trainingPlan =
-      getUserTrainingPlan(
-        user
-      );
-
-
-    setTrainingLocked(
-      false
-    );
-
-
-    renderWeek();
-
-  }
-
-
-  /* =========================================================
-     LOAD TRAINING PLAN
-  ========================================================= */
-
   async function loadTrainingPlan() {
 
     if (
@@ -1907,10 +2171,6 @@
 
   }
 
-
-  /* =========================================================
-     SAVE TRAINING PLAN
-  ========================================================= */
 
   async function saveTrainingPlan() {
 
@@ -2106,12 +2366,6 @@
 
   /* =========================================================
      AUTH INITIALIZATION
-     
-     WICHTIG:
-     Wir verwenden getSession() für den initialen Zustand.
-     
-     onAuthStateChange bekommt die Session direkt und ruft
-     NICHT innerhalb des Callbacks erneut getUser() auf.
   ========================================================= */
 
   async function initializeAuth() {
@@ -2148,15 +2402,6 @@
 
 
     try {
-
-      /*
-       * 1. Bereits vorhandene Session holen.
-       *
-       * Das ist entscheidend:
-       * Wenn der User sich vorher auf home.html
-       * eingeloggt hat, liegt die Session normalerweise
-       * bereits im Browser-Storage von Supabase.
-       */
 
       const {
         data,
@@ -2196,19 +2441,21 @@
         data.session.user
       ) {
 
-        /*
-         * User ist bereits eingeloggt.
-         */
+        currentUser =
+          data.session.user;
 
-        applyAuthenticatedUser(
-          data.session.user
+
+        await loadTrainingPlan();
+
+
+        setTrainingLocked(
+          false
         );
 
-      } else {
 
-        /*
-         * Keine aktive Session.
-         */
+        renderWeek();
+
+      } else {
 
         currentUser =
           null;
@@ -2228,13 +2475,6 @@
       }
 
 
-      /*
-       * 2. Auf zukünftige Login-/Logout-Änderungen reagieren.
-       *
-       * Hier NICHT getUser() oder getSession() aufrufen.
-       * Die Session ist bereits Bestandteil des Events.
-       */
-
       supabaseClient
         .auth
         .onAuthStateChange(
@@ -2248,17 +2488,39 @@
               session.user
             ) {
 
-              applyAuthenticatedUser(
-                session.user
+              currentUser =
+                session.user;
+
+
+              trainingPlan =
+                getUserTrainingPlan(
+                  session.user
+                );
+
+
+              setTrainingLocked(
+                false
               );
+
 
             } else {
 
-              applyAuthenticatedUser(
-                null
+              currentUser =
+                null;
+
+
+              trainingPlan =
+                {};
+
+
+              setTrainingLocked(
+                true
               );
 
             }
+
+
+            renderWeek();
 
           }
         );
@@ -2812,6 +3074,387 @@
 
 
   /* =========================================================
+     KALENDER
+  ========================================================= */
+
+  const trainingCalendar =
+    document.getElementById(
+      "trainingCalendar"
+    );
+
+
+  const calendarDays =
+    document.getElementById(
+      "calendarDays"
+    );
+
+
+  const calendarTitle =
+    document.getElementById(
+      "calendarTitle"
+    );
+
+
+  let calendarMonth =
+    new Date(
+      currentWeekStart
+    );
+
+
+  calendarMonth.setDate(
+    1
+  );
+
+
+  const MONTH_NAMES = [
+
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"
+
+  ];
+
+
+  function openCalendar() {
+
+    if (
+      !requireLogin()
+    ) {
+
+      return;
+
+    }
+
+
+    const today =
+      new Date();
+
+
+    calendarMonth =
+      new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        1
+      );
+
+
+    renderCalendar();
+
+
+    trainingCalendar.classList.add(
+      "open"
+    );
+
+
+    trainingCalendar.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+  }
+
+
+  function closeCalendar() {
+
+    trainingCalendar.classList.remove(
+      "open"
+    );
+
+
+    trainingCalendar.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+  }
+
+
+  function renderCalendar() {
+
+    const year =
+      calendarMonth.getFullYear();
+
+
+    const month =
+      calendarMonth.getMonth();
+
+
+    calendarTitle.textContent =
+
+      MONTH_NAMES[month] +
+      " " +
+      year;
+
+
+    calendarDays.innerHTML =
+      "";
+
+
+    const firstDay =
+      new Date(
+        year,
+        month,
+        1
+      ).getDay();
+
+
+    const mondayIndex =
+      firstDay === 0
+        ? 6
+        : firstDay - 1;
+
+
+    const daysInMonth =
+      new Date(
+        year,
+        month + 1,
+        0
+      ).getDate();
+
+
+    for (
+      let i = 0;
+      i < mondayIndex;
+      i++
+    ) {
+
+      const empty =
+        document.createElement(
+          "div"
+        );
+
+
+      empty.className =
+        "calendar-day empty";
+
+
+      calendarDays.appendChild(
+        empty
+      );
+
+    }
+
+
+    const todayKey =
+      dateToKey(
+        new Date()
+      );
+
+
+    for (
+      let day = 1;
+      day <= daysInMonth;
+      day++
+    ) {
+
+      const date =
+        new Date(
+          year,
+          month,
+          day
+        );
+
+
+      const key =
+        dateToKey(
+          date
+        );
+
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.type =
+        "button";
+
+
+      button.className =
+        "calendar-day";
+
+
+      button.textContent =
+        day;
+
+
+      if (
+        key === todayKey
+      ) {
+
+        button.classList.add(
+          "today"
+        );
+
+      }
+
+
+      if (
+        trainingPlan[key]
+      ) {
+
+        button.classList.add(
+          "has-run"
+        );
+
+      }
+
+
+      button.setAttribute(
+        "aria-label",
+        "Lauf für " +
+        DAY_NAMES[
+          date.getDay()
+        ] +
+        ", " +
+        formatDate(
+          date
+        ) +
+        " planen"
+      );
+
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          closeCalendar();
+
+
+          currentWeekStart =
+            startOfWeek(
+              date
+            );
+
+
+          renderWeek();
+
+
+          openRunModal(
+            date
+          );
+
+        }
+      );
+
+
+      calendarDays.appendChild(
+        button
+      );
+
+    }
+
+  }
+
+
+  document
+    .getElementById(
+      "calendarPrevious"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        calendarMonth =
+          new Date(
+            calendarMonth.getFullYear(),
+            calendarMonth.getMonth() - 1,
+            1
+          );
+
+
+        renderCalendar();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "calendarNext"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        calendarMonth =
+          new Date(
+            calendarMonth.getFullYear(),
+            calendarMonth.getMonth() + 1,
+            1
+          );
+
+
+        renderCalendar();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "calendarToday"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        const today =
+          new Date();
+
+
+        calendarMonth =
+          new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            1
+          );
+
+
+        renderCalendar();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "closeCalendar"
+    )
+    .addEventListener(
+      "click",
+      closeCalendar
+    );
+
+
+  trainingCalendar.addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target ===
+        trainingCalendar
+      ) {
+
+        closeCalendar();
+
+      }
+
+    }
+  );
+
+
+  /* =========================================================
      MODAL
   ========================================================= */
 
@@ -2825,71 +3468,6 @@
     document.getElementById(
       "runForm"
     );
-
-
-  function setRunDaySelect(
-    date
-  ) {
-
-    document.getElementById(
-      "runDay"
-    ).value =
-      String(
-        date.getDay()
-      );
-
-  }
-
-
-  function updateModalDate() {
-
-    const selectedDay =
-      Number(
-        document.getElementById(
-          "runDay"
-        ).value
-      );
-
-
-    let offset;
-
-
-    if (
-      selectedDay === 0
-    ) {
-
-      offset = 6;
-
-    } else {
-
-      offset =
-        selectedDay - 1;
-
-    }
-
-
-    const selectedDate =
-      addDays(
-        currentWeekStart,
-        offset
-      );
-
-
-    document.getElementById(
-      "modalDate"
-    ).textContent =
-
-      DAY_NAMES[
-        selectedDate.getDay()
-      ] +
-
-      " · " +
-
-      formatDate(
-        selectedDate
-      );
-
-  }
 
 
   function openRunModal(
@@ -2944,11 +3522,6 @@
       formatDate(
         date
       );
-
-
-    setRunDaySelect(
-      date
-    );
 
 
     document.getElementById(
@@ -3026,7 +3599,7 @@
 
         document
           .getElementById(
-            "runDay"
+            "runType"
           )
           .focus();
 
@@ -3131,52 +3704,15 @@
       }
 
 
-      const selectedDay =
-        Number(
-          document.getElementById(
-            "runDay"
-          ).value
-        );
-
-
-      let offset;
-
-
-      if (
-        selectedDay === 0
-      ) {
-
-        offset = 6;
-
-      } else {
-
-        offset =
-          selectedDay - 1;
-
-      }
-
-
-      const selectedDate =
-        addDays(
-          currentWeekStart,
-          offset
-        );
-
-
       const selectedKey =
-        dateToKey(
-          selectedDate
-        );
+        editingDate;
 
 
       if (
-        editingDate !==
-        selectedKey
+        !selectedKey
       ) {
 
-        delete trainingPlan[
-          editingDate
-        ];
+        return;
 
       }
 
@@ -3365,16 +3901,6 @@
     );
 
 
-  document
-    .getElementById(
-      "runDay"
-    )
-    .addEventListener(
-      "change",
-      updateModalDate
-    );
-
-
   runModal.addEventListener(
     "click",
     event => {
@@ -3407,6 +3933,18 @@
 
       }
 
+
+      if (
+        event.key === "Escape" &&
+        trainingCalendar.classList.contains(
+          "open"
+        )
+      ) {
+
+        closeCalendar();
+
+      }
+
     }
   );
 
@@ -3423,46 +3961,7 @@
       "click",
       () => {
 
-        if (
-          !requireLogin()
-        ) {
-
-          return;
-
-        }
-
-
-        const today =
-          new Date();
-
-
-        const todayWeek =
-          startOfWeek(
-            today
-          );
-
-
-        if (
-          dateToKey(
-            todayWeek
-          ) !==
-          dateToKey(
-            currentWeekStart
-          )
-        ) {
-
-          currentWeekStart =
-            todayWeek;
-
-
-          renderWeek();
-
-        }
-
-
-        openRunModal(
-          today
-        );
+        openCalendar();
 
       }
     );
