@@ -326,6 +326,60 @@
       text-align: center;
     }
 
+    .membership-link-box {
+      width: min(100%,590px);
+      margin-top: 14px;
+      padding: 18px;
+      background: #f4fbfc;
+      border: 1px solid #d6ecee;
+      border-radius: 18px;
+    }
+
+    .membership-link-title {
+      margin-bottom: 10px;
+      color: #17211f;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .membership-link-input {
+      width: 100%;
+      min-height: 46px;
+      padding: 0 12px;
+      border: 1px solid #dfe6e3;
+      border-radius: 12px;
+      background: #fff;
+      color: #555;
+      font: 12px Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+    }
+
+    .membership-link-copy {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 10px;
+      padding: 0 15px;
+      border: 1px solid var(--ma-cyan);
+      border-radius: 12px;
+      background: var(--ma-cyan);
+      color: #fff;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .membership-link-copy:hover {
+      background: var(--ma-cyan-dark);
+    }
+
+    .membership-link-status {
+      min-height: 18px;
+      margin-top: 8px;
+      color: #168c53;
+      font-size: 11px;
+    }
+
     /* =========================================================
        SECTIONS
     ========================================================= */
@@ -957,6 +1011,37 @@
           class="runner-share-status"
           aria-live="polite"
         ></div>
+
+        <div class="membership-link-box">
+
+          <div class="membership-link-title">
+            ✨ Einladungslink
+          </div>
+
+          <input
+            id="membershipLinkInput"
+            class="membership-link-input"
+            type="text"
+            value="https://milesapartrun.github.io/Miles-Apart-Running-Club/index.html"
+            readonly
+            aria-label="Miles Apart Einladungslink"
+          />
+
+          <button
+            id="membershipLinkCopyButton"
+            class="membership-link-copy"
+            type="button"
+          >
+            🔗 Link kopieren
+          </button>
+
+          <div
+            id="membershipLinkStatus"
+            class="membership-link-status"
+            aria-live="polite"
+          ></div>
+
+        </div>
 
       </div>
 
@@ -3311,6 +3396,87 @@ async function shareRunnerPosterInstagram(){
 }
 
 /* =========================================================
+   EINLADUNGSLINK KOPIEREN
+========================================================= */
+
+async function copyMembershipLink(){
+
+  const button=
+    document.getElementById(
+      "membershipLinkCopyButton"
+    );
+
+  const input=
+    document.getElementById(
+      "membershipLinkInput"
+    );
+
+  const status=
+    document.getElementById(
+      "membershipLinkStatus"
+    );
+
+  try{
+
+    if(button)
+      button.disabled=true;
+
+    if(
+      navigator.clipboard&&
+      window.isSecureContext
+    ){
+
+      await navigator.clipboard.writeText(
+        MEMBERSHIP_URL
+      );
+
+    }else{
+
+      input.focus();
+      input.select();
+
+      document.execCommand(
+        "copy"
+      );
+
+      input.setSelectionRange(
+        0,
+        0
+      );
+
+    }
+
+    if(status){
+
+      status.textContent=
+        "✓ Link kopiert – jetzt einfach einfügen.";
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Mitgliedslink Kopier Fehler:",
+      error
+    );
+
+    if(status){
+
+      status.textContent=
+        "Link konnte nicht automatisch kopiert werden. Bitte markieren und kopieren.";
+
+    }
+
+  }finally{
+
+    if(button)
+      button.disabled=false;
+
+  }
+
+}
+
+/* =========================================================
    BUTTONS
 ========================================================= */
 
@@ -3329,6 +3495,11 @@ function initializePosterButtons(){
   const instagramButton=
     document.getElementById(
       "posterInstagramButton"
+    );
+
+  const membershipLinkCopyButton=
+    document.getElementById(
+      "membershipLinkCopyButton"
     );
 
   if(downloadButton){
@@ -3354,6 +3525,15 @@ function initializePosterButtons(){
     instagramButton.addEventListener(
       "click",
       shareRunnerPosterInstagram
+    );
+
+  }
+
+  if(membershipLinkCopyButton){
+
+    membershipLinkCopyButton.addEventListener(
+      "click",
+      copyMembershipLink
     );
 
   }
