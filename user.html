@@ -72,6 +72,7 @@
     ========================================================= */
 
     .member-page-title {
+      display: block;
       margin: 0 0 18px;
       font-size: clamp(26px, 3.5vw, 38px);
       line-height: 1.1;
@@ -777,21 +778,17 @@
     ← Zur Community
   </a>
 
-  <div id="loadingState" class="loading">
-    Profil wird geladen …
-  </div>
-
-  <!-- =======================================================
-       NEU: ÜBERSCHRIFT STEHT AUSSERHALB VON PROFILECONTENT
-  ======================================================== -->
-
   <h1
     id="memberPageTitle"
     class="member-page-title"
-    style="display:none;"
+    style="display:block;"
   >
     Meine Miles Apart Mitgliedsseite
   </h1>
+
+  <div id="loadingState" class="loading">
+    Profil wird geladen …
+  </div>
 
   <div id="profileContent" style="display:none;">
 
