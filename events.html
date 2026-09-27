@@ -100,12 +100,6 @@
       transform: translateY(-1px);
     }
 
-    /*
-       Wichtig:
-       Alten ::before-Punkt aus style.css vollständig entfernen,
-       damit nicht zwei Punkte erscheinen.
-    */
-
     .nav a.active::before {
       content: none !important;
       display: none !important;
@@ -347,7 +341,19 @@
       font-weight: 800;
       font-size: 18px;
       text-align: center;
+      opacity: 1;
     }
+
+    /*
+     * ==========================================================
+     * KRÄFTIGE MEDAILLEN
+     * ==========================================================
+     *
+     * Die Medaillen selbst erhalten ausdrücklich volle
+     * Deckkraft. Dadurch bleiben Gold, Silber und Bronze
+     * auch dann kräftig sichtbar, wenn später einmal eine
+     * opacity auf einem übergeordneten Element gesetzt wird.
+     */
 
     .event-leaderboard-medal {
       display: inline-flex;
@@ -356,6 +362,14 @@
       width: 100%;
       font-size: 22px;
       line-height: 1;
+      opacity: 1 !important;
+      filter: none !important;
+      transform: translateZ(0);
+      font-weight: 400;
+    }
+
+    .event-leaderboard-position > .event-leaderboard-medal {
+      opacity: 1 !important;
     }
 
     .event-leaderboard-profile-link {
