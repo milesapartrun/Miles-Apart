@@ -289,6 +289,16 @@
 
 
     /* =========================================================
+       TRAINING SUBTITLE
+    ========================================================= */
+
+    .training-subtitle {
+      color: #18b8c7;
+      line-height: 1.35;
+    }
+
+
+    /* =========================================================
        WEEK PLANNER
     ========================================================= */
 
@@ -367,7 +377,7 @@
 
 
     /* =========================================================
-       EMPTY DAY
+       EMPTY TRAINING
     ========================================================= */
 
     .empty-run {
@@ -433,7 +443,7 @@
 
 
     /* =========================================================
-       PLANNED RUN
+       PLANNED TRAINING
     ========================================================= */
 
     .planned-run {
@@ -528,6 +538,40 @@
 
     .run-action.delete {
       color: #777;
+    }
+
+
+    /* =========================================================
+       STRENGTH TRAINING
+    ========================================================= */
+
+    .training-strength-time {
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -.04em;
+      margin-bottom: 10px;
+    }
+
+
+    .training-strength-time span {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: #777;
+    }
+
+
+    .training-muscle-groups {
+      color: #444;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+
+    .training-muscle-groups strong {
+      font-weight: 800;
     }
 
 
@@ -1303,8 +1347,10 @@
           </h1>
 
 
-          <p class="lead">
-            Dein Laufplan. Deine Woche. Dein Rhythmus.
+          <p class="lead training-subtitle">
+            Dein Training,<br>
+            deine Woche,<br>
+            dein Rhythmus.
           </p>
 
         </div>
@@ -1315,7 +1361,7 @@
           id="heroAddRun"
           type="button"
         >
-          + Lauf planen
+          + Training planen
         </button>
 
       </div>
@@ -1377,7 +1423,7 @@
               class="week-title"
               id="weekTitle"
             >
-              Deine Woche
+              Dein Trainingsplan
             </h2>
 
 
@@ -1469,7 +1515,7 @@
           <div class="summary-card">
 
             <div class="summary-label">
-              Läufe
+              Einheiten
             </div>
 
 
@@ -1541,7 +1587,7 @@
 
 
         <p class="calendar-subtitle">
-          Wähle den Tag für deinen Lauf.
+          Wähle den Tag für dein Training.
         </p>
 
       </div>
@@ -1637,7 +1683,7 @@
 
 
 <!-- =========================================================
-     ADD / EDIT RUN MODAL
+     ADD / EDIT TRAINING MODAL
 ========================================================= -->
 
 <div
@@ -1655,7 +1701,7 @@
       <div>
 
         <h2 id="modalTitle">
-          Lauf planen
+          Training planen
         </h2>
 
 
@@ -1688,7 +1734,7 @@
 
 
       <!-- =================================================
-           LAUFART
+           TRAININGSART
       ================================================== -->
 
       <div class="form-group">
@@ -1697,7 +1743,7 @@
           class="form-label"
           for="runType"
         >
-          Laufart
+          Trainingsart
         </label>
 
 
@@ -1732,7 +1778,11 @@
           </option>
 
           <option value="Frei">
-            Freier Lauf
+            Freies Training
+          </option>
+
+          <option value="Krafttraining">
+            Krafttraining
           </option>
 
         </select>
@@ -1740,8 +1790,14 @@
       </div>
 
 
-      <div class="form-row">
+      <!-- =================================================
+           LAUF-FELDER
+      ================================================== -->
 
+      <div
+        class="form-row"
+        id="runningFields"
+      >
 
         <div class="form-group">
 
@@ -1761,7 +1817,6 @@
             step="0.1"
             inputmode="decimal"
             placeholder="z. B. 8"
-            required
           >
 
         </div>
@@ -1793,6 +1848,64 @@
       </div>
 
 
+      <!-- =================================================
+           KRAFTTRAINING-FELDER
+      ================================================== -->
+
+      <div
+        id="strengthFields"
+        style="display:none"
+      >
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="strengthDuration"
+          >
+            Zeit
+          </label>
+
+
+          <input
+            class="form-control"
+            id="strengthDuration"
+            type="number"
+            min="1"
+            step="1"
+            inputmode="numeric"
+            placeholder="z. B. 45"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="muscleGroups"
+          >
+            Muskelgruppen
+          </label>
+
+
+          <input
+            class="form-control"
+            id="muscleGroups"
+            type="text"
+            placeholder="z. B. Beine, Core, Gesäß"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           NOTIZEN
+      ================================================== -->
+
       <div class="form-group">
 
         <label
@@ -1816,7 +1929,7 @@
         class="delete-confirm"
         id="deleteConfirm"
       >
-        Dieser Lauf wird aus deiner Planung gelöscht.
+        Dieses Training wird aus deiner Planung gelöscht.
       </div>
 
 
@@ -1838,7 +1951,7 @@
           type="button"
           style="display:none;color:#b00020"
         >
-          Lauf löschen
+          Training löschen
         </button>
 
 
@@ -1846,7 +1959,7 @@
           class="modal-btn primary"
           type="submit"
         >
-          Lauf speichern
+          Training speichern
         </button>
 
       </div>
@@ -2599,7 +2712,7 @@
     document.getElementById(
       "weekTitle"
     ).textContent =
-      "Deine Woche";
+      "Dein Trainingsplan";
 
 
     document.getElementById(
@@ -2793,7 +2906,7 @@
         class="empty-run-icon"
         role="button"
         tabindex="0"
-        aria-label="Lauf für ${
+        aria-label="Training für ${
           DAY_NAMES[
             date.getDay()
           ]
@@ -2803,7 +2916,7 @@
       </div>
 
       <p>
-        Noch kein Lauf<br>
+        Noch kein Training<br>
         für ${
           DAY_NAMES[
             date.getDay()
@@ -2815,7 +2928,7 @@
         class="add-run-btn"
         type="button"
       >
-        + Lauf hinzufügen
+        + Training hinzufügen
       </button>
 
     `;
@@ -2903,7 +3016,7 @@
 
     type.textContent =
       run.type ||
-      "Lauf";
+      "Training";
 
 
     wrapper.appendChild(
@@ -2911,54 +3024,114 @@
     );
 
 
-    const distance =
-      document.createElement(
-        "div"
-      );
-
-
-    distance.className =
-      "run-distance";
-
-
-    distance.innerHTML =
-      escapeHtml(
-        String(
-          run.distance
-        )
-      ) +
-      " <span>KM</span>";
-
-
-    wrapper.appendChild(
-      distance
-    );
-
-
     if (
-      run.pace &&
-      run.pace.trim()
+      run.type === "Krafttraining"
     ) {
 
-      const pace =
+      const time =
         document.createElement(
           "div"
         );
 
 
-      pace.className =
-        "run-pace";
+      time.className =
+        "training-strength-time";
 
 
-      pace.textContent =
-        "Pace " +
-        run.pace +
-        " min/km";
+      time.innerHTML =
+        escapeHtml(
+          String(
+            run.duration || ""
+          )
+        ) +
+        " <span>MIN</span>";
 
 
       wrapper.appendChild(
-        pace
+        time
       );
+
+
+      if (
+        run.muscleGroups &&
+        run.muscleGroups.trim()
+      ) {
+
+        const muscles =
+          document.createElement(
+            "div"
+          );
+
+
+        muscles.className =
+          "training-muscle-groups";
+
+
+        muscles.innerHTML =
+          "<strong>Muskelgruppen:</strong> " +
+          escapeHtml(
+            run.muscleGroups
+          );
+
+
+        wrapper.appendChild(
+          muscles
+        );
+
+      }
+
+    } else {
+
+      const distance =
+        document.createElement(
+          "div"
+        );
+
+
+      distance.className =
+        "run-distance";
+
+
+      distance.innerHTML =
+        escapeHtml(
+          String(
+            run.distance
+          )
+        ) +
+        " <span>KM</span>";
+
+
+      wrapper.appendChild(
+        distance
+      );
+
+
+      if (
+        run.pace &&
+        run.pace.trim()
+      ) {
+
+        const pace =
+          document.createElement(
+            "div"
+          );
+
+
+        pace.className =
+          "run-pace";
+
+
+        pace.textContent =
+          "Pace " +
+          run.pace +
+          " min/km";
+
+
+        wrapper.appendChild(
+          pace
+        );
+
+      }
 
     }
 
@@ -3312,7 +3485,7 @@
 
       button.setAttribute(
         "aria-label",
-        "Lauf für " +
+        "Training für " +
         DAY_NAMES[
           date.getDay()
         ] +
@@ -3470,6 +3643,104 @@
     );
 
 
+  const runTypeSelect =
+    document.getElementById(
+      "runType"
+    );
+
+
+  const runningFields =
+    document.getElementById(
+      "runningFields"
+    );
+
+
+  const strengthFields =
+    document.getElementById(
+      "strengthFields"
+    );
+
+
+  const runDistanceInput =
+    document.getElementById(
+      "runDistance"
+    );
+
+
+  const strengthDurationInput =
+    document.getElementById(
+      "strengthDuration"
+    );
+
+
+  function updateTrainingFields() {
+
+    const isStrength =
+      runTypeSelect.value ===
+      "Krafttraining";
+
+
+    if (isStrength) {
+
+      runningFields.style.display =
+        "none";
+
+
+      strengthFields.style.display =
+        "block";
+
+
+      runDistanceInput.required =
+        false;
+
+
+      document
+        .getElementById(
+          "runPace"
+        )
+        .required =
+        false;
+
+
+      strengthDurationInput.required =
+        true;
+
+    } else {
+
+      runningFields.style.display =
+        "grid";
+
+
+      strengthFields.style.display =
+        "none";
+
+
+      runDistanceInput.required =
+        true;
+
+
+      document
+        .getElementById(
+          "runPace"
+        )
+        .required =
+        false;
+
+
+      strengthDurationInput.required =
+        false;
+
+    }
+
+  }
+
+
+  runTypeSelect.addEventListener(
+    "change",
+    updateTrainingFields
+  );
+
+
   function openRunModal(
     date
   ) {
@@ -3505,8 +3776,8 @@
       "modalTitle"
     ).textContent =
       existingRun
-        ? "Lauf bearbeiten"
-        : "Lauf planen";
+        ? "Training bearbeiten"
+        : "Training planen";
 
 
     document.getElementById(
@@ -3546,6 +3817,20 @@
 
 
     document.getElementById(
+      "strengthDuration"
+    ).value =
+      existingRun?.duration ||
+      "";
+
+
+    document.getElementById(
+      "muscleGroups"
+    ).value =
+      existingRun?.muscleGroups ||
+      "";
+
+
+    document.getElementById(
       "runNote"
     ).value =
       existingRun?.note ||
@@ -3581,6 +3866,9 @@
 
     deleteConfirm.style.display =
       "none";
+
+
+    updateTrainingFields();
 
 
     runModal.classList.add(
@@ -3629,11 +3917,14 @@
 
     runForm.reset();
 
+
+    updateTrainingFields();
+
   }
 
 
   /* =========================================================
-     SAVE RUN
+     SAVE TRAINING
   ========================================================= */
 
   runForm.addEventListener(
@@ -3667,41 +3958,10 @@
         ).value;
 
 
-      const distance =
-        parseFloat(
-          document.getElementById(
-            "runDistance"
-          ).value
-        );
-
-
-      const pace =
-        document.getElementById(
-          "runPace"
-        ).value.trim();
-
-
       const note =
         document.getElementById(
           "runNote"
         ).value.trim();
-
-
-      if (
-        !Number.isFinite(
-          distance
-        ) ||
-        distance <= 0
-      ) {
-
-        alert(
-          "Bitte gib eine gültige Distanz ein."
-        );
-
-
-        return;
-
-      }
 
 
       const selectedKey =
@@ -3717,22 +3977,121 @@
       }
 
 
-      trainingPlan[
-        selectedKey
-      ] = {
+      if (
+        type === "Krafttraining"
+      ) {
 
-        type,
+        const duration =
+          parseInt(
+            document.getElementById(
+              "strengthDuration"
+            ).value,
+            10
+          );
 
-        distance:
-          Math.round(
-            distance * 10
-          ) / 10,
 
-        pace,
+        const muscleGroups =
+          document.getElementById(
+            "muscleGroups"
+          ).value.trim();
 
-        note
 
-      };
+        if (
+          !Number.isFinite(
+            duration
+          ) ||
+          duration <= 0
+        ) {
+
+          alert(
+            "Bitte gib eine gültige Trainingszeit ein."
+          );
+
+
+          return;
+
+        }
+
+
+        if (
+          !muscleGroups
+        ) {
+
+          alert(
+            "Bitte gib die trainierten Muskelgruppen ein."
+          );
+
+
+          return;
+
+        }
+
+
+        trainingPlan[
+          selectedKey
+        ] = {
+
+          type,
+
+          duration,
+
+          muscleGroups,
+
+          note
+
+        };
+
+      } else {
+
+        const distance =
+          parseFloat(
+            document.getElementById(
+              "runDistance"
+            ).value
+          );
+
+
+        const pace =
+          document.getElementById(
+            "runPace"
+          ).value.trim();
+
+
+        if (
+          !Number.isFinite(
+            distance
+          ) ||
+          distance <= 0
+        ) {
+
+          alert(
+            "Bitte gib eine gültige Distanz ein."
+          );
+
+
+          return;
+
+        }
+
+
+        trainingPlan[
+          selectedKey
+        ] = {
+
+          type,
+
+          distance:
+            Math.round(
+              distance * 10
+            ) / 10,
+
+          pace,
+
+          note
+
+        };
+
+      }
 
 
       const saved =
@@ -3756,7 +4115,7 @@
 
 
   /* =========================================================
-     DELETE RUN
+     DELETE TRAINING
   ========================================================= */
 
   async function deleteRun(
@@ -3789,7 +4148,7 @@
 
     const confirmed =
       window.confirm(
-        "Diesen Lauf wirklich aus deinem Trainingsplan löschen?"
+        "Dieses Training wirklich aus deinem Trainingsplan löschen?"
       );
 
 
@@ -3841,7 +4200,7 @@
 
         const confirmed =
           window.confirm(
-            "Diesen Lauf wirklich aus deinem Trainingsplan löschen?"
+            "Dieses Training wirklich aus deinem Trainingsplan löschen?"
           );
 
 
@@ -4113,37 +4472,43 @@
       totalRuns++;
 
 
-      const distance =
-        Number(
-          run.distance
-        );
-
-
       if (
-        Number.isFinite(
-          distance
-        )
+        run.type !== "Krafttraining"
       ) {
 
-        totalKm +=
-          distance;
-
-      }
-
-
-      const pace =
-        parsePace(
-          run.pace
-        );
+        const distance =
+          Number(
+            run.distance
+          );
 
 
-      if (
-        pace !== null
-      ) {
+        if (
+          Number.isFinite(
+            distance
+          )
+        ) {
 
-        paces.push(
-          pace
-        );
+          totalKm +=
+            distance;
+
+        }
+
+
+        const pace =
+          parsePace(
+            run.pace
+          );
+
+
+        if (
+          pace !== null
+        ) {
+
+          paces.push(
+            pace
+          );
+
+        }
 
       }
 
