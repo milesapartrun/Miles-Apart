@@ -409,6 +409,103 @@
   text-indent:0 !important;
 }
 
+.ma-comment-management{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  margin-top:7px;
+}
+
+.ma-comment-manage-button{
+  border:0;
+  background:transparent;
+  padding:0;
+  color:#888;
+  font:inherit;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.ma-comment-manage-button:hover{
+  color:#18b8c7;
+}
+
+.ma-comment-delete-button{
+  color:#b44;
+}
+
+.ma-comment-delete-button:hover{
+  color:#8f2222;
+}
+
+.ma-comment-edit-form{
+  width:100%;
+  margin-top:7px;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.ma-comment-edit-input{
+  width:100%;
+  min-height:75px;
+  padding:10px 12px;
+  border:1px solid #d8d8d8;
+  background:#fff;
+  color:#111;
+  font:inherit;
+  font-size:16px;
+  line-height:1.4;
+  resize:vertical;
+  box-sizing:border-box;
+  text-align:left !important;
+}
+
+.ma-comment-edit-input:focus{
+  outline:none;
+  border-color:#18b8c7;
+}
+
+.ma-comment-edit-actions{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+}
+
+.ma-comment-edit-save,
+.ma-comment-edit-cancel{
+  min-height:36px;
+  border:0;
+  padding:0 13px;
+  font:inherit;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+
+.ma-comment-edit-save{
+  background:#111;
+  color:#fff;
+}
+
+.ma-comment-edit-save:hover{
+  background:#18b8c7;
+}
+
+.ma-comment-edit-cancel{
+  border:1px solid #d8d8d8;
+  background:#fff;
+  color:#111;
+}
+
+.ma-comment-edit-cancel:hover{
+  border-color:#18b8c7;
+  color:#18b8c7;
+}
+
 .ma-comment-form{
   width:100%;
   display:flex;
@@ -1735,6 +1832,10 @@ textarea.ma-form-input{
     text-align:center !important;
   }
 
+  .ma-comment-management{
+    gap:10px;
+  }
+
 }
 
 .ma-community-page .ma-comment,
@@ -2908,7 +3009,8 @@ function runCreatorAvatarHtml(p){
 
 function itemCommentsHtml(
   comments,
-  inputPlaceholder="Kommentar schreiben …"
+  inputPlaceholder="Kommentar schreiben …",
+  parentOwnerId=null
 ){
 
   const sorted=
@@ -2928,7 +3030,13 @@ function itemCommentsHtml(
         ${
           sorted.length
             ?sorted
-              .map(createCommentHtml)
+              .map(
+                comment=>
+                  createCommentHtml(
+                    comment,
+                    parentOwnerId
+                  )
+              )
               .join("")
             :`
               <div
@@ -3452,7 +3560,13 @@ function createPostElement(post){
                 new Date(a.created_at)-
                 new Date(b.created_at)
             )
-            .map(createCommentHtml)
+            .map(
+              comment=>
+                createCommentHtml(
+                  comment,
+                  post.author_id
+                )
+            )
             .join("")
         }
 
@@ -3487,7 +3601,10 @@ function createPostElement(post){
 
 }
 
-function createCommentHtml(c){
+function createCommentHtml(
+  c,
+  parentOwnerId=null
+){
 
   const p=c.profiles||{};
 
@@ -3495,9 +3612,22 @@ function createCommentHtml(c){
     p.display_name||
     "Miles Apart Member";
 
+  const isAuthor=
+    currentUser?.id===
+    c.author_id;
+
+  const isParentOwner=
+    currentUser?.id===
+    parentOwnerId;
+
+  const canManage=
+    isAuthor||
+    isParentOwner;
+
   return`
     <div
       class="ma-comment"
+      data-comment-id="${escapeHtml(c.id)}"
       style="
         text-align:left !important;
         justify-content:flex-start !important;
@@ -3546,6 +3676,7 @@ function createCommentHtml(c){
 
         <div
           class="ma-comment-text"
+          data-comment-text="${escapeHtml(c.id)}"
           style="
             display:block !important;
             width:100% !important;
@@ -3558,6 +3689,34 @@ function createCommentHtml(c){
           ${escapeHtml(c.content)}
         </div>
 
+        ${
+          canManage
+            ?`
+              <div class="ma-comment-management">
+
+                <button
+                  type="button"
+                  class="ma-comment-manage-button"
+                  data-comment-action="edit"
+                  data-comment-id="${escapeHtml(c.id)}"
+                >
+                  Bearbeiten
+                </button>
+
+                <button
+                  type="button"
+                  class="ma-comment-manage-button ma-comment-delete-button"
+                  data-comment-action="delete"
+                  data-comment-id="${escapeHtml(c.id)}"
+                >
+                  Löschen
+                </button>
+
+              </div>
+            `
+            :""
+        }
+
       </div>
 
     </div>
@@ -3569,6 +3728,37 @@ $("postsContainer")
   .addEventListener(
     "click",
     async e=>{
+
+      const commentActionButton=
+        e.target.closest(
+          "[data-comment-action]"
+        );
+
+      if(commentActionButton){
+
+        const action=
+          commentActionButton.dataset.commentAction;
+
+        const commentId=
+          commentActionButton.dataset.commentId;
+
+        if(action==="edit"){
+          return editComment(
+            "post",
+            commentId,
+            commentActionButton
+          );
+        }
+
+        if(action==="delete"){
+          return deleteComment(
+            "post",
+            commentId,
+            commentActionButton
+          );
+        }
+
+      }
 
       const b=
         e.target.closest("[data-action]");
@@ -3620,6 +3810,23 @@ $("postsContainer")
     "submit",
     async e=>{
 
+      const editForm=
+        e.target.closest(
+          "[data-comment-edit-form]"
+        );
+
+      if(editForm){
+
+        e.preventDefault();
+
+        return saveCommentEdit(
+          "post",
+          editForm.dataset.commentId,
+          editForm
+        );
+
+      }
+
       const f=
         e.target.closest(
           "[data-comment-form]"
@@ -3638,6 +3845,248 @@ $("postsContainer")
 
     }
   );
+
+async function editComment(
+  itemType,
+  commentId,
+  button
+){
+
+  if(!currentUser){
+    return location.href="home.html";
+  }
+
+  const comment=
+    button
+      .closest(".ma-comment");
+
+  if(!comment){
+    return;
+  }
+
+  const textElement=
+    comment.querySelector(
+      "[data-comment-text]"
+    );
+
+  if(!textElement){
+    return;
+  }
+
+  const currentContent=
+    textElement.textContent;
+
+  if(
+    comment.querySelector(
+      "[data-comment-edit-form]"
+    )
+  ){
+    return;
+  }
+
+  const form=
+    document.createElement("form");
+
+  form.className=
+    "ma-comment-edit-form";
+
+  form.dataset.commentEditForm="true";
+  form.dataset.commentId=commentId;
+
+  form.innerHTML=`
+
+    <textarea
+      class="ma-comment-edit-input"
+      maxlength="1000"
+      required
+    ></textarea>
+
+    <div class="ma-comment-edit-actions">
+
+      <button
+        type="submit"
+        class="ma-comment-edit-save"
+      >
+        Speichern
+      </button>
+
+      <button
+        type="button"
+        class="ma-comment-edit-cancel"
+      >
+        Abbrechen
+      </button>
+
+    </div>
+
+  `;
+
+  form.querySelector(
+    ".ma-comment-edit-input"
+  ).value=currentContent;
+
+  textElement.style.display="none";
+
+  const management=
+    comment.querySelector(
+      ".ma-comment-management"
+    );
+
+  if(management){
+    management.style.display="none";
+  }
+
+  textElement.after(form);
+
+  form.querySelector(
+    ".ma-comment-edit-input"
+  ).focus();
+
+  form.querySelector(
+    ".ma-comment-edit-cancel"
+  ).onclick=
+    ()=>{
+      form.remove();
+
+      textElement.style.display="block";
+
+      if(management){
+        management.style.display="flex";
+      }
+    };
+
+}
+
+async function saveCommentEdit(
+  itemType,
+  commentId,
+  form
+){
+
+  if(!currentUser){
+    return location.href="home.html";
+  }
+
+  const input=
+    form.querySelector(
+      ".ma-comment-edit-input"
+    );
+
+  const content=
+    input.value.trim();
+
+  if(!content){
+    return;
+  }
+
+  const button=
+    form.querySelector(
+      ".ma-comment-edit-save"
+    );
+
+  button.disabled=true;
+  button.textContent="Speichert …";
+
+  const {error}=
+    await supabaseClient
+      .from(
+        itemType==="post"
+          ?"community_post_comments"
+          :"community_item_comments"
+      )
+      .update({
+        content
+      })
+      .eq(
+        "id",
+        commentId
+      );
+
+  if(error){
+
+    alert(error.message);
+
+    button.disabled=false;
+    button.textContent="Speichern";
+
+    return;
+
+  }
+
+  if(itemType==="post"){
+
+    await loadPosts();
+
+  }else if(itemType==="buddy"){
+
+    await loadBuddyProfiles();
+
+  }else{
+
+    await loadCommunityRuns();
+
+  }
+
+}
+
+async function deleteComment(
+  itemType,
+  commentId,
+  button
+){
+
+  if(!currentUser){
+    return location.href="home.html";
+  }
+
+  if(
+    !confirm(
+      "Diesen Kommentar wirklich löschen?"
+    )
+  ){
+    return;
+  }
+
+  button.disabled=true;
+
+  const {error}=
+    await supabaseClient
+      .from(
+        itemType==="post"
+          ?"community_post_comments"
+          :"community_item_comments"
+      )
+      .delete()
+      .eq(
+        "id",
+        commentId
+      );
+
+  if(error){
+
+    alert(error.message);
+
+    button.disabled=false;
+
+    return;
+
+  }
+
+  if(itemType==="post"){
+
+    await loadPosts();
+
+  }else if(itemType==="buddy"){
+
+    await loadBuddyProfiles();
+
+  }else{
+
+    await loadCommunityRuns();
+
+  }
+
+}
 
 async function toggleLike(id,b){
 
@@ -5024,7 +5473,8 @@ function buddyCard(row){
 
               ${itemCommentsHtml(
                 comments,
-                "Kommentar zum Run Buddy schreiben …"
+                "Kommentar zum Run Buddy schreiben …",
+                row.user_id
               )}
 
             </div>
@@ -5152,6 +5602,41 @@ $("buddyList")
     "click",
     async e=>{
 
+      const commentActionButton=
+        e.target.closest(
+          "[data-comment-action]"
+        );
+
+      if(commentActionButton){
+
+        const action=
+          commentActionButton.dataset.commentAction;
+
+        const commentId=
+          commentActionButton.dataset.commentId;
+
+        if(action==="edit"){
+
+          return editComment(
+            "buddy",
+            commentId,
+            commentActionButton
+          );
+
+        }
+
+        if(action==="delete"){
+
+          return deleteComment(
+            "buddy",
+            commentId,
+            commentActionButton
+          );
+
+        }
+
+      }
+
       const deleteButton=
         e.target.closest(
           '[data-buddy-action="delete"]'
@@ -5270,6 +5755,23 @@ $("buddyList")
   .addEventListener(
     "submit",
     async e=>{
+
+      const editForm=
+        e.target.closest(
+          "[data-comment-edit-form]"
+        );
+
+      if(editForm){
+
+        e.preventDefault();
+
+        return saveCommentEdit(
+          "buddy",
+          editForm.dataset.commentId,
+          editForm
+        );
+
+      }
 
       const form=
         e.target.closest(
@@ -5747,7 +6249,8 @@ function runCard(run){
 
               ${itemCommentsHtml(
                 comments,
-                "Kommentar zum gemeinsamen Lauf schreiben …"
+                "Kommentar zum gemeinsamen Lauf schreiben …",
+                run.creator_id
               )}
 
             </div>
@@ -5836,6 +6339,41 @@ $("runList")
   .addEventListener(
     "click",
     async e=>{
+
+      const commentActionButton=
+        e.target.closest(
+          "[data-comment-action]"
+        );
+
+      if(commentActionButton){
+
+        const action=
+          commentActionButton.dataset.commentAction;
+
+        const commentId=
+          commentActionButton.dataset.commentId;
+
+        if(action==="edit"){
+
+          return editComment(
+            "run",
+            commentId,
+            commentActionButton
+          );
+
+        }
+
+        if(action==="delete"){
+
+          return deleteComment(
+            "run",
+            commentId,
+            commentActionButton
+          );
+
+        }
+
+      }
 
       const b=
         e.target.closest(
@@ -5949,6 +6487,23 @@ $("runList")
   .addEventListener(
     "submit",
     async e=>{
+
+      const editForm=
+        e.target.closest(
+          "[data-comment-edit-form]"
+        );
+
+      if(editForm){
+
+        e.preventDefault();
+
+        return saveCommentEdit(
+          "run",
+          editForm.dataset.commentId,
+          editForm
+        );
+
+      }
 
       const form=
         e.target.closest(
