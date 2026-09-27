@@ -1756,233 +1756,443 @@
 
     try {
 
+      /*
+       * ======================================================
+       * 1. ALLE FÜR DAS EVENT ANGEMELDETEN LÄUFER LADEN
+       * ======================================================
+       *
+       * Das Leaderboard basiert jetzt nicht mehr ausschließlich
+       * auf der runs-Tabelle.
+       *
+       * Dadurch erscheinen auch Läufer, die sich bereits für
+       * das Event angemeldet haben, aber noch keinen Lauf
+       * absolviert haben.
+       */
+
+      const {
+        data: members,
+        error: membersError
+      } =
+        await supabaseClient
+          .from("Challenge_members")
+          .select(`
+            User_id,
+            Challenge_id,
+            Joined_at
+          `)
+          .eq(
+            "Challenge_id",
+            EVENT_ID
+          );
+
+
+      if (membersError) {
+
+        throw membersError;
+
+      }
+
+
+      const registeredMembers =
+        members || [];
+
+
+      /*
+       * ======================================================
+       * 2. NOCH KEINE ANMELDUNGEN
+       * ======================================================
+       */
+
+      if (
+        !registeredMembers.length
+      ) {
+
+        eventLeaderboard.innerHTML =
+          `
+            <div class="event-leaderboard-empty">
+              Noch keine Läufer für dieses Event angemeldet.
+            </div>
+          `;
+
+        return;
+
+      }
+
+
+      /*
+       * ======================================================
+       * 3. USER-IDS DER ANGEMELDETEN LÄUFER
+       * ======================================================
+       */
+
+      const registeredUserIds =
+        [
+          ...new Set(
+            registeredMembers
+              .map(
+                member =>
+                  member.User_id
+              )
+              .filter(Boolean)
+          )
+        ];
+
+
+      /*
+       * ======================================================
+       * 4. PROFILE DER ANGEMELDETEN LÄUFER
+       * ======================================================
+       */
+
+      const profiles =
+        await getProfileNames(
+          registeredUserIds
+        );
+
+
+      /*
+       * ======================================================
+       * 5. LAUFDATEN LADEN
+       * ======================================================
+       *
+       * Die runs-Tabelle wird weiterhin benötigt, um bereits
+       * gelaufene Event-Läufe zu finden.
+       *
+       * Ist die Tabelle leer oder existieren noch keine passenden
+       * Läufe, ist das kein Fehler.
+       */
+
       const {
         data: runs,
-        error
+        error: runsError
       } =
         await supabaseClient
           .from("runs")
           .select("*");
 
-      if (error) {
 
-        throw error;
+      if (runsError) {
 
-      }
-
-      if (
-        !runs ||
-        !runs.length
-      ) {
-
-        eventLeaderboard.innerHTML =
-          `
-            <div class="event-leaderboard-empty">
-              Noch keine 10-Kilometer-Läufe für dieses Event.
-            </div>
-          `;
-
-        return;
+        throw runsError;
 
       }
 
-      const firstRun =
-        runs[0];
 
-      const userColumn =
-        findUserColumn(
-          firstRun
-        );
+      /*
+       * ======================================================
+       * 6. SPALTEN DER RUNS-TABELLE ERMITTELN
+       * ======================================================
+       */
 
-      const distanceColumn =
-        findDistanceColumn(
-          firstRun
-        );
+      let firstRun =
+        runs &&
+        runs.length
+          ? runs[0]
+          : null;
 
-      const dateColumn =
-        findDateColumn(
-          firstRun
-        );
 
-      const durationColumn =
-        findDurationColumn(
-          firstRun
-        );
+      let userColumn = null;
+      let distanceColumn = null;
+      let dateColumn = null;
+      let durationColumn = null;
+      let paceColumn = null;
 
-      const paceColumn =
-        findPaceColumn(
-          firstRun
-        );
 
-      if (
-        !userColumn ||
-        !distanceColumn ||
-        !dateColumn
-      ) {
+      if (firstRun) {
 
-        throw new Error(
-          "Die runs-Tabelle enthält nicht alle benötigten Laufdaten."
-        );
+        userColumn =
+          findUserColumn(
+            firstRun
+          );
+
+        distanceColumn =
+          findDistanceColumn(
+            firstRun
+          );
+
+        dateColumn =
+          findDateColumn(
+            firstRun
+          );
+
+        durationColumn =
+          findDurationColumn(
+            firstRun
+          );
+
+        paceColumn =
+          findPaceColumn(
+            firstRun
+          );
 
       }
 
-      if (
-        !durationColumn &&
-        !paceColumn
-      ) {
 
-        throw new Error(
-          "In der runs-Tabelle wurde keine Laufzeit oder Pace gefunden."
-        );
-
-      }
+      /*
+       * ======================================================
+       * 7. SCHNELLSTE EVENT-ZEIT JE ANGEMELDETEM LÄUFER
+       * ======================================================
+       */
 
       const fastestRuns = {};
 
-      runs.forEach(
-        run => {
 
-          const userId =
-            run[
-              userColumn
-            ];
+      /*
+       * Wenn es noch keine Läufe gibt, bleibt fastestRuns leer.
+       * Die angemeldeten Läufer werden trotzdem weiter unten
+       * ins Leaderboard übernommen und erhalten "—".
+       */
 
-          if (
-            !userId
-          ) {
+      if (
+        runs &&
+        runs.length &&
+        userColumn &&
+        distanceColumn &&
+        dateColumn &&
+        (
+          durationColumn ||
+          paceColumn
+        )
+      ) {
 
-            return;
+        runs.forEach(
+          run => {
 
-          }
-
-          const runDate =
-            getRunDate(
-              run,
-              dateColumn
-            );
-
-          if (
-            !runDate
-          ) {
-
-            return;
-
-          }
-
-          if (
-            runDate <
-              EVENT_DATE_START ||
-            runDate >=
-              EVENT_DATE_END
-          ) {
-
-            return;
-
-          }
-
-          const distance =
-            numberValue(
+            const userId =
               run[
-                distanceColumn
-              ]
-            );
+                userColumn
+              ];
 
-          if (
-            distance < 9.9 ||
-            distance > 10.2
-          ) {
 
-            return;
+            /*
+             * Nur Läufe von Personen berücksichtigen,
+             * die tatsächlich für dieses Event angemeldet sind.
+             */
 
-          }
-
-          const durationSeconds =
-            getRunDurationSeconds(
-              run,
-              durationColumn,
-              paceColumn,
-              distance
-            );
-
-          if (
-            durationSeconds <= 0
-          ) {
-
-            return;
-
-          }
-
-          if (
-            !fastestRuns[
-              userId
-            ] ||
-            durationSeconds <
-              fastestRuns[
+            if (
+              !userId ||
+              !registeredUserIds.includes(
                 userId
-              ].durationSeconds
-          ) {
+              )
+            ) {
 
-            fastestRuns[
-              userId
-            ] = {
+              return;
 
-              userId,
+            }
 
-              durationSeconds,
 
-              distance
+            const runDate =
+              getRunDate(
+                run,
+                dateColumn
+              );
 
-            };
+
+            if (!runDate) {
+
+              return;
+
+            }
+
+
+            /*
+             * Nur Läufe innerhalb des Event-Zeitraums
+             * berücksichtigen.
+             */
+
+            if (
+              runDate <
+                EVENT_DATE_START ||
+              runDate >=
+                EVENT_DATE_END
+            ) {
+
+              return;
+
+            }
+
+
+            const distance =
+              numberValue(
+                run[
+                  distanceColumn
+                ]
+              );
+
+
+            /*
+             * Für das aktuelle Event zählen Läufe zwischen
+             * 9,9 km und 10,2 km als 10-km-Lauf.
+             */
+
+            if (
+              distance < 9.9 ||
+              distance > 10.2
+            ) {
+
+              return;
+
+            }
+
+
+            const durationSeconds =
+              getRunDurationSeconds(
+                run,
+                durationColumn,
+                paceColumn,
+                distance
+              );
+
+
+            if (
+              durationSeconds <= 0
+            ) {
+
+              return;
+
+            }
+
+
+            /*
+             * Nur die schnellste gültige Zeit dieses Läufers
+             * für das Event behalten.
+             */
+
+            if (
+              !fastestRuns[userId] ||
+              durationSeconds <
+                fastestRuns[userId]
+                  .durationSeconds
+            ) {
+
+              fastestRuns[userId] = {
+
+                userId,
+
+                durationSeconds,
+
+                distance
+
+              };
+
+            }
 
           }
+        );
 
-        }
-      );
+      }
 
+
+      /*
+       * ======================================================
+       * 8. LEADERBOARD AUS ALLEN ANGEMELDETEN LÄUFERN BAUEN
+       * ======================================================
+       *
+       * Jeder angemeldete Läufer kommt hier hinein.
+       *
+       * Hat er einen gültigen Lauf:
+       *     durationSeconds = tatsächliche Zeit
+       *
+       * Hat er noch keinen Lauf:
+       *     durationSeconds = null
+       *
+       * Dadurch kann das Leaderboard bereits vor dem Event
+       * vollständig angezeigt werden.
+       */
 
       const leaderboard =
-        Object.values(
-          fastestRuns
-        )
+        registeredUserIds
+          .map(
+            userId => {
+
+              const run =
+                fastestRuns[
+                  userId
+                ];
+
+
+              return {
+
+                userId,
+
+                durationSeconds:
+                  run
+                    ? run.durationSeconds
+                    : null,
+
+                distance:
+                  run
+                    ? run.distance
+                    : 0
+
+              };
+
+            }
+          )
           .sort(
             (
               a,
               b
-            ) =>
-              a.durationSeconds -
-              b.durationSeconds
+            ) => {
+
+              /*
+               * Läufer mit einer Zeit zuerst.
+               */
+
+              if (
+                a.durationSeconds !== null &&
+                b.durationSeconds === null
+              ) {
+
+                return -1;
+
+              }
+
+
+              if (
+                a.durationSeconds === null &&
+                b.durationSeconds !== null
+              ) {
+
+                return 1;
+
+              }
+
+
+              /*
+               * Wenn beide eine Zeit haben:
+               * schnellste Zeit zuerst.
+               */
+
+              if (
+                a.durationSeconds !== null &&
+                b.durationSeconds !== null
+              ) {
+
+                return (
+                  a.durationSeconds -
+                  b.durationSeconds
+                );
+
+              }
+
+
+              /*
+               * Wenn beide noch keine Zeit haben,
+               * Reihenfolge der Anmeldung beibehalten.
+               */
+
+              return 0;
+
+            }
           );
 
 
-      if (
-        !leaderboard.length
-      ) {
-
-        eventLeaderboard.innerHTML =
-          `
-            <div class="event-leaderboard-empty">
-              Noch kein gültiger 10-Kilometer-Lauf
-              am 03. Oktober 2026 hochgeladen.
-            </div>
-          `;
-
-        return;
-
-      }
-
-
-      const userIds =
-        leaderboard.map(
-          runner =>
-            runner.userId
-        );
-
-
-      const profiles =
-        await getProfileNames(
-          userIds
-        );
-
+      /*
+       * ======================================================
+       * 9. LEADERBOARD AUSGEBEN
+       * ======================================================
+       */
 
       eventLeaderboard.innerHTML =
         leaderboard
@@ -1997,9 +2207,11 @@
                   runner.userId
                 ];
 
+
               const name =
                 profile?.displayName ||
                 "Runner";
+
 
               const profileHtml =
                 profile?.username
@@ -2026,6 +2238,21 @@
                   `;
 
 
+              /*
+               * Hat der Läufer bereits eine gültige Zeit,
+               * wird diese angezeigt.
+               *
+               * Andernfalls steht dort einfach "—".
+               */
+
+              const timeHtml =
+                runner.durationSeconds !== null
+                  ? formatTime(
+                      runner.durationSeconds
+                    )
+                  : "—";
+
+
               return `
                 <div class="event-leaderboard-row">
 
@@ -2040,9 +2267,7 @@
                   </div>
 
                   <div class="event-leaderboard-time">
-                    ${formatTime(
-                      runner.durationSeconds
-                    )}
+                    ${timeHtml}
                   </div>
 
                 </div>
@@ -2059,6 +2284,7 @@
         "Event-Leaderboard konnte nicht geladen werden:",
         error
       );
+
 
       eventLeaderboard.innerHTML =
         `
@@ -2259,6 +2485,15 @@
       eventJoinButton.classList.add(
         "is-joined"
       );
+
+
+      /*
+       * Nach erfolgreicher Anmeldung das Leaderboard
+       * direkt aktualisieren, damit der eigene Name
+       * sofort sichtbar wird.
+       */
+
+      await loadEventLeaderboard();
 
 
       alert(
