@@ -103,17 +103,38 @@
       border-top-color: rgba(255,255,255,.12);
     }
 
+    /*
+     * ==========================================================
+     * LEADERBOARD POSITIONEN
+     * ==========================================================
+     *
+     * WICHTIG:
+     * Die opacity wird NICHT mehr auf den gesamten Container
+     * gesetzt. Sonst werden auch die farbigen Medaillen
+     * transparent.
+     *
+     * Normale Platznummern sind weiterhin dezent.
+     * Die Medaillen bleiben vollständig kräftig.
+     */
+
     .leaderboard-position {
       font-weight: 800;
-      opacity: .55;
       font-size: 18px;
       text-align: center;
+      opacity: 1;
+    }
+
+    .leaderboard-position-number {
+      opacity: .55;
     }
 
     .leaderboard-medal {
-      opacity: 1;
+      opacity: 1 !important;
+      filter: none !important;
       font-size: 22px;
       line-height: 1;
+      display: inline-block;
+      font-weight: 400;
     }
 
     .leaderboard-profile-link {
@@ -1135,11 +1156,6 @@
 
   /* ==========================================================
      LAUFDATEN VON DER HOMEPAGE
-     ==========================================================
-     
-     Die Challenges greifen direkt auf dieselbe
-     runs-Tabelle zu, in die home.html die Läufe
-     speichert.
      ========================================================== */
 
   async function getRuns() {
@@ -1299,10 +1315,6 @@
     dateColumn
   ) {
 
-    /*
-     * Die Startzeit von home.html hat Priorität.
-     */
-
     if (
       startTimeColumn &&
       run[startTimeColumn]
@@ -1324,10 +1336,6 @@
       }
 
     }
-
-    /*
-     * Fallback.
-     */
 
     if (
       dateColumn &&
@@ -1378,14 +1386,6 @@
       hour * 60 +
       minute;
 
-    /*
-     * EARLY BIRD
-     *
-     * 04:00 bis 08:59
-     *
-     * 09:00 gehört NICHT mehr dazu.
-     */
-
     if (
       challengeId ===
       "early-bird-club"
@@ -1397,12 +1397,6 @@
       );
 
     }
-
-    /*
-     * NIGHT OWLS
-     *
-     * 17:00 bis 23:59
-     */
 
     if (
       challengeId ===
@@ -1504,16 +1498,16 @@
 
     }
 
-    return index + 1;
+    return `
+      <span class="leaderboard-position-number">
+        ${index + 1}
+      </span>
+    `;
 
   }
 
   /* ==========================================================
      KM LEADERBOARDS
-     ==========================================================
-     
-     Diese Funktion ist die Verbindung zwischen
-     home.html und challenges.html.
      ========================================================== */
 
   async function loadKmLeaderboard(
@@ -1534,10 +1528,6 @@
       );
 
     try {
-
-      /*
-       * 1. Teilnehmer der Challenge
-       */
 
       const members =
         await getChallengeMembers(
@@ -1578,10 +1568,6 @@
         return;
 
       }
-
-      /*
-       * 2. Alle Läufe aus der Homepage
-       */
 
       const runs =
         await getRuns();
@@ -1654,10 +1640,6 @@
 
       }
 
-      /*
-       * 3. Aktuellen Monat bestimmen
-       */
-
       const {
         start,
         end
@@ -1680,20 +1662,11 @@
         }
       );
 
-      /*
-       * 4. JEDEN Homepage-Lauf auswerten
-       */
-
       runs.forEach(
         run => {
 
           const userId =
             run[userColumn];
-
-          /*
-           * Nur User, die in dieser Challenge
-           * Mitglied sind.
-           */
 
           if (
             !userSet.has(
@@ -1704,10 +1677,6 @@
             return;
 
           }
-
-          /*
-           * Startzeit / Laufdatum holen.
-           */
 
           const runDate =
             getRunDate(
@@ -1722,10 +1691,6 @@
 
           }
 
-          /*
-           * Nur aktueller Kalendermonat.
-           */
-
           if (
             runDate < start ||
             runDate >= end
@@ -1734,10 +1699,6 @@
             return;
 
           }
-
-          /*
-           * Early Bird / Night Owls
-           */
 
           if (
             filterTime &&
@@ -1750,10 +1711,6 @@
             return;
 
           }
-
-          /*
-           * Kilometer aus dem Homepage-Lauf.
-           */
 
           const kilometers =
             numberValue(
@@ -1773,10 +1730,6 @@
 
         }
       );
-
-      /*
-       * 5. Leaderboard sortieren
-       */
 
       const leaderboard =
         Object.entries(
@@ -1802,10 +1755,6 @@
               a.kilometers
           );
 
-      /*
-       * 6. Gesamt-Kilometer
-       */
-
       const totalKm =
         leaderboard.reduce(
           (
@@ -1822,10 +1771,6 @@
           totalKm
         );
 
-      /*
-       * 7. Profile
-       */
-
       const profiles =
         await getProfileNames(
           userIds
@@ -1834,10 +1779,6 @@
       leaderboardElement.classList.remove(
         "loading"
       );
-
-      /*
-       * Noch keine passenden Läufe.
-       */
 
       const hasKm =
         leaderboard.some(
@@ -1857,10 +1798,6 @@
         return;
 
       }
-
-      /*
-       * 8. Leaderboard ausgeben
-       */
 
       leaderboardElement.innerHTML =
         leaderboard
@@ -2040,12 +1977,6 @@
         yesterday
       );
 
-    /*
-     * Wenn heute UND gestern kein Lauf
-     * vorhanden ist, ist die aktuelle
-     * Streak beendet.
-     */
-
     if (
       !runDays.has(
         todayKey
@@ -2063,11 +1994,6 @@
       new Date(
         today
       );
-
-    /*
-     * Wenn heute noch kein Lauf war,
-     * beginnen wir mit gestern.
-     */
 
     if (
       !runDays.has(
@@ -2130,10 +2056,6 @@
 
     try {
 
-      /*
-       * Challenge-Mitglieder
-       */
-
       const members =
         await getChallengeMembers(
           "streak-club"
@@ -2173,10 +2095,6 @@
         return;
 
       }
-
-      /*
-       * Homepage-Läufe
-       */
 
       const runs =
         await getRuns();
@@ -2277,18 +2195,10 @@
           a.streak
       );
 
-      /*
-       * Profile
-       */
-
       const profiles =
         await getProfileNames(
           userIds
         );
-
-      /*
-       * Aktuellen User
-       */
 
       const {
         data: {
@@ -2323,10 +2233,6 @@
       leaderboardElement.classList.remove(
         "loading"
       );
-
-      /*
-       * Leaderboard
-       */
 
       leaderboardElement.innerHTML =
         leaderboard
@@ -2492,10 +2398,6 @@
 
       }
 
-      /*
-       * Prüfen, ob bereits Mitglied
-       */
-
       const {
         data: existing,
         error: existingError
@@ -2530,10 +2432,6 @@
 
       }
 
-      /*
-       * Challenge-Mitgliedschaft speichern
-       */
-
       const {
         error
       } =
@@ -2566,10 +2464,6 @@
       alert(
         "Du bist jetzt bei dieser Challenge dabei."
       );
-
-      /*
-       * Nach dem Beitritt sofort neu laden.
-       */
 
       if (
         challengeId ===
@@ -2686,26 +2580,12 @@
 
     await Promise.all([
 
-      /*
-       * EARLY BIRD
-       *
-       * Nimmt automatisch die Homepage-Läufe
-       * zwischen 04:00 und 08:59.
-       */
-
       loadKmLeaderboard(
         "early-bird-club",
         "earlyBirdTotal",
         "earlyBirdLeaderboard",
         true
       ),
-
-      /*
-       * NIGHT OWLS
-       *
-       * Nimmt automatisch die Homepage-Läufe
-       * zwischen 17:00 und 23:59.
-       */
 
       loadKmLeaderboard(
         "night-owls-club",
@@ -2714,19 +2594,7 @@
         true
       ),
 
-      /*
-       * STREAK
-       *
-       * Verwendet die Lauftage aus der Homepage.
-       */
-
       loadStreakLeaderboard(),
-
-      /*
-       * DISTANCE
-       *
-       * Nimmt ALLE Homepage-Läufe des aktuellen Monats.
-       */
 
       loadKmLeaderboard(
         "distance-club",
