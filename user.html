@@ -68,6 +68,18 @@
     }
 
     /* =========================================================
+       MEMBER PAGE TITLE
+    ========================================================= */
+
+    .member-page-title {
+      margin: 0 0 18px;
+      font-size: clamp(26px, 3.5vw, 38px);
+      line-height: 1.1;
+      font-weight: 850;
+      letter-spacing: -.03em;
+    }
+
+    /* =========================================================
        PROFILE HERO
     ========================================================= */
 
@@ -770,6 +782,10 @@
   </div>
 
   <div id="profileContent" style="display:none;">
+
+    <h1 class="member-page-title">
+      Meine Miles Apart Mitgliedsseite
+    </h1>
 
     <section class="profile-hero">
 
@@ -2079,16 +2095,6 @@ function posterStatBox(
 
   if(emoji){
 
-    /*
-     * FESTE ZWEISPALTIGE ANORDNUNG
-     *
-     * Das Emoji bekommt einen eigenen festen Bereich.
-     * Der Level-Text beginnt immer an derselben Position.
-     * Dadurch kann kein Emoji den Text berühren oder
-     * überlappen – unabhängig davon, welches Emoji
-     * verwendet wird.
-     */
-
     const emojiCenterX =
       x + 72;
 
@@ -2382,10 +2388,6 @@ function renderRunnerPoster(
   const contentWidth=
     contentRight-contentX;
 
-  /* -------------------------------------------------------
-     NAME
-  ------------------------------------------------------- */
-
   posterFittedText(
     ctx,
     data.name||"Runner",
@@ -2397,10 +2399,6 @@ function renderRunnerPoster(
     "900",
     "#17211f"
   );
-
-  /* -------------------------------------------------------
-     COMMUNITY HINWEIS
-  ------------------------------------------------------- */
 
   if(!IS_EMBEDDED){
 
@@ -2432,10 +2430,6 @@ function renderRunnerPoster(
 
   }
 
-  /* -------------------------------------------------------
-     MEMBER ZEILE
-  ------------------------------------------------------- */
-
   posterText(
     ctx,
     "Miles Apart Member 2026",
@@ -2448,10 +2442,6 @@ function renderRunnerPoster(
     }
   );
 
-  /* -------------------------------------------------------
-     TRENNLINIE
-  ------------------------------------------------------- */
-
   ctx.fillStyle="#dce7e5";
 
   ctx.fillRect(
@@ -2460,10 +2450,6 @@ function renderRunnerPoster(
     contentWidth,
     3
   );
-
-  /* -------------------------------------------------------
-     STATISTIKKARTEN
-  ------------------------------------------------------- */
 
   const statGap=20;
 
@@ -2499,10 +2485,6 @@ function renderRunnerPoster(
     data.level?.emoji||""
   );
 
-  /* -------------------------------------------------------
-     BESTZEITEN ÜBERSCHRIFT
-  ------------------------------------------------------- */
-
   posterText(
     ctx,
     "Persönliche Bestzeiten",
@@ -2514,10 +2496,6 @@ function renderRunnerPoster(
       baseline:"middle"
     }
   );
-
-  /* -------------------------------------------------------
-     BESTZEITEN
-  ------------------------------------------------------- */
 
   const pbGap=20;
 
@@ -3056,12 +3034,6 @@ function getPosterShareText(){
 
   }
 
-  /*
-   * Die URL wird sowohl als eigener URL-Wert an
-   * navigator.share() übergeben als auch als echte URL
-   * im Text mitgegeben.
-   */
-
   text+=
     `\n\n🏃 Jetzt Mitglied werden:\n${MEMBERSHIP_URL}`;
 
@@ -3106,12 +3078,6 @@ async function shareRunnerPosterWhatsApp(){
         file
       );
 
-    /*
-     * Hier wird jetzt exakt dieselbe Kombination geprüft,
-     * die anschließend geteilt wird:
-     * Poster + Text + URL.
-     */
-
     if(
       navigator.share&&
       navigator.canShare&&
@@ -3147,12 +3113,6 @@ async function shareRunnerPosterWhatsApp(){
       }
 
     }
-
-    /*
-     * Fallback für Browser ohne gemeinsames Datei-Teilen.
-     * Die vollständige URL bleibt im WhatsApp-Text enthalten
-     * und kann dort als Link erkannt werden.
-     */
 
     const whatsappUrl=
       "https://wa.me/?text="+
@@ -3228,11 +3188,6 @@ async function shareRunnerPosterInstagram(){
       createPosterShareData(
         file
       );
-
-    /*
-     * Poster + Text + URL gemeinsam an den nativen
-     * Share-Dialog übergeben.
-     */
 
     if(
       navigator.share&&
