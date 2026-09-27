@@ -1785,6 +1785,10 @@
             Krafttraining
           </option>
 
+          <option value="Sonstige Sportart">
+            Sonstige Sportart
+          </option>
+
         </select>
 
       </div>
@@ -1895,6 +1899,60 @@
             id="muscleGroups"
             type="text"
             placeholder="z. B. Beine, Core, Gesäß"
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           SONSTIGE SPORTART-FELDER
+      ================================================== -->
+
+      <div
+        id="otherSportFields"
+        style="display:none"
+      >
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="otherSport"
+          >
+            Sportart
+          </label>
+
+
+          <input
+            class="form-control"
+            id="otherSport"
+            type="text"
+            placeholder="z. B. Tennis, Radfahren, Schwimmen"
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label
+            class="form-label"
+            for="otherSportDuration"
+          >
+            Zeit
+          </label>
+
+
+          <input
+            class="form-control"
+            id="otherSportDuration"
+            type="number"
+            min="1"
+            step="1"
+            inputmode="numeric"
+            placeholder="z. B. 60"
           >
 
         </div>
@@ -3025,6 +3083,62 @@
 
 
     if (
+      run.type === "Sonstige Sportart"
+    ) {
+
+      const time =
+        document.createElement(
+          "div"
+        );
+
+
+      time.className =
+        "training-strength-time";
+
+
+      time.innerHTML =
+        escapeHtml(
+          String(
+            run.otherSportDuration || ""
+          )
+        ) +
+        " <span>MIN</span>";
+
+
+      wrapper.appendChild(
+        time
+      );
+
+
+      if (
+        run.otherSport &&
+        run.otherSport.trim()
+      ) {
+
+        const sport =
+          document.createElement(
+            "div"
+          );
+
+
+        sport.className =
+          "training-muscle-groups";
+
+
+        sport.innerHTML =
+          "<strong>Sportart:</strong> " +
+          escapeHtml(
+            run.otherSport
+          );
+
+
+        wrapper.appendChild(
+          sport
+        );
+
+      }
+
+    } else if (
       run.type === "Krafttraining"
     ) {
 
@@ -3661,6 +3775,12 @@
     );
 
 
+  const otherSportFields =
+    document.getElementById(
+      "otherSportFields"
+    );
+
+
   const runDistanceInput =
     document.getElementById(
       "runDistance"
@@ -3673,6 +3793,18 @@
     );
 
 
+  const otherSportInput =
+    document.getElementById(
+      "otherSport"
+    );
+
+
+  const otherSportDurationInput =
+    document.getElementById(
+      "otherSportDuration"
+    );
+
+
   function updateTrainingFields() {
 
     const isStrength =
@@ -3680,14 +3812,18 @@
       "Krafttraining";
 
 
-    if (isStrength) {
+    const isOtherSport =
+      runTypeSelect.value ===
+      "Sonstige Sportart";
+
+
+    if (
+      isStrength ||
+      isOtherSport
+    ) {
 
       runningFields.style.display =
         "none";
-
-
-      strengthFields.style.display =
-        "block";
 
 
       runDistanceInput.required =
@@ -3700,10 +3836,6 @@
         )
         .required =
         false;
-
-
-      strengthDurationInput.required =
-        true;
 
     } else {
 
@@ -3711,10 +3843,6 @@
         "grid";
 
 
-      strengthFields.style.display =
-        "none";
-
-
       runDistanceInput.required =
         true;
 
@@ -3726,8 +3854,48 @@
         .required =
         false;
 
+    }
+
+
+    if (isStrength) {
+
+      strengthFields.style.display =
+        "block";
 
       strengthDurationInput.required =
+        true;
+
+    } else {
+
+      strengthFields.style.display =
+        "none";
+
+      strengthDurationInput.required =
+        false;
+
+    }
+
+
+    if (isOtherSport) {
+
+      otherSportFields.style.display =
+        "block";
+
+      otherSportInput.required =
+        true;
+
+      otherSportDurationInput.required =
+        true;
+
+    } else {
+
+      otherSportFields.style.display =
+        "none";
+
+      otherSportInput.required =
+        false;
+
+      otherSportDurationInput.required =
         false;
 
     }
@@ -3827,6 +3995,20 @@
       "muscleGroups"
     ).value =
       existingRun?.muscleGroups ||
+      "";
+
+
+    document.getElementById(
+      "otherSport"
+    ).value =
+      existingRun?.otherSport ||
+      "";
+
+
+    document.getElementById(
+      "otherSportDuration"
+    ).value =
+      existingRun?.otherSportDuration ||
       "";
 
 
@@ -3978,6 +4160,70 @@
 
 
       if (
+        type === "Sonstige Sportart"
+      ) {
+
+        const otherSport =
+          document.getElementById(
+            "otherSport"
+          ).value.trim();
+
+
+        const otherSportDuration =
+          parseInt(
+            document.getElementById(
+              "otherSportDuration"
+            ).value,
+            10
+          );
+
+
+        if (
+          !otherSport
+        ) {
+
+          alert(
+            "Bitte gib die Sportart ein."
+          );
+
+
+          return;
+
+        }
+
+
+        if (
+          !Number.isFinite(
+            otherSportDuration
+          ) ||
+          otherSportDuration <= 0
+        ) {
+
+          alert(
+            "Bitte gib eine gültige Trainingszeit ein."
+          );
+
+
+          return;
+
+        }
+
+
+        trainingPlan[
+          selectedKey
+        ] = {
+
+          type,
+
+          otherSport,
+
+          otherSportDuration,
+
+          note
+
+        };
+
+      } else if (
         type === "Krafttraining"
       ) {
 
@@ -4473,7 +4719,8 @@
 
 
       if (
-        run.type !== "Krafttraining"
+        run.type !== "Krafttraining" &&
+        run.type !== "Sonstige Sportart"
       ) {
 
         const distance =
