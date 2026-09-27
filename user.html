@@ -3079,8 +3079,86 @@ async function shareRunnerPosterInstagram(){
       button.disabled=true;
 
     setPosterStatus(
-      "Poster wird für Instagram vorbereitet …"
+      "Text wird kopiert und Poster für Instagram vorbereitet …"
     );
+
+    /*
+      WEG B:
+      Der Instagram-Share bekommt nur das Poster.
+      Der Mitglieds-Text wird vorher in die Zwischenablage
+      kopiert, damit er anschließend in Instagram Direct
+      eingefügt werden kann.
+    */
+
+    const shareText=
+      getPosterShareText();
+
+    let clipboardPromise=
+      Promise.resolve(false);
+
+    if(
+      navigator.clipboard&&
+      window.isSecureContext
+    ){
+
+      clipboardPromise=
+        navigator.clipboard
+          .writeText(shareText)
+          .then(
+            ()=>{
+              return true;
+            }
+          )
+          .catch(
+            ()=>{
+              return false;
+            }
+          );
+
+    }else{
+
+      const textarea=
+        document.createElement(
+          "textarea"
+        );
+
+      textarea.value=
+        shareText;
+
+      textarea.style.position=
+        "fixed";
+
+      textarea.style.opacity=
+        "0";
+
+      textarea.style.pointerEvents=
+        "none";
+
+      document.body.appendChild(
+        textarea
+      );
+
+      textarea.focus();
+      textarea.select();
+
+      try{
+
+        document.execCommand(
+          "copy"
+        );
+
+      }catch(error){
+
+        console.warn(
+          "Zwischenablage konnte nicht verwendet werden:",
+          error
+        );
+
+      }
+
+      textarea.remove();
+
+    }
 
     const blob=
       await getPosterBlob();
@@ -3094,28 +3172,53 @@ async function shareRunnerPosterInstagram(){
         }
       );
 
-    const shareData=
-      createPosterShareData(
-        file
-      );
+    const clipboardCopied=
+      await clipboardPromise;
+
+    /*
+      Wichtig:
+      Hier wird absichtlich KEIN text-Feld an Instagram
+      übergeben. Instagram soll ausschließlich das Poster
+      übernehmen. Der Text liegt bereits in der
+      Zwischenablage.
+    */
+
+    const instagramShareData={
+
+      files:[file],
+
+      title:
+        "Miles Apart Running Club"
+
+    };
 
     if(
       navigator.share&&
       navigator.canShare&&
       navigator.canShare(
-        shareData
+        instagramShareData
       )
     ){
 
       try{
 
         await navigator.share(
-          shareData
+          instagramShareData
         );
 
-        setPosterStatus(
-          "✓ Poster und Mitglieds-Text wurden an Instagram übergeben. Wähle dort Direct Message."
-        );
+        if(clipboardCopied){
+
+          setPosterStatus(
+            "✓ Text wurde kopiert. Wähle in Instagram „Nachricht“ und füge den Text dort ein."
+          );
+
+        }else{
+
+          setPosterStatus(
+            "✓ Poster wurde an Instagram übergeben. Der Mitglieds-Text konnte nicht automatisch kopiert werden."
+          );
+
+        }
 
         return;
 
@@ -3173,9 +3276,19 @@ async function shareRunnerPosterInstagram(){
       "noopener,noreferrer"
     );
 
-    setPosterStatus(
-      "✓ Poster gespeichert und Instagram geöffnet."
-    );
+    if(clipboardCopied){
+
+      setPosterStatus(
+        "✓ Poster gespeichert, Instagram geöffnet und der Mitglieds-Text kopiert. Füge ihn in der Direct Message ein."
+      );
+
+    }else{
+
+      setPosterStatus(
+        "✓ Poster gespeichert und Instagram geöffnet."
+      );
+
+    }
 
   }catch(error){
 
