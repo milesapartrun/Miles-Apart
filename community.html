@@ -430,7 +430,6 @@
   margin-bottom:18px;
 }
 
-/* PROFILBILD IST JETZT EIN LINK */
 .ma-buddy-avatar-link{
   display:block;
   flex:0 0 auto;
@@ -794,11 +793,22 @@ textarea.ma-form-input{
   box-sizing:border-box;
 }
 
+
+/* NEU:
+   Ersteller-Bereich bei gemeinsamen Läufen
+   mit Profilbild + Name
+*/
+
 .ma-run-card-top{
   display:flex;
   justify-content:space-between;
   gap:15px;
   margin-bottom:16px;
+}
+
+.ma-run-card-title-wrap{
+  min-width:0;
+  flex:1;
 }
 
 .ma-run-card-title{
@@ -809,15 +819,87 @@ textarea.ma-form-input{
   text-align:left !important;
 }
 
+.ma-run-card-author-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:9px;
+}
+
+.ma-run-card-author-avatar-link{
+  display:block;
+  flex:0 0 auto;
+  text-decoration:none;
+}
+
+.ma-run-card-author-avatar{
+  width:42px;
+  height:42px;
+  min-width:42px;
+  border-radius:50%;
+  overflow:hidden;
+  border:2px solid #63d6e5;
+  background:#eefafa;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+}
+
+.ma-run-card-author-avatar img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.ma-run-card-author-initials{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#18b8c7;
+  background:#eefafa;
+  font-size:12px;
+  font-weight:800;
+}
+
+.ma-run-card-author-info{
+  min-width:0;
+}
+
 .ma-run-card-author{
-  margin-top:5px;
+  margin:0;
   color:#777;
   font-size:14px;
+  line-height:1.35;
   text-align:left !important;
+}
+
+.ma-run-card-author-name{
+  display:block;
+  color:#111;
+  font-size:15px;
+  line-height:1.25;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.ma-run-card-author-name:hover{
+  color:#18b8c7;
+}
+
+.ma-run-card-author-label{
+  display:block;
+  margin-top:2px;
+  color:#777;
+  font-size:13px;
+  line-height:1.3;
 }
 
 .ma-run-card-icon{
   font-size:28px;
+  flex:0 0 auto;
 }
 
 .ma-run-detail{
@@ -1519,6 +1601,27 @@ textarea.ma-form-input{
     padding-right:12px !important;
     font-size:12px !important;
     white-space:nowrap !important;
+  }
+
+
+  /* NEU: mobile Darstellung des Run-Erstellers */
+
+  .ma-run-card-author-row{
+    gap:9px;
+  }
+
+  .ma-run-card-author-avatar{
+    width:40px;
+    height:40px;
+    min-width:40px;
+  }
+
+  .ma-run-card-author-name{
+    font-size:14px;
+  }
+
+  .ma-run-card-author-label{
+    font-size:12px;
   }
 
 
@@ -2807,6 +2910,42 @@ function inboxAvatarHtml(p){
   return`
     <div class="ma-conversation-avatar">
       <div class="ma-conversation-initials">
+        ${escapeHtml(
+          getInitials(n)
+        )}
+      </div>
+    </div>
+  `;
+
+}
+
+
+/* =========================================================
+   RUN / GRUPPEN - AVATAR
+========================================================= */
+
+function runCreatorAvatarHtml(p){
+
+  const n=
+    p?.display_name||
+    "Miles Apart Member";
+
+  if(p?.avatar_url){
+
+    return`
+      <div class="ma-run-card-author-avatar">
+        <img
+          src="${escapeHtml(p.avatar_url)}"
+          alt="Profilbild von ${escapeHtml(n)}"
+        >
+      </div>
+    `;
+
+  }
+
+  return`
+    <div class="ma-run-card-author-avatar">
+      <div class="ma-run-card-author-initials">
         ${escapeHtml(
           getInitials(n)
         )}
@@ -5437,6 +5576,10 @@ function runCard(run){
     run.profiles||
     {};
 
+  const creatorName=
+    creator.display_name||
+    "Miles Apart Member";
+
   const joined=
     currentUser&&
     parts.some(
@@ -5468,22 +5611,47 @@ function runCard(run){
 
       <div class="ma-run-card-top">
 
-        <div>
+        <div class="ma-run-card-title-wrap">
 
           <h3 class="ma-run-card-title">
             ${escapeHtml(run.title)}
           </h3>
 
-          <div class="ma-run-card-author">
-            von ${
-              escapeHtml(
-                creator.display_name||
-                "Miles Apart Member"
-              )
-            }
+
+          <!-- PROFILBILD DES ERSTELLERS -->
+
+          <div class="ma-run-card-author-row">
+
+            <a
+              class="ma-run-card-author-avatar-link"
+              href="${profileUrl(creator)}"
+              aria-label="Profil von ${escapeHtml(creatorName)}"
+            >
+
+              ${runCreatorAvatarHtml(creator)}
+
+            </a>
+
+
+            <div class="ma-run-card-author-info">
+
+              <a
+                class="ma-run-card-author-name"
+                href="${profileUrl(creator)}"
+              >
+                ${escapeHtml(creatorName)}
+              </a>
+
+              <span class="ma-run-card-author-label">
+                erstellt diesen Lauf
+              </span>
+
+            </div>
+
           </div>
 
         </div>
+
 
         <div class="ma-run-card-icon">
           🏃
@@ -5580,8 +5748,7 @@ function runCard(run){
             data-run-id="${run.id}"
             data-run-creator-id="${run.creator_id}"
             data-run-creator-name="${escapeHtml(
-              creator.display_name||
-              "Miles Apart Member"
+              creatorName
             )}"
           >
             Nachricht senden
