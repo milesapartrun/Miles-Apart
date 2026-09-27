@@ -65,7 +65,6 @@
   line-height:1.45;
 }
 
-
 /* =========================================================
    COMMUNITY WILLKOMMEN
 ========================================================= */
@@ -95,6 +94,67 @@
   font-weight:700;
 }
 
+/* =========================================================
+   COMMUNITY KILOMETER 2026
+========================================================= */
+
+.ma-community-km-card{
+  width:100%;
+  box-sizing:border-box;
+  margin:0 0 28px;
+  padding:30px 28px;
+  background:#f7fafa;
+  border:1px solid #dfeeee;
+  position:relative;
+  overflow:hidden;
+}
+
+.ma-community-km-card::after{
+  content:"";
+  position:absolute;
+  right:-35px;
+  top:-55px;
+  width:180px;
+  height:180px;
+  border-radius:50%;
+  background:#18b8c7;
+  opacity:.08;
+}
+
+.ma-community-km-label{
+  margin:0;
+  color:#777;
+  font-size:13px;
+  line-height:1.3;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+
+.ma-community-km-value{
+  margin:5px 0 0;
+  color:#18b8c7;
+  font-size:48px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:-.03em;
+}
+
+.ma-community-km-unit{
+  margin-left:7px;
+  color:#111;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:0;
+}
+
+.ma-community-km-subtitle{
+  margin:10px 0 0;
+  color:#555;
+  font-size:15px;
+  line-height:1.45;
+  font-weight:600;
+}
 
 /* =========================================================
    HARTE AUSRICHTUNG
@@ -124,7 +184,6 @@
 .ma-community-page div{
   text-indent:0 !important;
 }
-
 
 /* =========================================================
    POSTS
@@ -265,7 +324,6 @@
 .ma-delete{
   color:#b44 !important;
 }
-
 
 /* =========================================================
    KOMMENTARE
@@ -432,7 +490,6 @@
   background:#18b8c7 !important;
 }
 
-
 /* =========================================================
    RUN BUDDY
 ========================================================= */
@@ -553,7 +610,6 @@
   text-align:left !important;
 }
 
-
 /* =========================================================
    RUN BUDDY BUTTONS
 ========================================================= */
@@ -660,7 +716,6 @@
   color:#8f2222 !important;
 }
 
-
 /* =========================================================
    BUDDY TAGE
 ========================================================= */
@@ -713,7 +768,6 @@
   text-align:center;
   grid-column:1/-1;
 }
-
 
 /* =========================================================
    FORMULARE
@@ -795,7 +849,6 @@ textarea.ma-form-input{
   font-size:14px;
   font-weight:700;
 }
-
 
 /* =========================================================
    GEMEINSAME LÄUFE
@@ -1025,7 +1078,6 @@ textarea.ma-form-input{
   color:#8f2222;
 }
 
-
 /* =========================================================
    NACHRICHT SCHREIBEN
 ========================================================= */
@@ -1152,7 +1204,6 @@ textarea.ma-form-input{
 .ma-message-send:hover{
   background:#18b8c7 !important;
 }
-
 
 /* =========================================================
    NACHRICHTEN-POSTFACH
@@ -1469,7 +1520,6 @@ textarea.ma-form-input{
   line-height:1.5;
 }
 
-
 /* =========================================================
    BILDER
 ========================================================= */
@@ -1519,7 +1569,6 @@ textarea.ma-form-input{
   font-size:14px;
 }
 
-
 /* =========================================================
    MOBILE
 ========================================================= */
@@ -1549,6 +1598,18 @@ textarea.ma-form-input{
 
   .ma-community-welcome-subtitle{
     font-size:16px;
+  }
+
+  .ma-community-km-card{
+    padding:26px 24px;
+  }
+
+  .ma-community-km-value{
+    font-size:40px;
+  }
+
+  .ma-community-km-unit{
+    font-size:19px;
   }
 
   .ma-buddy-list,
@@ -1748,7 +1809,6 @@ textarea.ma-form-input{
 
 }
 
-
 /* =========================================================
    LETZTER SICHERHEITS-OVERRIDE
 ========================================================= */
@@ -1779,7 +1839,6 @@ textarea.ma-form-input{
   text-align:left !important;
   text-indent:0 !important;
 }
-
 
 /* =========================================================
    POST- UND KOMMENTARTEXT — ENDGÜLTIG LINKS
@@ -1907,7 +1966,6 @@ textarea.ma-form-input{
 
 </aside>
 
-
 <main class="main ma-community-page">
 
   <div class="top">
@@ -1919,7 +1977,6 @@ textarea.ma-form-input{
     <div class="top-right"></div>
 
   </div>
-
 
   <div class="hero">
 
@@ -1968,7 +2025,6 @@ textarea.ma-form-input{
 
   </div>
 
-
   <!-- =====================================================
        COMMUNITY WILLKOMMEN
   ====================================================== -->
@@ -1991,6 +2047,29 @@ textarea.ma-form-input{
 
   </div>
 
+  <!-- =====================================================
+       COMMUNITY KILOMETER 2026
+  ====================================================== -->
+
+  <div
+    class="ma-community-km-card"
+    id="communityKmCard"
+  >
+
+    <p class="ma-community-km-label">
+      Community Kilometer 2026
+    </p>
+
+    <div class="ma-community-km-value">
+      <span id="communityTotalKm">…</span>
+      <span class="ma-community-km-unit">KM</span>
+    </div>
+
+    <p class="ma-community-km-subtitle">
+      Zusammen gelaufen von allen Miles Apart Runnern in diesem Jahr. 🏃‍♂️🏃‍♀️
+    </p>
+
+  </div>
 
   <div
     id="postFormCard"
@@ -2013,7 +2092,6 @@ textarea.ma-form-input{
 
     </div>
 
-
     <form id="postForm">
 
       <textarea
@@ -2032,7 +2110,6 @@ textarea.ma-form-input{
           text-align:left
         "
       ></textarea>
-
 
       <div class="ma-image-upload">
 
@@ -2062,7 +2139,6 @@ textarea.ma-form-input{
         ></div>
 
       </div>
-
 
       <div
         style="
@@ -2105,7 +2181,6 @@ textarea.ma-form-input{
 
   </div>
 
-
   <div
     id="communityLoading"
     class="ma-community-loading"
@@ -2113,13 +2188,11 @@ textarea.ma-form-input{
     Community wird geladen …
   </div>
 
-
   <div
     id="communityError"
     class="ma-community-error"
     style="display:none"
   ></div>
-
 
   <!-- RUN BUDDY -->
 
@@ -2153,7 +2226,6 @@ textarea.ma-form-input{
 
     </div>
 
-
     <div
       id="buddyForm"
       class="ma-buddy-form"
@@ -2181,7 +2253,6 @@ textarea.ma-form-input{
             >
 
           </div>
-
 
           <div class="ma-form-field full">
 
@@ -2237,7 +2308,6 @@ textarea.ma-form-input{
 
           </div>
 
-
           <div class="ma-form-field">
 
             <label
@@ -2255,7 +2325,6 @@ textarea.ma-form-input{
             >
 
           </div>
-
 
           <div class="ma-form-field">
 
@@ -2276,7 +2345,6 @@ textarea.ma-form-input{
 
           </div>
 
-
           <div class="ma-form-field full">
 
             <label
@@ -2296,7 +2364,6 @@ textarea.ma-form-input{
           </div>
 
         </div>
-
 
         <div class="ma-form-actions">
 
@@ -2331,14 +2398,12 @@ textarea.ma-form-input{
 
     </div>
 
-
     <div
       id="buddyList"
       class="ma-buddy-list"
     ></div>
 
   </div>
-
 
   <!-- GEMEINSAME LÄUFE -->
 
@@ -2372,7 +2437,6 @@ textarea.ma-form-input{
 
     </div>
 
-
     <div
       id="runForm"
       class="ma-run-form"
@@ -2401,7 +2465,6 @@ textarea.ma-form-input{
 
           </div>
 
-
           <div class="ma-form-field">
 
             <label
@@ -2421,7 +2484,6 @@ textarea.ma-form-input{
 
           </div>
 
-
           <div class="ma-form-field">
 
             <label
@@ -2439,7 +2501,6 @@ textarea.ma-form-input{
             >
 
           </div>
-
 
           <div class="ma-form-field">
 
@@ -2459,7 +2520,6 @@ textarea.ma-form-input{
 
           </div>
 
-
           <div class="ma-form-field">
 
             <label
@@ -2478,7 +2538,6 @@ textarea.ma-form-input{
             >
 
           </div>
-
 
           <div class="ma-form-field">
 
@@ -2502,7 +2561,6 @@ textarea.ma-form-input{
           </div>
 
         </div>
-
 
         <div class="ma-form-actions">
 
@@ -2537,14 +2595,12 @@ textarea.ma-form-input{
 
     </div>
 
-
     <div
       id="runList"
       class="ma-run-list"
     ></div>
 
   </div>
-
 
   <!-- POSTS -->
 
@@ -2556,7 +2612,6 @@ textarea.ma-form-input{
 </main>
 
 </div>
-
 
 <!-- NACHRICHT SCHREIBEN -->
 
@@ -2598,14 +2653,12 @@ textarea.ma-form-input{
 
     </div>
 
-
     <textarea
       id="privateMessageContent"
       class="ma-message-textarea"
       maxlength="2000"
       placeholder="Schreib eine private Nachricht …"
     ></textarea>
-
 
     <div class="ma-message-actions">
 
@@ -2627,7 +2680,6 @@ textarea.ma-form-input{
   </div>
 
 </div>
-
 
 <!-- NACHRICHTEN-POSTFACH -->
 
@@ -2670,7 +2722,6 @@ textarea.ma-form-input{
 
     </div>
 
-
     <div class="ma-inbox-layout">
 
       <div class="ma-inbox-conversations">
@@ -2683,7 +2734,6 @@ textarea.ma-form-input{
 
       </div>
 
-
       <div class="ma-inbox-thread">
 
         <div
@@ -2691,7 +2741,6 @@ textarea.ma-form-input{
           class="ma-thread-head"
           style="display:none"
         ></div>
-
 
         <div
           id="messageThreadList"
@@ -2703,7 +2752,6 @@ textarea.ma-form-input{
           </div>
 
         </div>
-
 
         <form
           id="messageReplyForm"
@@ -2735,7 +2783,6 @@ textarea.ma-form-input{
 
 </div>
 
-
 <script>
 
 const SUPABASE_URL=
@@ -2753,10 +2800,8 @@ const supabaseClient=
     SUPABASE_PUBLISHABLE_KEY
   );
 
-
 const $=
   id=>document.getElementById(id);
-
 
 let currentUser=null;
 let currentProfile=null;
@@ -2765,7 +2810,6 @@ let activeConversationUserId=null;
 let messageProfiles={};
 let buddyComments={};
 let runComments={};
-
 
 /* =========================================================
    HILFSFUNKTIONEN
@@ -2783,7 +2827,6 @@ function escapeHtml(v){
       .replaceAll("'","&#039;");
 
 }
-
 
 function getInitials(name){
 
@@ -2807,7 +2850,6 @@ function getInitials(name){
   ).toUpperCase();
 
 }
-
 
 function formatTime(s){
 
@@ -2845,7 +2887,6 @@ function formatTime(s){
 
 }
 
-
 function formatMessageDateTime(s){
 
   return new Date(s)
@@ -2861,7 +2902,6 @@ function formatMessageDateTime(s){
     );
 
 }
-
 
 function formatRunDate(s){
 
@@ -2883,7 +2923,6 @@ function formatRunDate(s){
 
 }
 
-
 function profileUrl(p){
 
   return p?.username
@@ -2891,7 +2930,6 @@ function profileUrl(p){
     :"#";
 
 }
-
 
 function avatarHtml(
   p,
@@ -2931,7 +2969,6 @@ function avatarHtml(
 
 }
 
-
 function inboxAvatarHtml(p){
 
   const n=
@@ -2962,7 +2999,6 @@ function inboxAvatarHtml(p){
   `;
 
 }
-
 
 /* =========================================================
    RUN / GRUPPEN - AVATAR
@@ -2998,7 +3034,6 @@ function runCreatorAvatarHtml(p){
   `;
 
 }
-
 
 function itemCommentsHtml(
   comments,
@@ -3039,7 +3074,6 @@ function itemCommentsHtml(
 
       </div>
 
-
       <form
         class="ma-comment-form"
         data-item-comment-form="true"
@@ -3066,7 +3100,6 @@ function itemCommentsHtml(
   `;
 
 }
-
 
 async function loadItemComments(
   itemType,
@@ -3134,7 +3167,6 @@ async function loadItemComments(
   return map;
 
 }
-
 
 /* =========================================================
    USER
@@ -3207,7 +3239,6 @@ async function loadCurrentUser(){
 
 }
 
-
 /* =========================================================
    COMMUNITY MITGLIEDERZÄHLER
 ========================================================= */
@@ -3238,6 +3269,85 @@ async function loadCommunityMemberCount(){
 
 }
 
+/* =========================================================
+   COMMUNITY KILOMETER 2026
+========================================================= */
+
+async function loadCommunityTotalKm(){
+
+  const PAGE_SIZE=1000;
+
+  let from=0;
+  let totalKm=0;
+
+  while(true){
+
+    const {
+      data,
+      error
+    }=
+      await supabaseClient
+        .from("runs")
+        .select(
+          "distance_km,run_date"
+        )
+        .gte(
+          "run_date",
+          "2026-01-01"
+        )
+        .lt(
+          "run_date",
+          "2027-01-01"
+        )
+        .range(
+          from,
+          from+PAGE_SIZE-1
+        );
+
+    if(error){
+      throw error;
+    }
+
+    const page=
+      data||[];
+
+    page.forEach(
+      run=>{
+
+        const distance=
+          Number(
+            run.distance_km
+          );
+
+        if(Number.isFinite(distance)){
+          totalKm+=distance;
+        }
+
+      }
+    );
+
+    if(
+      page.length<
+      PAGE_SIZE
+    ){
+      break;
+    }
+
+    from+=PAGE_SIZE;
+
+  }
+
+  $("communityTotalKm")
+    .textContent=
+      totalKm.toLocaleString(
+        "de-DE",
+        {
+          minimumFractionDigits:1,
+          maximumFractionDigits:1
+        }
+      );
+
+}
 
 /* =========================================================
    POSTS
@@ -3292,7 +3402,6 @@ async function loadPosts(){
 
 }
 
-
 function renderPosts(posts){
 
   $("postsContainer")
@@ -3330,7 +3439,6 @@ function renderPosts(posts){
   );
 
 }
-
 
 function createPostElement(post){
 
@@ -3404,11 +3512,9 @@ function createPostElement(post){
 
     </div>
 
-
     <div class="ma-post-copy">
       ${escapeHtml(post.content)}
     </div>
-
 
     ${
       post.image_url
@@ -3423,7 +3529,6 @@ function createPostElement(post){
         :""
     }
 
-
     <div class="ma-post-actions">
 
       <div class="ma-post-action-left">
@@ -3436,7 +3541,6 @@ function createPostElement(post){
           ${liked?"❤️":"♡"} ${likes.length}
         </button>
 
-
         <button
           class="ma-post-action"
           data-action="comments"
@@ -3444,7 +3548,6 @@ function createPostElement(post){
         >
           💬 ${comments.length}
         </button>
-
 
         ${
           currentUser
@@ -3463,7 +3566,6 @@ function createPostElement(post){
 
       </div>
 
-
       ${
         owner
           ?`
@@ -3479,7 +3581,6 @@ function createPostElement(post){
       }
 
     </div>
-
 
     <div
       class="ma-comments"
@@ -3501,7 +3602,6 @@ function createPostElement(post){
         }
 
       </div>
-
 
       <form
         class="ma-comment-form"
@@ -3531,7 +3631,6 @@ function createPostElement(post){
   return w;
 
 }
-
 
 function createCommentHtml(c){
 
@@ -3611,7 +3710,6 @@ function createCommentHtml(c){
 
 }
 
-
 $("postsContainer")
   .addEventListener(
     "click",
@@ -3662,7 +3760,6 @@ $("postsContainer")
     }
   );
 
-
 $("postsContainer")
   .addEventListener(
     "submit",
@@ -3686,7 +3783,6 @@ $("postsContainer")
 
     }
   );
-
 
 async function toggleLike(id,b){
 
@@ -3747,7 +3843,6 @@ async function toggleLike(id,b){
 
 }
 
-
 async function deletePost(id){
 
   if(!currentUser){
@@ -3778,7 +3873,6 @@ async function deletePost(id){
   }
 
 }
-
 
 async function submitComment(
   id,
@@ -3830,7 +3924,6 @@ async function submitComment(
 
 }
 
-
 /* =========================================================
    PRIVATE NACHRICHTEN
 ========================================================= */
@@ -3863,7 +3956,6 @@ function openMessageModal(id,name){
 
 }
 
-
 function closeMessageModal(){
 
   $("messageOverlay")
@@ -3874,11 +3966,9 @@ function closeMessageModal(){
 
 }
 
-
 $("closeMessageButton")
   .onclick=
   closeMessageModal;
-
 
 $("messageOverlay")
   .onclick=
@@ -3889,7 +3979,6 @@ $("messageOverlay")
     }
 
   };
-
 
 $("sendPrivateMessageButton")
   .onclick=
@@ -3980,7 +4069,6 @@ $("sendPrivateMessageButton")
 
   };
 
-
 /* =========================================================
    NACHRICHTEN-POSTFACH
 ========================================================= */
@@ -4041,7 +4129,6 @@ async function openMessagesInbox(
 
 }
 
-
 function closeMessagesInbox(){
 
   $("messagesInboxOverlay")
@@ -4052,16 +4139,13 @@ function closeMessagesInbox(){
 
 }
 
-
 $("openMessagesButton")
   .onclick=
   ()=>openMessagesInbox();
 
-
 $("closeMessagesInboxButton")
   .onclick=
   closeMessagesInbox;
-
 
 $("messagesInboxOverlay")
   .onclick=
@@ -4075,7 +4159,6 @@ $("messagesInboxOverlay")
     }
 
   };
-
 
 async function loadMessageInbox(
   preselectUserId=null
@@ -4232,7 +4315,6 @@ async function loadMessageInbox(
 
 }
 
-
 function renderMessageConversations(
   conversations
 ){
@@ -4313,7 +4395,6 @@ function renderMessageConversations(
   );
 
 }
-
 
 async function openConversation(userId){
 
@@ -4436,7 +4517,6 @@ async function openConversation(userId){
 
 }
 
-
 function renderMessageConversationsFromCurrent(){
 
   document
@@ -4456,7 +4536,6 @@ function renderMessageConversationsFromCurrent(){
     );
 
 }
-
 
 function renderMessageThread(messages){
 
@@ -4533,7 +4612,6 @@ function renderMessageThread(messages){
 
 }
 
-
 $("messageReplyForm")
   .onsubmit=
   async e=>{
@@ -4597,7 +4675,6 @@ $("messageReplyForm")
 
   };
 
-
 /* =========================================================
    POST ERSTELLEN
 ========================================================= */
@@ -4617,7 +4694,6 @@ $("openPostButton")
       .focus();
 
   };
-
 
 $("cancelPostButton")
   .onclick=
@@ -4643,7 +4719,6 @@ $("cancelPostButton")
       .style.display="none";
 
   };
-
 
 $("postImage")
   .onchange=
@@ -4678,7 +4753,6 @@ $("postImage")
     r.readAsDataURL(f);
 
   };
-
 
 /* =========================================================
    BILDER OHNE SUPABASE-STORAGE-BUCKET
@@ -4797,7 +4871,6 @@ function compressImageToDataUrl(file){
 
 }
 
-
 $("postForm")
   .onsubmit=
   async e=>{
@@ -4897,7 +4970,6 @@ $("postForm")
 
   };
 
-
 /* =========================================================
    RUN BUDDY
 ========================================================= */
@@ -4915,7 +4987,6 @@ function getBuddyDays(value){
 
 }
 
-
 function buddyDaysLabel(value){
 
   const days=
@@ -4926,7 +4997,6 @@ function buddyDaysLabel(value){
     :"Flexibel";
 
 }
-
 
 function buddyCard(row){
 
@@ -4990,7 +5060,6 @@ function buddyCard(row){
 
       </div>
 
-
       <div class="ma-buddy-details">
 
         <div class="ma-buddy-detail">
@@ -5009,7 +5078,6 @@ function buddyCard(row){
 
         </div>
 
-
         <div class="ma-buddy-detail">
 
           <span class="ma-buddy-label">
@@ -5027,7 +5095,6 @@ function buddyCard(row){
 
         </div>
 
-
         <div class="ma-buddy-detail">
 
           <span class="ma-buddy-label">
@@ -5039,7 +5106,6 @@ function buddyCard(row){
           </span>
 
         </div>
-
 
         <div class="ma-buddy-detail">
 
@@ -5055,7 +5121,6 @@ function buddyCard(row){
 
       </div>
 
-
       ${
         row.note
           ?`
@@ -5065,7 +5130,6 @@ function buddyCard(row){
           `
           :""
       }
-
 
       ${
         currentUser
@@ -5083,7 +5147,6 @@ function buddyCard(row){
                   Nachricht senden
                 </button>
 
-
                 <button
                   class="ma-buddy-comment-btn"
                   type="button"
@@ -5092,7 +5155,6 @@ function buddyCard(row){
                 >
                   Kommentieren${comments.length?` (${comments.length})`:""}
                 </button>
-
 
                 ${
                   currentUser.id===row.user_id
@@ -5115,7 +5177,6 @@ function buddyCard(row){
           `
           :""
       }
-
 
       ${
         currentUser
@@ -5141,7 +5202,6 @@ function buddyCard(row){
   `;
 
 }
-
 
 async function loadBuddyProfiles(){
 
@@ -5252,7 +5312,6 @@ async function loadBuddyProfiles(){
 
 }
 
-
 $("buddyList")
   .addEventListener(
     "click",
@@ -5327,7 +5386,6 @@ $("buddyList")
 
       }
 
-
       const commentButton=
         e.target.closest(
           '[data-buddy-action="comments"]'
@@ -5356,7 +5414,6 @@ $("buddyList")
 
       }
 
-
       const b=
         e.target.closest(
           "[data-buddy-message]"
@@ -5373,7 +5430,6 @@ $("buddyList")
 
     }
   );
-
 
 $("buddyList")
   .addEventListener(
@@ -5417,7 +5473,6 @@ $("buddyList")
     }
   );
 
-
 $("openBuddyButton")
   .onclick=
   ()=>{
@@ -5435,7 +5490,6 @@ $("openBuddyButton")
 
   };
 
-
 $("cancelBuddyButton")
   .onclick=
   ()=>{
@@ -5451,7 +5505,6 @@ $("cancelBuddyButton")
 
   };
 
-
 function getSelectedBuddyDays(){
 
   return Array.from(
@@ -5463,7 +5516,6 @@ function getSelectedBuddyDays(){
   );
 
 }
-
 
 function setBuddyDays(value){
 
@@ -5484,7 +5536,6 @@ function setBuddyDays(value){
     );
 
 }
-
 
 $("buddyProfileForm")
   .onsubmit=
@@ -5598,7 +5649,6 @@ $("buddyProfileForm")
 
   };
 
-
 /* =========================================================
    GEMEINSAME LÄUFE
 ========================================================= */
@@ -5620,7 +5670,6 @@ $("openRunButton")
 
   };
 
-
 $("cancelRunButton")
   .onclick=
   ()=>{
@@ -5639,7 +5688,6 @@ $("cancelRunButton")
       .textContent="";
 
   };
-
 
 function runCard(run){
 
@@ -5729,7 +5777,6 @@ function runCard(run){
 
       </div>
 
-
       <div class="ma-run-details">
 
         <div class="ma-run-detail">
@@ -5744,7 +5791,6 @@ function runCard(run){
 
         </div>
 
-
         <div class="ma-run-detail">
 
           <span class="ma-run-detail-label">
@@ -5758,7 +5804,6 @@ function runCard(run){
           </span>
 
         </div>
-
 
         <div class="ma-run-detail">
 
@@ -5776,7 +5821,6 @@ function runCard(run){
 
         </div>
 
-
         <div class="ma-run-detail">
 
           <span class="ma-run-detail-label">
@@ -5791,13 +5835,11 @@ function runCard(run){
 
       </div>
 
-
       <div class="ma-run-participants">
 
         <div class="ma-run-participant-count">
           👥 ${parts.length} / ${max} Teilnehmer
         </div>
-
 
         <div class="ma-run-actions">
 
@@ -5809,7 +5851,6 @@ function runCard(run){
           >
             Kommentieren${comments.length?` (${comments.length})`:""}
           </button>
-
 
           <button
             class="ma-run-message"
@@ -5823,7 +5864,6 @@ function runCard(run){
           >
             Nachricht senden
           </button>
-
 
           ${
             owner
@@ -5865,7 +5905,6 @@ function runCard(run){
 
       </div>
 
-
       ${
         currentUser
           ?`
@@ -5890,7 +5929,6 @@ function runCard(run){
   `;
 
 }
-
 
 async function loadCommunityRuns(){
 
@@ -5962,7 +6000,6 @@ async function loadCommunityRuns(){
       `;
 
 }
-
 
 $("runList")
   .addEventListener(
@@ -6077,7 +6114,6 @@ $("runList")
     }
   );
 
-
 $("runList")
   .addEventListener(
     "submit",
@@ -6119,7 +6155,6 @@ $("runList")
 
     }
   );
-
 
 async function submitItemComment(
   itemType,
@@ -6189,7 +6224,6 @@ async function submitItemComment(
   }
 
 }
-
 
 $("communityRunForm")
   .onsubmit=
@@ -6274,7 +6308,6 @@ $("communityRunForm")
 
   };
 
-
 /* =========================================================
    INITIALISIERUNG
 ========================================================= */
@@ -6289,7 +6322,8 @@ async function initializeCommunity(){
       loadPosts(),
       loadBuddyProfiles(),
       loadCommunityRuns(),
-      loadCommunityMemberCount()
+      loadCommunityMemberCount(),
+      loadCommunityTotalKm()
     ]);
 
     $("communityLoading")
@@ -6325,7 +6359,6 @@ async function initializeCommunity(){
 
 }
 
-
 supabaseClient.auth.onAuthStateChange(
   (event,session)=>{
 
@@ -6335,7 +6368,6 @@ supabaseClient.auth.onAuthStateChange(
 
   }
 );
-
 
 initializeCommunity();
 
