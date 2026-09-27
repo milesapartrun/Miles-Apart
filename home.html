@@ -507,7 +507,6 @@ button,input,textarea,select{font-family:inherit}
 .summary-bar-row:nth-child(2) .summary-value,
 .summary-bar-row.year .summary-value{color:#fff}
 
-
 /* =========================================================
    BESTZEITEN
    ========================================================= */
@@ -657,6 +656,36 @@ button,input,textarea,select{font-family:inherit}
   text-overflow:ellipsis
 }
 
+.best-time-remove{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:26px;
+  margin-top:12px;
+  padding:0 9px;
+  border:1px solid rgba(255,255,255,.35);
+  background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.82);
+  font-size:9px;
+  line-height:1;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  cursor:pointer;
+  transition:.2s ease
+}
+
+.best-time-remove:hover{
+  background:#fff;
+  border-color:#fff;
+  color:var(--miles-blue-dark)
+}
+
+.best-time-remove:disabled{
+  opacity:.5;
+  cursor:not-allowed
+}
+
 .longest-run{
   grid-column:1/-1;
   min-height:100px;
@@ -677,7 +706,6 @@ button,input,textarea,select{font-family:inherit}
 }
 
 .longest-run .best-time-value{margin-top:9px}
-
 
 .run-entry-card{
   position:relative;
@@ -5506,6 +5534,12 @@ function renderBestTime(key,run){
   if(!elements)
     return;
 
+  const existingRemoveButton=
+    elements.note.parentElement.querySelector(".best-time-remove");
+
+  if(existingRemoveButton)
+    existingRemoveButton.remove();
+
   if(!run){
     elements.value.textContent="Noch kein Lauf";
     elements.value.classList.add("empty");
@@ -5533,18 +5567,89 @@ function renderBestTime(key,run){
       "</span>"+
       (run.note?" · "+run.note:"");
 
-    return;
+  }else{
+    elements.value.innerHTML=
+      duration+
+      ' <span class="best-time-pace">· '+
+      pace+
+      "</span>";
+
+    elements.value.classList.remove("empty");
+    elements.date.textContent=formatDate(run.run_date);
+    elements.note.textContent=run.note||"";
   }
 
-  elements.value.innerHTML=
-    duration+
-    ' <span class="best-time-pace">· '+
-    pace+
-    "</span>";
+  const removeButton=document.createElement("button");
 
-  elements.value.classList.remove("empty");
-  elements.date.textContent=formatDate(run.run_date);
-  elements.note.textContent=run.note||"";
+  removeButton.type="button";
+  removeButton.className="best-time-remove";
+  removeButton.textContent="Bestzeit entfernen";
+
+  removeButton.addEventListener("click",function(){
+    removeBestTime(run,key);
+  });
+
+  elements.note.parentElement.appendChild(removeButton);
+}
+
+async function removeBestTime(run,category){
+  if(!currentUser||!run||!run.id)
+    return;
+
+  const categoryLabel=
+    getBestCategoryLabel(category)||"dieser Kategorie";
+
+  const confirmed=window.confirm(
+    "Möchtest du die Bestzeit für "+
+    categoryLabel+
+    " wirklich entfernen?\n\n"+
+    "Der Lauf selbst bleibt erhalten. Nur die Bestzeit-Markierung wird entfernt."
+  );
+
+  if(!confirmed)
+    return;
+
+  try{
+    const{data,error}=await supabaseClient
+      .from("runs")
+      .update({
+        best_time_category:null
+      })
+      .eq("id",run.id)
+      .eq("user_id",currentUser.id)
+      .select()
+      .single();
+
+    if(error){
+      console.error("Bestzeit entfernen:",error);
+
+      window.alert(
+        error.message||
+        "Die Bestzeit konnte nicht entfernt werden."
+      );
+
+      return;
+    }
+
+    const index=currentRuns.findIndex(
+      currentRun=>
+        String(currentRun.id)===String(run.id)
+    );
+
+    if(index!==-1)
+      currentRuns[index]=data;
+
+    renderRunDashboard(currentRuns);
+
+  }catch(error){
+    console.error("Bestzeit entfernen:",error);
+
+    window.alert(
+      error&&error.message
+        ?error.message
+        :"Die Bestzeit konnte nicht entfernt werden."
+    );
+  }
 }
 
 function renderBestTimes(runs){
