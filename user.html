@@ -203,21 +203,6 @@
       align-items: center;
     }
 
-    /*
-     * WICHTIG:
-     *
-     * Der türkise Rahmen wird jetzt NUR noch vom Canvas gezeichnet.
-     * Der Shell selbst bekommt KEINE türkise Hintergrundfarbe mehr.
-     *
-     * Dadurch entsteht auf der Seite nicht mehr:
-     *
-     * Türkis → Türkis → Grau → Weiß
-     *
-     * sondern:
-     *
-     * Türkis → Grau → Weiß
-     */
-
     .runner-poster-shell {
       position: relative;
       width: min(100%,590px);
@@ -1315,6 +1300,14 @@ const IS_EMBEDDED =
 
 
 /* =========================================================
+   ANMELDELINK
+========================================================= */
+
+const MEMBERSHIP_URL =
+  "https://milesapartrun.github.io/Miles-Apart-Running-Club/index.html";
+
+
+/* =========================================================
    LEVELSYSTEM
 ========================================================= */
 
@@ -1969,38 +1962,11 @@ function posterFittedText(
    POSTER RAHMEN
 ========================================================= */
 
-/*
- * GENAU DIESER AUFBAU:
- *
- * ┌─────────────────────────────────────┐
- * │                                     │
- * │        EINZIGER TÜRKISER             │
- * │             AUSSENRAHMEN             │
- * │   ┌─────────────────────────────┐   │
- * │   │       KLEINE GRAUE FLÄCHE   │   │
- * │   │   ┌─────────────────────┐   │   │
- * │   │   │                     │   │   │
- * │   │   │       INHALT        │   │   │
- * │   │   │                     │   │   │
- * │   │   └─────────────────────┘   │   │
- * │   └─────────────────────────────┘   │
- * │                                     │
- * └─────────────────────────────────────┘
- *
- * KEIN innerer türkiser Rahmen.
- */
-
 function drawPosterFrame(
   ctx,
   W,
   H
 ){
-
-  /*
-   * -------------------------------------------------------
-   * 1. GANZ AUSSEN: TÜRKIS
-   * -------------------------------------------------------
-   */
 
   posterRoundedRect(
     ctx,
@@ -2015,15 +1981,6 @@ function drawPosterFrame(
 
   ctx.fill();
 
-
-  /*
-   * -------------------------------------------------------
-   * 2. DAHINTER: KLEINE GRAUE FLÄCHE
-   *
-   * Der Abstand zum türkisen Außenrahmen ist bewusst
-   * relativ klein.
-   * -------------------------------------------------------
-   */
 
   const greyX=28;
   const greyY=28;
@@ -2045,17 +2002,6 @@ function drawPosterFrame(
   ctx.fill();
 
 
-  /*
-   * -------------------------------------------------------
-   * 3. WEISSE INNENFLÄCHE
-   *
-   * Hier beginnt der eigentliche Inhalt.
-   *
-   * WICHTIG:
-   * Kein Türkis zwischen Grau und Weiß.
-   * -------------------------------------------------------
-   */
-
   const innerX=64;
   const innerY=64;
   const innerW=W-128;
@@ -2075,10 +2021,6 @@ function drawPosterFrame(
 
   ctx.fill();
 
-
-  /*
-   * Dezente graue Kontur um die weiße Fläche.
-   */
 
   posterRoundedRect(
     ctx,
@@ -2191,6 +2133,7 @@ function posterStatBox(
 
 /* =========================================================
    POSTER BESTZEIT BOX
+   NEU: KOMPAKTER UND SAUBERER
 ========================================================= */
 
 function posterPbBox(
@@ -2210,7 +2153,7 @@ function posterPbBox(
     y,
     width,
     height,
-    24
+    22
   );
 
   ctx.fillStyle="#ffffff";
@@ -2225,27 +2168,31 @@ function posterPbBox(
 
 
   /*
-   * Kleiner türkiser Akzent NUR an den Karten.
-   * Das ist ausdrücklich KEIN äußerer Rahmen.
+   * Dezenter türkiser Akzent.
+   * Kein zusätzlicher Rahmen.
    */
+
+  posterRoundedRect(
+    ctx,
+    x,
+    y+22,
+    7,
+    height-44,
+    3.5
+  );
 
   ctx.fillStyle="#18b8c7";
 
-  ctx.fillRect(
-    x,
-    y+22,
-    8,
-    height-44
-  );
+  ctx.fill();
 
 
   posterText(
     ctx,
     label,
     x+30,
-    y+42,
+    y+38,
     {
-      font:"900 20px Arial",
+      font:"900 19px Arial",
       color:"#6e7b78",
       baseline:"middle"
     }
@@ -2258,9 +2205,9 @@ function posterPbBox(
       ctx,
       "Noch keine Zeit",
       x+30,
-      y+126,
+      y+105,
       {
-        font:"800 29px Arial",
+        font:"800 27px Arial",
         color:"#a5afac",
         baseline:"middle"
       }
@@ -2277,6 +2224,11 @@ function posterPbBox(
     );
 
 
+  /*
+   * 100+ Kilometer:
+   * Distanz, Zeit und Pace werden sauber getrennt.
+   */
+
   if(
     category==="100plus"
   ){
@@ -2292,10 +2244,10 @@ function posterPbBox(
         ?`${formatNumber(distance)} km`
         :"100+ km",
       x+30,
-      y+112,
+      y+86,
       width-60,
-      38,
-      26,
+      34,
+      25,
       "900",
       "#18a6b4"
     );
@@ -2304,10 +2256,10 @@ function posterPbBox(
       ctx,
       duration,
       x+30,
-      y+168,
+      y+130,
       width-60,
-      55,
-      34,
+      46,
+      31,
       "900",
       "#17211f"
     );
@@ -2319,11 +2271,11 @@ function posterPbBox(
         run.distance_km
       ),
       x+30,
-      y+height-25,
+      y+171,
       {
-        font:"900 22px Arial",
+        font:"800 18px Arial",
         color:"#6f7d79",
-        baseline:"bottom"
+        baseline:"middle"
       }
     );
 
@@ -2332,14 +2284,24 @@ function posterPbBox(
   }
 
 
+  /*
+   * Normale Bestzeiten:
+   *
+   * Zeit groß
+   * Pace darunter
+   *
+   * Dadurch steht nicht mehr alles unnötig
+   * in großen Abständen untereinander.
+   */
+
   posterFittedText(
     ctx,
     duration,
     x+30,
-    y+135,
+    y+101,
     width-60,
-    62,
-    37,
+    54,
+    34,
     "900",
     "#17211f"
   );
@@ -2351,11 +2313,11 @@ function posterPbBox(
       run.distance_km
     ),
     x+30,
-    y+height-25,
+    y+158,
     {
-      font:"900 22px Arial",
+      font:"800 18px Arial",
       color:"#6f7d79",
-      baseline:"bottom"
+      baseline:"middle"
     }
   );
 
@@ -2410,12 +2372,7 @@ function renderRunnerPoster(
 
 
   /*
-   * -------------------------------------------------------
-   * AB HIER: NUR NOCH INHALT
-   *
-   * Der Inhalt bleibt vollständig innerhalb der weißen
-   * Innenfläche.
-   * -------------------------------------------------------
+   * Inhalt innerhalb der weißen Fläche.
    */
 
   const contentX=100;
@@ -2570,14 +2527,15 @@ function renderRunnerPoster(
 
   /* -------------------------------------------------------
      BESTZEITEN
+     NEUES, LUFTIGERES 2 × 3 LAYOUT
   ------------------------------------------------------- */
 
-  const pbGap=20;
+  const pbGap=18;
 
   const pbWidth=
     (contentWidth-pbGap)/2;
 
-  const pbHeight=235;
+  const pbHeight=178;
 
   const pbStartY=505;
 
@@ -2665,6 +2623,77 @@ function renderRunnerPoster(
     "100 KILOMETER PLUS",
     data.pbs?.["100plus"],
     "100plus"
+  );
+
+
+  /* -------------------------------------------------------
+     CTA UNTEN AUF DEM POSTER
+  ------------------------------------------------------- */
+
+  const ctaY=1105;
+
+  posterRoundedRect(
+    ctx,
+    contentX,
+    ctaY,
+    contentWidth,
+    92,
+    20
+  );
+
+  ctx.fillStyle="#effbfc";
+
+  ctx.fill();
+
+  ctx.strokeStyle="#cfe9ec";
+
+  ctx.lineWidth=2;
+
+  ctx.stroke();
+
+
+  posterText(
+    ctx,
+    "DU WILLST AUCH TEIL DER COMMUNITY WERDEN?",
+    contentX+28,
+    ctaY+29,
+    {
+      font:"900 17px Arial",
+      color:"#18a6b4",
+      baseline:"middle"
+    }
+  );
+
+
+  posterText(
+    ctx,
+    "Jetzt Mitglied werden →",
+    contentX+28,
+    ctaY+63,
+    {
+      font:"900 25px Arial",
+      color:"#17211f",
+      baseline:"middle"
+    }
+  );
+
+
+  /*
+   * Die URL ist bewusst klein genug, um vollständig
+   * auf dem Poster lesbar zu bleiben.
+   */
+
+  posterFittedText(
+    ctx,
+    MEMBERSHIP_URL,
+    contentRight,
+    ctaY+63,
+    515,
+    17,
+    11,
+    "700",
+    "#18a6b4",
+    "right"
   );
 
 }
@@ -2909,11 +2938,14 @@ async function downloadRunnerPoster(){
         await navigator.share({
           files:[file],
           title:
-            "Miles Apart Running Club"
+            "Miles Apart Running Club",
+          text:
+            "Werde Teil der Miles Apart Community.\n\nJetzt Mitglied werden:\n"+
+            MEMBERSHIP_URL
         });
 
         setPosterStatus(
-          "✓ Im Teilen-Menü kannst du das Poster direkt sichern."
+          "✓ Poster wurde zum Teilen/Speichern geöffnet."
         );
 
         return;
@@ -2993,6 +3025,7 @@ async function downloadRunnerPoster(){
 
 /* =========================================================
    SHARE TEXT
+   NEU: ANMELDELINK
 ========================================================= */
 
 function getPosterShareText(){
@@ -3000,17 +3033,14 @@ function getPosterShareText(){
   const data=
     currentPosterData;
 
-  if(!data)
-    return(
-      "Ich bin Miles Apart Member 2026."
-    );
-
   let text=
-    `🏃 ${data.name} · Miles Apart Member 2026\n\n`+
-    `MILES APART RUNNING CLUB\n`+
-    `${formatNumber(data.totalKm)} km · ${data.runCount} Läufe`;
+    data
+      ?`🏃 ${data.name} · Miles Apart Member 2026\n\n`+
+       `MILES APART RUNNING CLUB\n`+
+       `${formatNumber(data.totalKm)} km · ${data.runCount} Läufe`
+      :"Ich bin Miles Apart Member 2026.";
 
-  if(data.longestDistance){
+  if(data?.longestDistance){
 
     text+=
       ` · Longest Run ${formatNumber(
@@ -3019,7 +3049,7 @@ function getPosterShareText(){
 
   }
 
-  if(data.level){
+  if(data?.level){
 
     text+=
       ` · ${data.level.emoji} Level ${data.level.km}`;
@@ -3028,42 +3058,42 @@ function getPosterShareText(){
 
   const pbParts=[];
 
-  if(data.pbs["5k"])
+  if(data?.pbs?.["5k"])
     pbParts.push(
       `5K ${formatDuration(
         data.pbs["5k"].duration_seconds
       )}`
     );
 
-  if(data.pbs["10k"])
+  if(data?.pbs?.["10k"])
     pbParts.push(
       `10K ${formatDuration(
         data.pbs["10k"].duration_seconds
       )}`
     );
 
-  if(data.pbs["half"])
+  if(data?.pbs?.half)
     pbParts.push(
       `HM ${formatDuration(
-        data.pbs["half"].duration_seconds
+        data.pbs.half.duration_seconds
       )}`
     );
 
-  if(data.pbs["marathon"])
+  if(data?.pbs?.marathon)
     pbParts.push(
       `Marathon ${formatDuration(
-        data.pbs["marathon"].duration_seconds
+        data.pbs.marathon.duration_seconds
       )}`
     );
 
-  if(data.pbs["100k"])
+  if(data?.pbs?.["100k"])
     pbParts.push(
       `100K ${formatDuration(
         data.pbs["100k"].duration_seconds
       )}`
     );
 
-  if(data.pbs["100plus"]){
+  if(data?.pbs?.["100plus"]){
 
     const distance=
       Number(
@@ -3090,6 +3120,20 @@ function getPosterShareText(){
       `\nPBs: ${pbParts.join(" · ")}`;
 
   }
+
+
+  /*
+   * =======================================================
+   * WICHTIG:
+   * Der Link steht bewusst ganz unten im Share-Text.
+   * WhatsApp erkennt die URL automatisch als klickbaren Link.
+   * =======================================================
+   */
+
+  text+=
+    `\n\n────────────────────\n`+
+    `🏃 Jetzt Mitglied werden bei Miles Apart:\n`+
+    `${MEMBERSHIP_URL}`;
 
   return text;
 
@@ -3149,7 +3193,7 @@ async function shareRunnerPosterWhatsApp(){
         });
 
         setPosterStatus(
-          "✓ Poster wurde zum Teilen geöffnet."
+          "✓ Poster und Anmeldung-Link wurden zum Teilen geöffnet."
         );
 
         return;
@@ -3170,6 +3214,13 @@ async function shareRunnerPosterWhatsApp(){
 
     }
 
+    /*
+     * Fallback:
+     * WhatsApp direkt öffnen.
+     *
+     * Der Text enthält den klickbaren Anmeldelink.
+     */
+
     const whatsappUrl=
       "https://wa.me/?text="+
       encodeURIComponent(
@@ -3183,7 +3234,7 @@ async function shareRunnerPosterWhatsApp(){
     );
 
     setPosterStatus(
-      "✓ WhatsApp wurde geöffnet."
+      "✓ WhatsApp wurde geöffnet. Der Anmeldelink steht im Text."
     );
 
   }catch(error){
@@ -3262,7 +3313,7 @@ async function shareRunnerPosterInstagram(){
         });
 
         setPosterStatus(
-          "✓ Poster wurde zum Teilen geöffnet. Wähle Instagram."
+          "✓ Poster wurde zum Teilen geöffnet. Der Anmeldelink ist im Begleittext enthalten."
         );
 
         return;
@@ -3282,6 +3333,11 @@ async function shareRunnerPosterInstagram(){
       }
 
     }
+
+    /*
+     * Fallback:
+     * Poster speichern und Instagram öffnen.
+     */
 
     const url=
       URL.createObjectURL(
@@ -3323,7 +3379,7 @@ async function shareRunnerPosterInstagram(){
       );
 
     setPosterStatus(
-      "✓ Poster gespeichert und Instagram geöffnet."
+      "✓ Poster gespeichert und Instagram geöffnet. Der Anmeldelink steht auf dem Poster."
     );
 
   }catch(error){
