@@ -1105,10 +1105,16 @@
         </div>
 
 
+        <!--
+          WICHTIG:
+          Der Nutzer wird auf die Home-Seite weitergeleitet,
+          wo sich der Login befindet.
+        -->
+
         <a
           class="training-auth-login"
           id="trainingAuthLogin"
-          href="login.html"
+          href="home.html"
         >
           Anmelden
         </a>
@@ -1473,11 +1479,6 @@
           </label>
 
 
-          <!--
-            TEXT statt number:
-            Dadurch sind Werte wie 5:30 möglich.
-          -->
-
           <input
             class="form-control"
             id="runPace"
@@ -1563,14 +1564,6 @@
 
   /* =========================================================
      SUPABASE / AUTH
-     
-     Die Login-Seite muss den bereits verwendeten
-     Supabase-Client als window.supabaseClient bereitstellen.
-     
-     Beispiel auf der Login-Seite:
-       window.supabaseClient = supabase;
-     
-     Es wird KEIN service_role key verwendet.
   ========================================================= */
 
   const supabaseClient =
@@ -1581,8 +1574,8 @@
     null;
 
 
-  let authReady =
-    false;
+  let trainingPlan =
+    {};
 
 
   /* =========================================================
@@ -1785,16 +1778,8 @@
     null;
 
 
-  let trainingPlan =
-    {};
-
-
   /* =========================================================
-     USER-SPECIFIC STORAGE
-     
-     Die Trainingsdaten liegen in den User-Metadaten.
-     Dadurch gehören sie zum jeweiligen Supabase-User
-     und werden nicht zwischen Accounts geteilt.
+     USER-SPECIFIC TRAINING PLAN
   ========================================================= */
 
   function getUserTrainingPlan(
@@ -1838,7 +1823,8 @@
       !currentUser
     ) {
 
-      trainingPlan = {};
+      trainingPlan =
+        {};
 
       return;
 
@@ -1856,21 +1842,8 @@
           .getUser();
 
 
-      if (error) {
-
-        console.error(
-          "User konnte nicht geladen werden:",
-          error
-        );
-
-        trainingPlan = {};
-
-        return;
-
-      }
-
-
       if (
+        error ||
         !data ||
         !data.user
       ) {
@@ -1878,7 +1851,8 @@
         currentUser =
           null;
 
-        trainingPlan = {};
+        trainingPlan =
+          {};
 
         return;
 
@@ -1901,7 +1875,9 @@
         error
       );
 
-      trainingPlan = {};
+
+      trainingPlan =
+        {};
 
     }
 
@@ -2175,11 +2151,6 @@
 
       renderWeek();
 
-
-      /*
-       * Falls sich der Loginstatus ändert,
-       * wird die Trainingsseite direkt aktualisiert.
-       */
 
       supabaseClient
         .auth
@@ -2784,18 +2755,6 @@
     );
 
 
-  function getDateFromKey(
-    key
-  ) {
-
-    return new Date(
-      key +
-      "T12:00:00"
-    );
-
-  }
-
-
   function setRunDaySelect(
     date
   ) {
@@ -2822,16 +2781,6 @@
 
     let offset;
 
-
-    /*
-     * currentWeekStart = Montag.
-     *
-     * JS:
-     * Sonntag = 0
-     * Montag = 1
-     * ...
-     * Samstag = 6
-     */
 
     if (
       selectedDay === 0
@@ -2924,11 +2873,6 @@
         date
       );
 
-
-    /*
-     * NEU:
-     * Der Tag ist im Modal vorausgewählt.
-     */
 
     setRunDaySelect(
       date
@@ -3086,14 +3030,6 @@
         );
 
 
-      /*
-       * Pace bleibt TEXT.
-       * Dadurch funktionieren z. B.:
-       * 5:30
-       * 5:45
-       * 4:50
-       */
-
       const pace =
         document.getElementById(
           "runPace"
@@ -3122,10 +3058,6 @@
 
       }
 
-
-      /*
-       * Der im Modal ausgewählte Tag.
-       */
 
       const selectedDay =
         Number(
@@ -3164,11 +3096,6 @@
           selectedDate
         );
 
-
-      /*
-       * Wenn beim Bearbeiten der Tag geändert wurde,
-       * wird der alte Eintrag entfernt.
-       */
 
       if (
         editingDate !==
@@ -3443,12 +3370,6 @@
           );
 
 
-        /*
-         * Wenn eine andere Woche geöffnet ist,
-         * springen wir beim oberen "+ Lauf planen"
-         * auf die aktuelle Woche.
-         */
-
         if (
           dateToKey(
             todayWeek
@@ -3466,11 +3387,6 @@
 
         }
 
-
-        /*
-         * Der heutige Tag wird direkt vorausgewählt.
-         * Der Nutzer kann ihn danach ändern.
-         */
 
         openRunModal(
           today
