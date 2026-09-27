@@ -2800,10 +2800,7 @@ function createPosterShareData(
       "Miles Apart Running Club",
 
     text:
-      getPosterShareText(),
-
-    url:
-      MEMBERSHIP_URL
+      getPosterShareText()
 
   };
 
@@ -2944,18 +2941,14 @@ async function downloadRunnerPoster(){
 
 function getPosterShareText(){
 
-  const data=
-    currentPosterData;
-
-  if(!data)
-    return(
-      "🏃 Miles Apart Member 2026\n\n"+
-      `🏃 Jetzt Mitglied werden:\n${MEMBERSHIP_URL}`
-    );
+  const name=
+    currentPosterData?.name||
+    "Runner";
 
   return(
-    `🏃 ${data.name} · Miles Apart Member 2026\n\n`+
-    `🏃 Jetzt Mitglied werden:\n${MEMBERSHIP_URL}`
+    `🏃 ${name} · Miles Apart Member 2026\n\n`+
+    `✨ Jetzt Mitglied werden:\n`+
+    MEMBERSHIP_URL
   );
 
 }
@@ -3012,7 +3005,7 @@ async function shareRunnerPosterWhatsApp(){
         );
 
         setPosterStatus(
-          "✓ Poster und Mitglieds-Link wurden gemeinsam zum Teilen übergeben."
+          "✓ Poster und Mitglieds-Text wurden an WhatsApp übergeben."
         );
 
         return;
@@ -3046,7 +3039,7 @@ async function shareRunnerPosterWhatsApp(){
     );
 
     setPosterStatus(
-      "✓ WhatsApp wurde mit dem Text und dem Mitglieds-Link geöffnet."
+      "✓ WhatsApp wurde mit dem Mitglieds-Text geöffnet."
     );
 
   }catch(error){
@@ -3079,8 +3072,6 @@ async function shareRunnerPosterInstagram(){
     document.getElementById(
       "posterInstagramButton"
     );
-
-  let popup=null;
 
   try{
 
@@ -3123,7 +3114,7 @@ async function shareRunnerPosterInstagram(){
         );
 
         setPosterStatus(
-          "✓ Poster und Mitglieds-Link wurden gemeinsam zum Teilen übergeben. Wähle Instagram."
+          "✓ Poster und Mitglieds-Text wurden an Instagram übergeben. Wähle dort Direct Message."
         );
 
         return;
@@ -3176,15 +3167,14 @@ async function shareRunnerPosterInstagram(){
       1000
     );
 
-    popup=
-      window.open(
-        "https://www.instagram.com/",
-        "_blank",
-        "noopener,noreferrer"
-      );
+    window.open(
+      "https://www.instagram.com/",
+      "_blank",
+      "noopener,noreferrer"
+    );
 
     setPosterStatus(
-      "✓ Poster gespeichert und Instagram geöffnet. Der Mitglieds-Link steht im Share-Text."
+      "✓ Poster gespeichert und Instagram geöffnet."
     );
 
   }catch(error){
@@ -3193,15 +3183,6 @@ async function shareRunnerPosterInstagram(){
       "Instagram Share Fehler:",
       error
     );
-
-    if(
-      popup&&
-      !popup.closed
-    ){
-
-      popup.close();
-
-    }
 
     setPosterStatus(
       "Instagram konnte nicht geöffnet werden."
