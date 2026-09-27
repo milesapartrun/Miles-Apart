@@ -669,8 +669,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
 /* =====================================================
    EINGELOGGTE USER-SEITE
-   Die öffentliche Runner-Seite user.html
-   wird hier eingebettet.
 ===================================================== */
 
 .logged-profile-page{
@@ -692,6 +690,46 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   height:100vh;
   border:0;
   background:#fff;
+}
+
+/* =====================================================
+   PROFILE LOADING
+===================================================== */
+
+.profile-loading{
+  display:none;
+  width:100%;
+  min-height:calc(100vh - 100px);
+  box-sizing:border-box;
+  align-items:center;
+  justify-content:center;
+  background:#fff;
+  color:#777;
+  font-size:14px;
+}
+
+.profile-loading.active{
+  display:flex;
+}
+
+.profile-loading-inner{
+  text-align:center;
+}
+
+.profile-loading-spinner{
+  width:34px;
+  height:34px;
+  margin:0 auto 18px;
+  border:3px solid #e4e4e0;
+  border-top-color:var(--miles-blue);
+  border-radius:50%;
+  animation:milesProfileSpin .8s linear infinite;
+}
+
+@keyframes milesProfileSpin{
+  to{
+    transform:rotate(360deg);
+  }
 }
 
 /* =====================================================
@@ -1546,13 +1584,22 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
     <!-- =====================================================
          EINGELOGGTE USER-SEITE
-         Die echte user.html wird hier angezeigt.
     ====================================================== -->
 
     <section
       class="logged-profile-page"
       id="loggedProfilePage"
     >
+
+      <div
+        class="profile-loading"
+        id="profileLoading"
+      >
+        <div class="profile-loading-inner">
+          <div class="profile-loading-spinner"></div>
+          <div>Dein Profil wird geladen …</div>
+        </div>
+      </div>
 
       <iframe
         id="loggedProfileFrame"
@@ -2580,6 +2627,8 @@ let currentProfile = null;
 
 let profileFrameObserver = null;
 
+let profileNavigationInProgress = false;
+
 
 /* =====================================================
    DOM
@@ -2593,6 +2642,9 @@ const loggedProfilePage =
 
 const loggedProfileFrame =
   document.getElementById("loggedProfileFrame");
+
+const profileLoading =
+  document.getElementById("profileLoading");
 
 const guestArea =
   document.getElementById("guestArea");
@@ -2814,6 +2866,56 @@ function getPublicStorageUrl(
 
 
 /* =====================================================
+   USERNAME
+===================================================== */
+
+function slugifyUsername(value){
+
+  return String(value || "")
+    .normalize("NFKD")
+    .replace(
+      /[\u0300-\u036f]/g,
+      ""
+    )
+    .toLowerCase()
+    .replace(
+      /[^a-z0-9]+/g,
+      ""
+    )
+    .slice(0,24);
+}
+
+
+function createFallbackUsername(user){
+
+  const displayName =
+    user?.user_metadata?.display_name ||
+    user?.user_metadata?.name ||
+    user?.email?.split("@")[0] ||
+    "runner";
+
+  let base =
+    slugifyUsername(
+      displayName
+    );
+
+  if(!base){
+    base = "runner";
+  }
+
+  const suffix =
+    String(user?.id || "")
+      .replace(/-/g,"")
+      .slice(0,8)
+      .toLowerCase();
+
+  return(
+    `${base}${suffix || Date.now().toString(36)}`
+  );
+}
+
+
+/* =====================================================
    PROFILE
 ===================================================== */
 
@@ -2857,6 +2959,179 @@ async function loadProfile(user){
 }
 
 
+/*
+ * NEU:
+ *
+ * Für einen frisch registrierten User kann es vorkommen,
+ * dass Auth bereits eine Session besitzt, die profiles-Zeile
+ * aber noch nicht vorhanden ist oder noch keinen Username hat.
+ *
+ * user.html benötigt jedoch:
+ *
+ *     user.html?username=...
+ *
+ * Deshalb stellen wir hier sicher, dass ein verwendbarer
+ * Username vorhanden ist.
+ */
+
+async function ensureProfileForUser(user){
+
+  if(!user){
+    return null;
+  }
+
+  if(
+    currentProfile &&
+    currentProfile.username
+  ){
+    return currentProfile;
+  }
+
+  const fallbackUsername =
+    createFallbackUsername(
+      user
+    );
+
+  const displayName =
+    currentProfile?.display_name ||
+    user?.user_metadata?.display_name ||
+    user?.user_metadata?.name ||
+    user?.email?.split("@")[0] ||
+    "Runner";
+
+
+  /*
+   * Fall 1:
+   * Das Profil existiert bereits, aber username fehlt.
+   */
+
+  if(currentProfile){
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .update({
+          username:
+            fallbackUsername
+        })
+        .eq(
+          "id",
+          user.id
+        )
+        .select(`
+          id,
+          display_name,
+          username,
+          avatar_url,
+          bio,
+          location
+        `)
+        .maybeSingle();
+
+    if(error){
+
+      console.error(
+        "Username konnte nicht ergänzt werden:",
+        error
+      );
+
+      /*
+       * Wir werfen hier bewusst nicht sofort.
+       * Vielleicht ist die profiles-Tabelle durch
+       * einen Trigger gerade noch in Erstellung.
+       */
+    }else if(data){
+
+      currentProfile =
+        data;
+
+      return currentProfile;
+    }
+  }
+
+
+  /*
+   * Fall 2:
+   * Noch kein Profil vorhanden.
+   *
+   * Wir versuchen, es anzulegen.
+   */
+
+  if(!currentProfile){
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .insert({
+          id:user.id,
+          display_name:displayName,
+          username:fallbackUsername
+        })
+        .select(`
+          id,
+          display_name,
+          username,
+          avatar_url,
+          bio,
+          location
+        `)
+        .maybeSingle();
+
+    if(error){
+
+      console.error(
+        "Profil konnte nicht automatisch erstellt werden:",
+        error
+      );
+
+    }else if(data){
+
+      currentProfile =
+        data;
+
+      return currentProfile;
+    }
+  }
+
+
+  /*
+   * Noch einmal laden.
+   *
+   * Das ist wichtig, falls ein Supabase-Trigger
+   * das Profil zeitgleich erstellt hat.
+   */
+
+  try{
+
+    const refreshedProfile =
+      await loadProfile(
+        user
+      );
+
+    if(
+      refreshedProfile?.username
+    ){
+      return refreshedProfile;
+    }
+
+  }catch(error){
+
+    console.error(
+      "Profil konnte nach Erstellung nicht erneut geladen werden:",
+      error
+    );
+  }
+
+  return currentProfile;
+}
+
+
 /* =====================================================
    PROFILE VIEW
 ===================================================== */
@@ -2875,6 +3150,10 @@ function showPublicSite(){
   }
 
   loggedProfilePage.classList.remove(
+    "active"
+  );
+
+  profileLoading.classList.remove(
     "active"
   );
 
@@ -2901,6 +3180,29 @@ function showLoggedProfile(){
     top:0,
     behavior:"instant"
   });
+}
+
+
+function showProfileLoading(){
+
+  publicSite.style.display =
+    "none";
+
+  loggedProfilePage.classList.add(
+    "active"
+  );
+
+  profileLoading.classList.add(
+    "active"
+  );
+}
+
+
+function hideProfileLoading(){
+
+  profileLoading.classList.remove(
+    "active"
+  );
 }
 
 
@@ -3029,9 +3331,18 @@ function observeLoggedProfileFrame(){
 
 loggedProfileFrame.addEventListener(
   "load",
-  observeLoggedProfileFrame
+  () => {
+
+    hideProfileLoading();
+
+    observeLoggedProfileFrame();
+  }
 );
 
+
+/* =====================================================
+   LOAD LOGGED PROFILE
+===================================================== */
 
 async function loadLoggedProfilePage(){
 
@@ -3039,17 +3350,51 @@ async function loadLoggedProfilePage(){
 
     showPublicSite();
 
-    return;
+    return false;
   }
+
+  if(profileNavigationInProgress){
+
+    return false;
+  }
+
+  profileNavigationInProgress =
+    true;
+
+  showProfileLoading();
 
   try{
 
-    if(!currentProfile){
+    /*
+     * Immer zuerst das aktuelle Profil laden.
+     * Dadurch arbeiten wir bei einem frisch registrierten
+     * User nicht mit einem veralteten currentProfile.
+     */
 
-      await loadProfile(
+    await loadProfile(
+      currentUser
+    );
+
+
+    /*
+     * Falls username fehlt, versuchen wir das Profil
+     * automatisch zu vervollständigen.
+     */
+
+    if(
+      !currentProfile ||
+      !currentProfile.username
+    ){
+
+      await ensureProfileForUser(
         currentUser
       );
     }
+
+
+    /*
+     * Jetzt noch einmal prüfen.
+     */
 
     if(
       !currentProfile ||
@@ -3057,22 +3402,38 @@ async function loadLoggedProfilePage(){
     ){
 
       console.error(
-        "Kein Username im Profil gefunden."
+        "Profilnavigation abgebrochen: Kein Username vorhanden.",
+        {
+          userId:currentUser?.id,
+          email:currentUser?.email,
+          profile:currentProfile
+        }
       );
 
-      return;
+      hideProfileLoading();
+
+      /*
+       * Wir lassen den User nicht auf einer leeren Seite
+       * hängen.
+       */
+
+      showPublicSite();
+
+      return false;
     }
 
+
     showLoggedProfile();
+
 
     /*
      * WICHTIG:
      *
      * Die eingeloggte Seite ist NICHT
-     * profile.html (Account-Bearbeitung).
+     * profile.html.
      *
-     * Die eigentliche öffentliche Runner-Seite
-     * befindet sich in user.html.
+     * Die öffentliche Runner-Seite befindet sich
+     * in user.html.
      */
 
     const profileUrl =
@@ -3081,9 +3442,16 @@ async function loadLoggedProfilePage(){
         currentProfile.username
       );
 
+
     const currentFrameUrl =
       loggedProfileFrame.dataset.src ||
       "";
+
+
+    /*
+     * Nur neu laden, wenn tatsächlich ein anderes
+     * Profil geöffnet werden soll.
+     */
 
     if(
       currentFrameUrl !== profileUrl
@@ -3108,8 +3476,12 @@ async function loadLoggedProfilePage(){
 
     }else{
 
+      hideProfileLoading();
+
       resizeLoggedProfileFrame();
     }
+
+    return true;
 
   }catch(error){
 
@@ -3117,6 +3489,17 @@ async function loadLoggedProfilePage(){
       "User-Seite konnte nicht geöffnet werden:",
       error
     );
+
+    hideProfileLoading();
+
+    showPublicSite();
+
+    return false;
+
+  }finally{
+
+    profileNavigationInProgress =
+      false;
   }
 }
 
@@ -3301,6 +3684,9 @@ logoutButton.addEventListener(
 
     currentUser = null;
     currentProfile = null;
+
+    profileNavigationInProgress =
+      false;
 
     if(profileFrameObserver){
 
@@ -3798,9 +4184,28 @@ loginForm.addEventListener(
     currentUser =
       data.user;
 
-    await loadProfile(
-      currentUser
-    );
+    /*
+     * Profil bewusst außerhalb des Auth-State-Callbacks
+     * laden.
+     */
+
+    try{
+
+      await loadProfile(
+        currentUser
+      );
+
+      await ensureProfileForUser(
+        currentUser
+      );
+
+    }catch(error){
+
+      console.error(
+        "Profil nach Login:",
+        error
+      );
+    }
 
     updateUserInterface();
 
@@ -3923,36 +4328,67 @@ registerForm.addEventListener(
 
     updateRegistrationGate();
 
+
+    /*
+     * WICHTIG:
+     *
+     * Wenn Supabase direkt eine Session zurückgibt,
+     * kümmern wir uns sofort um das Profil.
+     */
+
     if(
-      data?.session
+      data?.session &&
+      data?.user
     ){
 
       registerMessage.textContent =
-        "Konto erfolgreich erstellt. Du bist jetzt angemeldet.";
+        "Konto erfolgreich erstellt. Dein Profil wird vorbereitet …";
 
       registerMessage.classList.add(
         "success"
       );
 
-      setTimeout(
-        async () => {
+      currentUser =
+        data.user;
 
-          closeAuth();
+      try{
 
-          currentUser =
-            data.user;
+        await loadProfile(
+          currentUser
+        );
 
-          await loadProfile(
-            currentUser
-          );
+        await ensureProfileForUser(
+          currentUser
+        );
 
-          updateUserInterface();
+        updateUserInterface();
 
-          await loadLoggedProfilePage();
+        await new Promise(
+          resolve =>
+            setTimeout(
+              resolve,
+              150
+            )
+        );
 
-        },
-        700
-      );
+        closeAuth();
+
+        await loadLoggedProfilePage();
+
+      }catch(error){
+
+        console.error(
+          "Profil nach Registrierung:",
+          error
+        );
+
+        registerMessage.textContent =
+          "Konto erstellt. Dein Profil konnte noch nicht geladen werden. Bitte melde dich einmal neu an.";
+
+        registerMessage.classList.remove(
+          "success"
+        );
+      }
 
     }else{
 
@@ -4173,6 +4609,17 @@ function translateAuthError(
     return "Du hast dich mit dieser Mail bereits registriert. Melde dich stattdessen an.";
   }
 
+  if(
+    message.includes(
+      "duplicate key"
+    ) ||
+    message.includes(
+      "unique constraint"
+    )
+  ){
+    return "Dieser Username ist bereits vergeben. Bitte versuche es erneut.";
+  }
+
   return(
     error.message ||
     "Es ist ein Fehler aufgetreten. Bitte versuche es erneut."
@@ -4184,36 +4631,35 @@ function translateAuthError(
    AUTH STATE
 ===================================================== */
 
-supabaseClient.auth.onAuthStateChange(
-  async (
-    event,
-    session
-  ) => {
+/*
+ * WICHTIG:
+ *
+ * Kein "await" mehr direkt innerhalb von
+ * onAuthStateChange.
+ *
+ * Supabase kann ansonsten darauf warten, dass der
+ * Auth-State-Callback beendet wird, während innerhalb
+ * des Callbacks wiederum Supabase-Abfragen laufen.
+ *
+ * Wir starten die eigentliche Verarbeitung deshalb
+ * bewusst außerhalb des Auth-Callbacks.
+ */
 
-    if(
-      event ===
-      "PASSWORD_RECOVERY"
-    ){
+async function handleAuthStateChange(
+  event,
+  session
+){
 
-      currentUser =
-        session?.user ||
-        null;
+  if(
+    event ===
+    "PASSWORD_RECOVERY"
+  ){
 
-      updateUserInterface();
+    currentUser =
+      session?.user ||
+      null;
 
-      openAuth();
-
-      showRecovery();
-
-      return;
-    }
-
-    if(
-      session?.user
-    ){
-
-      currentUser =
-        session.user;
+    if(currentUser){
 
       try{
 
@@ -4221,46 +4667,119 @@ supabaseClient.auth.onAuthStateChange(
           currentUser
         );
 
-        updateUserInterface();
-
-        await loadLoggedProfilePage();
-
       }catch(error){
 
         console.error(
-          "Authenticated profile:",
+          "Recovery profile:",
           error
         );
       }
+    }
 
-    }else{
+    updateUserInterface();
 
-      currentUser =
-        null;
+    openAuth();
 
-      currentProfile =
-        null;
+    showRecovery();
 
-      if(profileFrameObserver){
+    return;
+  }
 
-        try{
-          profileFrameObserver.disconnect();
-        }catch(error){
-          console.error(error);
-        }
 
-        profileFrameObserver = null;
-      }
+  if(
+    session?.user
+  ){
 
-      loggedProfileFrame.src =
-        "about:blank";
+    currentUser =
+      session.user;
 
-      delete loggedProfileFrame.dataset.src;
+    try{
 
-      showPublicSite();
+      await loadProfile(
+        currentUser
+      );
+
+      await ensureProfileForUser(
+        currentUser
+      );
 
       updateUserInterface();
+
+      /*
+       * Nur dann automatisch das Profil öffnen,
+       * wenn der User nicht gerade in der Auth-UI
+       * arbeitet.
+       *
+       * Bei einer normalen Session-Wiederherstellung
+       * öffnen wir das Profil automatisch wie bisher.
+       */
+
+      if(
+        !authOverlay.classList.contains("open")
+      ){
+
+        await loadLoggedProfilePage();
+      }
+
+    }catch(error){
+
+      console.error(
+        "Authenticated profile:",
+        error
+      );
     }
+
+  }else{
+
+    currentUser =
+      null;
+
+    currentProfile =
+      null;
+
+    profileNavigationInProgress =
+      false;
+
+    if(profileFrameObserver){
+
+      try{
+        profileFrameObserver.disconnect();
+      }catch(error){
+        console.error(error);
+      }
+
+      profileFrameObserver = null;
+    }
+
+    loggedProfileFrame.src =
+      "about:blank";
+
+    delete loggedProfileFrame.dataset.src;
+
+    showPublicSite();
+
+    updateUserInterface();
+  }
+}
+
+
+supabaseClient.auth.onAuthStateChange(
+  (
+    event,
+    session
+  ) => {
+
+    /*
+     * Keine async/await-Kette direkt im Supabase-Callback.
+     */
+
+    Promise.resolve().then(
+      () =>
+        handleAuthStateChange(
+          event,
+          session
+        )
+    );
   }
 );
 
@@ -4304,6 +4823,10 @@ async function initializeAuth(){
     try{
 
       await loadProfile(
+        currentUser
+      );
+
+      await ensureProfileForUser(
         currentUser
       );
 
