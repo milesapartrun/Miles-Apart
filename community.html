@@ -67,6 +67,36 @@
 
 
 /* =========================================================
+   COMMUNITY WILLKOMMEN
+========================================================= */
+
+.ma-community-welcome{
+  width:100%;
+  box-sizing:border-box;
+  margin:0 0 28px;
+  padding:34px 28px;
+  background:#111;
+  color:#fff;
+}
+
+.ma-community-welcome-title{
+  margin:0;
+  color:#fff;
+  font-size:30px;
+  line-height:1.2;
+  font-weight:800;
+}
+
+.ma-community-welcome-subtitle{
+  margin:9px 0 0;
+  color:#18b8c7;
+  font-size:17px;
+  line-height:1.45;
+  font-weight:700;
+}
+
+
+/* =========================================================
    HARTE AUSRICHTUNG
 ========================================================= */
 
@@ -793,12 +823,6 @@ textarea.ma-form-input{
   box-sizing:border-box;
 }
 
-
-/* NEU:
-   Ersteller-Bereich bei gemeinsamen Läufen
-   mit Profilbild + Name
-*/
-
 .ma-run-card-top{
   display:flex;
   justify-content:space-between;
@@ -1515,6 +1539,18 @@ textarea.ma-form-input{
     width:100%;
   }
 
+  .ma-community-welcome{
+    padding:28px 24px;
+  }
+
+  .ma-community-welcome-title{
+    font-size:25px;
+  }
+
+  .ma-community-welcome-subtitle{
+    font-size:16px;
+  }
+
   .ma-buddy-list,
   .ma-run-list{
     grid-template-columns:1fr;
@@ -1567,7 +1603,6 @@ textarea.ma-form-input{
     text-align:center !important;
   }
 
-
   .ma-buddy-actions{
     width:100% !important;
     display:flex !important;
@@ -1603,9 +1638,6 @@ textarea.ma-form-input{
     white-space:nowrap !important;
   }
 
-
-  /* NEU: mobile Darstellung des Run-Erstellers */
-
   .ma-run-card-author-row{
     gap:9px;
   }
@@ -1624,7 +1656,6 @@ textarea.ma-form-input{
     font-size:12px;
   }
 
-
   .ma-run-participants{
     align-items:flex-start;
     flex-direction:column;
@@ -1638,7 +1669,6 @@ textarea.ma-form-input{
   .ma-run-actions > button{
     flex:0 0 auto;
   }
-
 
   .ma-message-overlay,
   .ma-inbox-overlay{
@@ -1760,16 +1790,12 @@ textarea.ma-form-input{
   display:block !important;
   width:100% !important;
   max-width:100% !important;
-
   margin-left:0 !important;
   margin-right:0 !important;
-
   padding-left:0 !important;
   padding-right:0 !important;
-
   text-align:left !important;
   text-indent:0 !important;
-
   align-self:stretch !important;
   justify-self:start !important;
 }
@@ -1794,10 +1820,8 @@ textarea.ma-form-input{
   flex:1 1 auto !important;
   width:auto !important;
   min-width:0 !important;
-
   margin:0 !important;
   padding:0 !important;
-
   text-align:left !important;
 }
 
@@ -1805,13 +1829,10 @@ textarea.ma-form-input{
   display:block !important;
   width:100% !important;
   max-width:none !important;
-
   margin:5px 0 0 0 !important;
   padding:0 !important;
-
   text-align:left !important;
   text-indent:0 !important;
-
   align-self:flex-start !important;
 }
 
@@ -1944,6 +1965,29 @@ textarea.ma-form-input{
       </button>
 
     </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       COMMUNITY WILLKOMMEN
+  ====================================================== -->
+
+  <div
+    class="ma-community-welcome"
+    id="communityWelcome"
+  >
+
+    <h2 class="ma-community-welcome-title">
+      Herzlich willkommen im Miles Apart Running Club. 🏃‍♂️
+    </h2>
+
+    <p
+      class="ma-community-welcome-subtitle"
+      id="communityMemberCount"
+    >
+      Läufer:innen. Ein Club. Unzählige Kilometer.
+    </p>
 
   </div>
 
@@ -3160,6 +3204,37 @@ async function loadCurrentUser(){
         currentProfile.display_name||
         "Miles Apart Member"
       );
+
+}
+
+
+/* =========================================================
+   COMMUNITY MITGLIEDERZÄHLER
+========================================================= */
+
+async function loadCommunityMemberCount(){
+
+  const {
+    count,
+    error
+  }=
+    await supabaseClient
+      .from("profiles")
+      .select("id",{
+        count:"exact",
+        head:true
+      });
+
+  if(error){
+    throw error;
+  }
+
+  const memberCount=
+    Number(count||0);
+
+  $("communityMemberCount")
+    .textContent=
+      `${memberCount} Läufer:innen. Ein Club. Unzählige Kilometer.`;
 
 }
 
@@ -5617,9 +5692,6 @@ function runCard(run){
             ${escapeHtml(run.title)}
           </h3>
 
-
-          <!-- PROFILBILD DES ERSTELLERS -->
-
           <div class="ma-run-card-author-row">
 
             <a
@@ -5631,7 +5703,6 @@ function runCard(run){
               ${runCreatorAvatarHtml(creator)}
 
             </a>
-
 
             <div class="ma-run-card-author-info">
 
@@ -5651,7 +5722,6 @@ function runCard(run){
           </div>
 
         </div>
-
 
         <div class="ma-run-card-icon">
           🏃
@@ -6218,7 +6288,8 @@ async function initializeCommunity(){
     await Promise.all([
       loadPosts(),
       loadBuddyProfiles(),
-      loadCommunityRuns()
+      loadCommunityRuns(),
+      loadCommunityMemberCount()
     ]);
 
     $("communityLoading")
