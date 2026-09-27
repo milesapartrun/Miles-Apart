@@ -203,21 +203,6 @@
       align-items: center;
     }
 
-    /*
-     * WICHTIG:
-     *
-     * Der türkise Rahmen wird jetzt NUR noch vom Canvas gezeichnet.
-     * Der Shell selbst bekommt KEINE türkise Hintergrundfarbe mehr.
-     *
-     * Dadurch entsteht auf der Seite nicht mehr:
-     *
-     * Türkis → Türkis → Grau → Weiß
-     *
-     * sondern:
-     *
-     * Türkis → Grau → Weiß
-     */
-
     .runner-poster-shell {
       position: relative;
       width: min(100%,590px);
@@ -1314,6 +1299,13 @@ const IS_EMBEDDED =
   window.self !== window.top;
 
 /* =========================================================
+   MITGLIEDS-LINK
+========================================================= */
+
+const MEMBERSHIP_URL =
+  "https://milesapartrun.github.io/Miles-Apart-Running-Club/index.html";
+
+/* =========================================================
    LEVELSYSTEM
 ========================================================= */
 
@@ -1963,38 +1955,11 @@ function posterFittedText(
    POSTER RAHMEN
 ========================================================= */
 
-/*
- * GENAU DIESER AUFBAU:
- *
- * ┌─────────────────────────────────────┐
- * │                                     │
- * │        EINZIGER TÜRKISER             │
- * │             AUSSENRAHMEN             │
- * │   ┌─────────────────────────────┐   │
- * │   │       KLEINE GRAUE FLÄCHE   │   │
- * │   │   ┌─────────────────────┐   │   │
- * │   │   │                     │   │   │
- * │   │   │       INHALT        │   │   │
- * │   │   │                     │   │   │
- * │   │   └─────────────────────┘   │   │
- * │   └─────────────────────────────┘   │
- * │                                     │
- * └─────────────────────────────────────┘
- *
- * KEIN innerer türkiser Rahmen.
- */
-
 function drawPosterFrame(
   ctx,
   W,
   H
 ){
-
-  /*
-   * -------------------------------------------------------
-   * 1. GANZ AUSSEN: TÜRKIS
-   * -------------------------------------------------------
-   */
 
   posterRoundedRect(
     ctx,
@@ -2008,15 +1973,6 @@ function drawPosterFrame(
   ctx.fillStyle="#18b8c7";
 
   ctx.fill();
-
-  /*
-   * -------------------------------------------------------
-   * 2. DAHINTER: KLEINE GRAUE FLÄCHE
-   *
-   * Der Abstand zum türkisen Außenrahmen ist bewusst
-   * relativ klein.
-   * -------------------------------------------------------
-   */
 
   const greyX=28;
   const greyY=28;
@@ -2037,17 +1993,6 @@ function drawPosterFrame(
 
   ctx.fill();
 
-  /*
-   * -------------------------------------------------------
-   * 3. WEISSE INNENFLÄCHE
-   *
-   * Hier beginnt der eigentliche Inhalt.
-   *
-   * WICHTIG:
-   * Kein Türkis zwischen Grau und Weiß.
-   * -------------------------------------------------------
-   */
-
   const innerX=64;
   const innerY=64;
   const innerW=W-128;
@@ -2066,10 +2011,6 @@ function drawPosterFrame(
   ctx.fillStyle="#ffffff";
 
   ctx.fill();
-
-  /*
-   * Dezente graue Kontur um die weiße Fläche.
-   */
 
   posterRoundedRect(
     ctx,
@@ -2136,13 +2077,52 @@ function posterStatBox(
 
   if(emoji){
 
+    /*
+     * EMOJI + LEVEL:
+     *
+     * Die Breite des tatsächlichen Emojis wird zuerst
+     * gemessen. Danach beginnt die Level-Schrift mit einem
+     * festen Abstand. Dadurch funktioniert die Anordnung
+     * auch bei unterschiedlich breiten Emojis sauber.
+     */
+
+    ctx.save();
+
+    ctx.font="50px Arial, Helvetica, sans-serif";
+
+    const emojiWidth=
+      Math.max(
+        50,
+        ctx.measureText(
+          emoji
+        ).width
+      );
+
+    ctx.restore();
+
+    const emojiX=
+      x+28;
+
+    const emojiY=
+      y+126;
+
+    const valueX=
+      emojiX+
+      emojiWidth+
+      24;
+
+    const valueMaxWidth=
+      width-
+      (valueX-x)-
+      28;
+
     posterText(
       ctx,
       emoji,
-      x+28,
-      y+126,
+      emojiX,
+      emojiY,
       {
-        font:"50px Arial",
+        font:"50px Arial, Helvetica, sans-serif",
         color:"#17211f",
         baseline:"middle"
       }
@@ -2151,11 +2131,11 @@ function posterStatBox(
     posterFittedText(
       ctx,
       value,
-      x+96,
+      valueX,
       y+126,
-      width-124,
+      valueMaxWidth,
       61,
-      34,
+      32,
       "900",
       "#17211f"
     );
@@ -2212,11 +2192,6 @@ function posterPbBox(
 
   ctx.stroke();
 
-  /*
-   * Kleiner türkiser Akzent NUR an den Karten.
-   * Das ist ausdrücklich KEIN äußerer Rahmen.
-   */
-
   ctx.fillStyle="#18b8c7";
 
   ctx.fillRect(
@@ -2270,13 +2245,20 @@ function posterPbBox(
         run.distance_km
       );
 
+    /*
+     * 100+ KM:
+     *
+     * Mehr vertikaler Abstand zwischen Kilometerzahl,
+     * Zeit und Pace. Die Karte selbst bleibt unverändert.
+     */
+
     posterFittedText(
       ctx,
       Number.isFinite(distance)
         ?`${formatNumber(distance)} km`
         :"100+ km",
       x+30,
-      y+112,
+      y+98,
       width-60,
       38,
       26,
@@ -2288,7 +2270,7 @@ function posterPbBox(
       ctx,
       duration,
       x+30,
-      y+168,
+      y+157,
       width-60,
       55,
       34,
@@ -2303,7 +2285,7 @@ function posterPbBox(
         run.distance_km
       ),
       x+30,
-      y+height-25,
+      y+height-18,
       {
         font:"900 22px Arial",
         color:"#6f7d79",
@@ -2379,24 +2361,11 @@ function renderRunnerPoster(
     H
   );
 
-  /*
-   * Rahmen zuerst.
-   */
-
   drawPosterFrame(
     ctx,
     W,
     H
   );
-
-  /*
-   * -------------------------------------------------------
-   * AB HIER: NUR NOCH INHALT
-   *
-   * Der Inhalt bleibt vollständig innerhalb der weißen
-   * Innenfläche.
-   * -------------------------------------------------------
-   */
 
   const contentX=100;
 
@@ -2870,11 +2839,15 @@ async function downloadRunnerPoster(){
         await navigator.share({
           files:[file],
           title:
-            "Miles Apart Running Club"
+            "Miles Apart Running Club",
+          text:
+            getPosterShareText(),
+          url:
+            MEMBERSHIP_URL
         });
 
         setPosterStatus(
-          "✓ Im Teilen-Menü kannst du das Poster direkt sichern."
+          "✓ Im Teilen-Menü kannst du das Poster direkt sichern oder teilen."
         );
 
         return;
@@ -2962,7 +2935,8 @@ function getPosterShareText(){
 
   if(!data)
     return(
-      "Ich bin Miles Apart Member 2026."
+      "Ich bin Miles Apart Member 2026.\n\n"+
+      `Jetzt Mitglied werden:\n${MEMBERSHIP_URL}`
     );
 
   let text=
@@ -3051,6 +3025,16 @@ function getPosterShareText(){
 
   }
 
+  /*
+   * WICHTIG:
+   * Die URL steht bewusst als echte URL am Ende.
+   * WhatsApp und andere Share-Ziele können sie dadurch
+   * als anklickbaren Link erkennen.
+   */
+
+  text+=
+    `\n\n🏃 Jetzt Mitglied werden:\n${MEMBERSHIP_URL}`;
+
   return text;
 
 }
@@ -3104,11 +3088,12 @@ async function shareRunnerPosterWhatsApp(){
           files:[file],
           title:
             "Miles Apart Running Club",
-          text:shareText
+          text:shareText,
+          url:MEMBERSHIP_URL
         });
 
         setPosterStatus(
-          "✓ Poster wurde zum Teilen geöffnet."
+          "✓ Poster, Text und Mitglieds-Link wurden zum Teilen geöffnet."
         );
 
         return;
@@ -3142,7 +3127,7 @@ async function shareRunnerPosterWhatsApp(){
     );
 
     setPosterStatus(
-      "✓ WhatsApp wurde geöffnet."
+      "✓ WhatsApp wurde mit dem Text und dem anklickbaren Mitglieds-Link geöffnet."
     );
 
   }catch(error){
@@ -3216,11 +3201,12 @@ async function shareRunnerPosterInstagram(){
           files:[file],
           title:
             "Miles Apart Running Club",
-          text:shareText
+          text:shareText,
+          url:MEMBERSHIP_URL
         });
 
         setPosterStatus(
-          "✓ Poster wurde zum Teilen geöffnet. Wähle Instagram."
+          "✓ Poster, Text und Mitglieds-Link wurden zum Teilen geöffnet. Wähle Instagram."
         );
 
         return;
@@ -3281,7 +3267,7 @@ async function shareRunnerPosterInstagram(){
       );
 
     setPosterStatus(
-      "✓ Poster gespeichert und Instagram geöffnet."
+      "✓ Poster gespeichert und Instagram geöffnet. Der Mitglieds-Link steht im Share-Text."
     );
 
   }catch(error){
