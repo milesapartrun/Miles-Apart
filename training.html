@@ -33,7 +33,6 @@
 
     /* =========================================================
        LOGO
-       Übernommen von der Events-Seite
     ========================================================= */
 
     .brand {
@@ -140,6 +139,95 @@
 
 
     /* =========================================================
+       AUTH GATE
+    ========================================================= */
+
+    .training-auth-overlay {
+      position: relative;
+    }
+
+
+    .training-auth-overlay.locked
+      .planner-grid,
+    .training-auth-overlay.locked
+      .week-summary {
+
+      opacity: .42;
+      filter: grayscale(.15);
+      pointer-events: none;
+      user-select: none;
+
+    }
+
+
+    .training-auth-overlay.locked
+      .week-controls {
+
+      opacity: .52;
+      pointer-events: none;
+
+    }
+
+
+    .training-auth-message {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 18px;
+      padding: 16px 18px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      background: #f5f5f5;
+    }
+
+
+    .training-auth-message.visible {
+      display: flex;
+    }
+
+
+    .training-auth-message strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+
+    .training-auth-message span {
+      display: block;
+      margin-top: 4px;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+
+    .training-auth-login {
+      flex: 0 0 auto;
+      min-height: 40px;
+      padding: 0 16px;
+      border: 1px solid #111;
+      border-radius: 7px;
+      background: #111;
+      color: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+
+    .training-auth-login:hover {
+      background: #18b8c7;
+      border-color: #18b8c7;
+    }
+
+
+    /* =========================================================
        WEEK CONTROLS
     ========================================================= */
 
@@ -229,7 +317,6 @@
 
     /* =========================================================
        HEUTIGER TAG
-       Türkis statt gelb/grün
     ========================================================= */
 
     .day-card.today {
@@ -304,6 +391,7 @@
       justify-content: center;
       font-size: 21px;
       margin-bottom: 11px;
+      cursor: pointer;
     }
 
 
@@ -746,6 +834,12 @@
         margin-right: 18px;
       }
 
+
+      .training-auth-message {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
     }
 
 
@@ -842,11 +936,6 @@
   <aside class="sidebar">
 
 
-    <!-- =====================================================
-         LOGO
-         Genau wie auf der Events-Seite
-    ====================================================== -->
-
     <div class="brand">
 
       <a href="index.html">
@@ -860,10 +949,6 @@
 
     </div>
 
-
-    <!-- =====================================================
-         NAVIGATION
-    ====================================================== -->
 
     <nav class="nav">
 
@@ -961,10 +1046,6 @@
     <div class="training-page">
 
 
-      <!-- ===================================================
-           TOP
-      ==================================================== -->
-
       <div class="top">
 
         <div class="crumb">
@@ -973,10 +1054,6 @@
 
       </div>
 
-
-      <!-- ===================================================
-           HERO
-      ==================================================== -->
 
       <div class="hero">
 
@@ -1006,148 +1083,194 @@
 
 
       <!-- ===================================================
-           WEEK CONTROLS
+           AUTH MESSAGE
       ==================================================== -->
 
-      <div class="week-controls">
+      <div
+        class="training-auth-message"
+        id="trainingAuthMessage"
+      >
 
         <div>
 
-          <h2
-            class="week-title"
-            id="weekTitle"
-          >
-            Deine Woche
-          </h2>
+          <strong>
+            Dafür musst du angemeldet sein.
+          </strong>
 
-
-          <p
-            class="week-subtitle"
-            id="weekSubtitle"
-          >
-            Wird geladen …
-          </p>
+          <span>
+            Melde dich an, um dein Training zu planen
+            und deinen persönlichen Trainingsplan zu speichern.
+          </span>
 
         </div>
 
 
-        <div class="week-buttons">
-
-          <button
-            class="week-btn"
-            id="previousWeek"
-            type="button"
-            aria-label="Vorherige Woche"
-          >
-            ←
-          </button>
-
-
-          <button
-            class="week-btn"
-            id="currentWeek"
-            type="button"
-          >
-            Heute
-          </button>
-
-
-          <button
-            class="week-btn"
-            id="nextWeek"
-            type="button"
-            aria-label="Nächste Woche"
-          >
-            →
-          </button>
-
-        </div>
+        <a
+          class="training-auth-login"
+          id="trainingAuthLogin"
+          href="login.html"
+        >
+          Anmelden
+        </a>
 
       </div>
 
 
       <!-- ===================================================
-           WEEK PLANNER
+           LOCKED / UNLOCKED TRAINING AREA
       ==================================================== -->
 
-      <section>
-
-        <div
-          class="planner-grid"
-          id="plannerGrid"
-        >
-        </div>
-
-      </section>
+      <div
+        id="trainingContent"
+        class="training-auth-overlay"
+      >
 
 
-      <!-- ===================================================
-           SUMMARY
-      ==================================================== -->
+        <!-- =================================================
+             WEEK CONTROLS
+        ================================================== -->
 
-      <section class="week-summary">
+        <div class="week-controls">
+
+          <div>
+
+            <h2
+              class="week-title"
+              id="weekTitle"
+            >
+              Deine Woche
+            </h2>
 
 
-        <div class="summary-card">
+            <p
+              class="week-subtitle"
+              id="weekSubtitle"
+            >
+              Wird geladen …
+            </p>
 
-          <div class="summary-label">
-            Wochenumfang
           </div>
 
+
+          <div class="week-buttons">
+
+            <button
+              class="week-btn"
+              id="previousWeek"
+              type="button"
+              aria-label="Vorherige Woche"
+            >
+              ←
+            </button>
+
+
+            <button
+              class="week-btn"
+              id="currentWeek"
+              type="button"
+            >
+              Heute
+            </button>
+
+
+            <button
+              class="week-btn"
+              id="nextWeek"
+              type="button"
+              aria-label="Nächste Woche"
+            >
+              →
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             WEEK PLANNER
+        ================================================== -->
+
+        <section>
 
           <div
-            class="summary-value"
-            id="summaryKm"
+            class="planner-grid"
+            id="plannerGrid"
           >
-            0
-            <span>
-              KM
-            </span>
           </div>
 
-        </div>
+        </section>
 
 
-        <div class="summary-card">
+        <!-- =================================================
+             SUMMARY
+        ================================================== -->
 
-          <div class="summary-label">
-            Läufe
-          </div>
-
-
-          <div
-            class="summary-value"
-            id="summaryRuns"
-          >
-            0
-            <span>
-              Einheiten
-            </span>
-          </div>
-
-        </div>
+        <section class="week-summary">
 
 
-        <div class="summary-card">
+          <div class="summary-card">
 
-          <div class="summary-label">
-            Geplante Pace
+            <div class="summary-label">
+              Wochenumfang
+            </div>
+
+
+            <div
+              class="summary-value"
+              id="summaryKm"
+            >
+              0
+              <span>
+                KM
+              </span>
+            </div>
+
           </div>
 
 
-          <div
-            class="summary-value"
-            id="summaryPace"
-          >
-            —
-            <span>
-              min/km
-            </span>
+          <div class="summary-card">
+
+            <div class="summary-label">
+              Läufe
+            </div>
+
+
+            <div
+              class="summary-value"
+              id="summaryRuns"
+            >
+              0
+              <span>
+                Einheiten
+              </span>
+            </div>
+
           </div>
 
-        </div>
 
-      </section>
+          <div class="summary-card">
+
+            <div class="summary-label">
+              Geplante Pace
+            </div>
+
+
+            <div
+              class="summary-value"
+              id="summaryPace"
+            >
+              —
+              <span>
+                min/km
+              </span>
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
 
     </div>
 
@@ -1206,6 +1329,63 @@
         id="runDate"
       >
 
+
+      <!-- =================================================
+           TAG
+      ================================================== -->
+
+      <div class="form-group">
+
+        <label
+          class="form-label"
+          for="runDay"
+        >
+          Tag
+        </label>
+
+
+        <select
+          class="form-control"
+          id="runDay"
+          required
+        >
+
+          <option value="1">
+            Montag
+          </option>
+
+          <option value="2">
+            Dienstag
+          </option>
+
+          <option value="3">
+            Mittwoch
+          </option>
+
+          <option value="4">
+            Donnerstag
+          </option>
+
+          <option value="5">
+            Freitag
+          </option>
+
+          <option value="6">
+            Samstag
+          </option>
+
+          <option value="0">
+            Sonntag
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- =================================================
+           LAUFART
+      ================================================== -->
 
       <div class="form-group">
 
@@ -1275,6 +1455,7 @@
             type="number"
             min="0"
             step="0.1"
+            inputmode="decimal"
             placeholder="z. B. 8"
             required
           >
@@ -1292,12 +1473,20 @@
           </label>
 
 
+          <!--
+            TEXT statt number:
+            Dadurch sind Werte wie 5:30 möglich.
+          -->
+
           <input
             class="form-control"
             id="runPace"
             type="text"
-            inputmode="numeric"
+            inputmode="text"
             placeholder="z. B. 5:45"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
           >
 
         </div>
@@ -1371,6 +1560,30 @@
 
 
 <script>
+
+  /* =========================================================
+     SUPABASE / AUTH
+     
+     Die Login-Seite muss den bereits verwendeten
+     Supabase-Client als window.supabaseClient bereitstellen.
+     
+     Beispiel auf der Login-Seite:
+       window.supabaseClient = supabase;
+     
+     Es wird KEIN service_role key verwendet.
+  ========================================================= */
+
+  const supabaseClient =
+    window.supabaseClient || null;
+
+
+  let currentUser =
+    null;
+
+
+  let authReady =
+    false;
+
 
   /* =========================================================
      DATE HELPERS
@@ -1573,57 +1786,113 @@
 
 
   let trainingPlan =
-    loadTrainingPlan();
+    {};
 
 
   /* =========================================================
-     LOCAL STORAGE
+     USER-SPECIFIC STORAGE
+     
+     Die Trainingsdaten liegen in den User-Metadaten.
+     Dadurch gehören sie zum jeweiligen Supabase-User
+     und werden nicht zwischen Accounts geteilt.
   ========================================================= */
 
-  function getStorageKey() {
+  function getUserTrainingPlan(
+    user
+  ) {
 
-    return (
-      "milesApartTrainingPlan"
-    );
+    if (
+      !user ||
+      !user.user_metadata
+    ) {
+
+      return {};
+
+    }
+
+
+    const stored =
+      user.user_metadata
+        .miles_apart_training_plan;
+
+
+    if (
+      !stored ||
+      typeof stored !== "object"
+    ) {
+
+      return {};
+
+    }
+
+
+    return stored;
 
   }
 
 
-  function loadTrainingPlan() {
+  async function loadTrainingPlan() {
+
+    if (
+      !supabaseClient ||
+      !currentUser
+    ) {
+
+      trainingPlan = {};
+
+      return;
+
+    }
+
 
     try {
 
-      const raw =
-        localStorage.getItem(
-          getStorageKey()
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .auth
+          .getUser();
+
+
+      if (error) {
+
+        console.error(
+          "User konnte nicht geladen werden:",
+          error
         );
 
+        trainingPlan = {};
 
-      if (!raw) {
-
-        return {};
+        return;
 
       }
-
-
-      const parsed =
-        JSON.parse(
-          raw
-        );
 
 
       if (
-        !parsed ||
-        typeof parsed !==
-          "object"
+        !data ||
+        !data.user
       ) {
 
-        return {};
+        currentUser =
+          null;
+
+        trainingPlan = {};
+
+        return;
 
       }
 
 
-      return parsed;
+      currentUser =
+        data.user;
+
+
+      trainingPlan =
+        getUserTrainingPlan(
+          currentUser
+        );
 
     } catch (error) {
 
@@ -1632,36 +1901,355 @@
         error
       );
 
-
-      return {};
+      trainingPlan = {};
 
     }
 
   }
 
 
-  function saveTrainingPlan() {
+  async function saveTrainingPlan() {
+
+    if (
+      !supabaseClient ||
+      !currentUser
+    ) {
+
+      return false;
+
+    }
+
 
     try {
 
-      localStorage.setItem(
-        getStorageKey(),
-        JSON.stringify(
-          trainingPlan
-        )
-      );
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .auth
+          .updateUser({
+
+            data: {
+
+              ...(
+                currentUser.user_metadata ||
+                {}
+              ),
+
+              miles_apart_training_plan:
+                trainingPlan
+
+            }
+
+          });
+
+
+      if (error) {
+
+        console.error(
+          "Trainingsplan konnte nicht gespeichert werden:",
+          error
+        );
+
+
+        alert(
+          "Dein Trainingsplan konnte nicht gespeichert werden. Bitte versuche es erneut."
+        );
+
+
+        return false;
+
+      }
+
+
+      if (
+        data &&
+        data.user
+      ) {
+
+        currentUser =
+          data.user;
+
+      }
+
+
+      return true;
 
     } catch (error) {
 
       console.error(
-        "Trainingsplan konnte nicht gespeichert werden:",
+        "Fehler beim Speichern:",
         error
       );
 
 
       alert(
-        "Der Trainingsplan konnte nicht gespeichert werden."
+        "Dein Trainingsplan konnte nicht gespeichert werden. Bitte versuche es erneut."
       );
+
+
+      return false;
+
+    }
+
+  }
+
+
+  /* =========================================================
+     AUTH UI
+  ========================================================= */
+
+  function setTrainingLocked(
+    locked
+  ) {
+
+    const content =
+      document.getElementById(
+        "trainingContent"
+      );
+
+
+    const message =
+      document.getElementById(
+        "trainingAuthMessage"
+      );
+
+
+    const heroButton =
+      document.getElementById(
+        "heroAddRun"
+      );
+
+
+    if (locked) {
+
+      content.classList.add(
+        "locked"
+      );
+
+
+      message.classList.add(
+        "visible"
+      );
+
+
+      heroButton.disabled =
+        true;
+
+
+      heroButton.style.opacity =
+        ".45";
+
+
+      heroButton.style.cursor =
+        "not-allowed";
+
+
+    } else {
+
+      content.classList.remove(
+        "locked"
+      );
+
+
+      message.classList.remove(
+        "visible"
+      );
+
+
+      heroButton.disabled =
+        false;
+
+
+      heroButton.style.opacity =
+        "";
+
+
+      heroButton.style.cursor =
+        "";
+
+    }
+
+  }
+
+
+  function requireLogin() {
+
+    if (
+      !currentUser
+    ) {
+
+      return false;
+
+    }
+
+
+    return true;
+
+  }
+
+
+  async function initializeAuth() {
+
+    if (
+      !supabaseClient ||
+      !supabaseClient.auth
+    ) {
+
+      console.warn(
+        "Kein Supabase-Client unter window.supabaseClient gefunden."
+      );
+
+
+      currentUser =
+        null;
+
+
+      trainingPlan =
+        {};
+
+
+      setTrainingLocked(
+        true
+      );
+
+
+      renderWeek();
+
+
+      return;
+
+    }
+
+
+    try {
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient
+          .auth
+          .getUser();
+
+
+      if (
+        error ||
+        !data ||
+        !data.user
+      ) {
+
+        currentUser =
+          null;
+
+
+        trainingPlan =
+          {};
+
+
+        setTrainingLocked(
+          true
+        );
+
+
+        renderWeek();
+
+
+        return;
+
+      }
+
+
+      currentUser =
+        data.user;
+
+
+      await loadTrainingPlan();
+
+
+      setTrainingLocked(
+        false
+      );
+
+
+      renderWeek();
+
+
+      /*
+       * Falls sich der Loginstatus ändert,
+       * wird die Trainingsseite direkt aktualisiert.
+       */
+
+      supabaseClient
+        .auth
+        .onAuthStateChange(
+          async (
+            event,
+            session
+          ) => {
+
+            if (
+              session &&
+              session.user
+            ) {
+
+              currentUser =
+                session.user;
+
+
+              await loadTrainingPlan();
+
+
+              setTrainingLocked(
+                false
+              );
+
+
+            } else {
+
+              currentUser =
+                null;
+
+
+              trainingPlan =
+                {};
+
+
+              setTrainingLocked(
+                true
+              );
+
+            }
+
+
+            renderWeek();
+
+          }
+        );
+
+    } catch (error) {
+
+      console.error(
+        "Auth konnte nicht initialisiert werden:",
+        error
+      );
+
+
+      currentUser =
+        null;
+
+
+      trainingPlan =
+        {};
+
+
+      setTrainingLocked(
+        true
+      );
+
+
+      renderWeek();
 
     }
 
@@ -1896,7 +2484,16 @@
 
     wrapper.innerHTML = `
 
-      <div class="empty-run-icon">
+      <div
+        class="empty-run-icon"
+        role="button"
+        tabindex="0"
+        aria-label="Lauf für ${
+          DAY_NAMES[
+            date.getDay()
+          ]
+        } planen"
+      >
         +
       </div>
 
@@ -1919,16 +2516,53 @@
     `;
 
 
+    const open =
+      () =>
+        openRunModal(
+          date
+        );
+
+
     wrapper
       .querySelector(
         ".add-run-btn"
       )
       .addEventListener(
         "click",
-        () =>
-          openRunModal(
-            date
-          )
+        open
+      );
+
+
+    wrapper
+      .querySelector(
+        ".empty-run-icon"
+      )
+      .addEventListener(
+        "click",
+        open
+      );
+
+
+    wrapper
+      .querySelector(
+        ".empty-run-icon"
+      )
+      .addEventListener(
+        "keydown",
+        event => {
+
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
+
+            event.preventDefault();
+
+            open();
+
+          }
+
+        }
       );
 
 
@@ -2150,9 +2784,105 @@
     );
 
 
+  function getDateFromKey(
+    key
+  ) {
+
+    return new Date(
+      key +
+      "T12:00:00"
+    );
+
+  }
+
+
+  function setRunDaySelect(
+    date
+  ) {
+
+    document.getElementById(
+      "runDay"
+    ).value =
+      String(
+        date.getDay()
+      );
+
+  }
+
+
+  function updateModalDate() {
+
+    const selectedDay =
+      Number(
+        document.getElementById(
+          "runDay"
+        ).value
+      );
+
+
+    let offset;
+
+
+    /*
+     * currentWeekStart = Montag.
+     *
+     * JS:
+     * Sonntag = 0
+     * Montag = 1
+     * ...
+     * Samstag = 6
+     */
+
+    if (
+      selectedDay === 0
+    ) {
+
+      offset = 6;
+
+    } else {
+
+      offset =
+        selectedDay - 1;
+
+    }
+
+
+    const selectedDate =
+      addDays(
+        currentWeekStart,
+        offset
+      );
+
+
+    document.getElementById(
+      "modalDate"
+    ).textContent =
+
+      DAY_NAMES[
+        selectedDate.getDay()
+      ] +
+
+      " · " +
+
+      formatDate(
+        selectedDate
+      );
+
+  }
+
+
   function openRunModal(
     date
   ) {
+
+    if (
+      !requireLogin()
+    ) {
+
+      return;
+
+    }
+
 
     editingDate =
       dateToKey(
@@ -2193,6 +2923,16 @@
       formatDate(
         date
       );
+
+
+    /*
+     * NEU:
+     * Der Tag ist im Modal vorausgewählt.
+     */
+
+    setRunDaySelect(
+      date
+    );
 
 
     document.getElementById(
@@ -2270,7 +3010,7 @@
 
         document
           .getElementById(
-            "runType"
+            "runDay"
           )
           .focus();
 
@@ -2309,9 +3049,18 @@
 
   runForm.addEventListener(
     "submit",
-    event => {
+    async event => {
 
       event.preventDefault();
+
+
+      if (
+        !requireLogin()
+      ) {
+
+        return;
+
+      }
 
 
       if (
@@ -2336,6 +3085,14 @@
           ).value
         );
 
+
+      /*
+       * Pace bleibt TEXT.
+       * Dadurch funktionieren z. B.:
+       * 5:30
+       * 5:45
+       * 4:50
+       */
 
       const pace =
         document.getElementById(
@@ -2366,8 +3123,67 @@
       }
 
 
+      /*
+       * Der im Modal ausgewählte Tag.
+       */
+
+      const selectedDay =
+        Number(
+          document.getElementById(
+            "runDay"
+          ).value
+        );
+
+
+      let offset;
+
+
+      if (
+        selectedDay === 0
+      ) {
+
+        offset = 6;
+
+      } else {
+
+        offset =
+          selectedDay - 1;
+
+      }
+
+
+      const selectedDate =
+        addDays(
+          currentWeekStart,
+          offset
+        );
+
+
+      const selectedKey =
+        dateToKey(
+          selectedDate
+        );
+
+
+      /*
+       * Wenn beim Bearbeiten der Tag geändert wurde,
+       * wird der alte Eintrag entfernt.
+       */
+
+      if (
+        editingDate !==
+        selectedKey
+      ) {
+
+        delete trainingPlan[
+          editingDate
+        ];
+
+      }
+
+
       trainingPlan[
-        editingDate
+        selectedKey
       ] = {
 
         type,
@@ -2384,7 +3200,15 @@
       };
 
 
-      saveTrainingPlan();
+      const saved =
+        await saveTrainingPlan();
+
+
+      if (!saved) {
+
+        return;
+
+      }
 
 
       renderWeek();
@@ -2400,9 +3224,18 @@
      DELETE RUN
   ========================================================= */
 
-  function deleteRun(
+  async function deleteRun(
     date
   ) {
+
+    if (
+      !requireLogin()
+    ) {
+
+      return;
+
+    }
+
 
     const key =
       dateToKey(
@@ -2437,7 +3270,15 @@
     ];
 
 
-    saveTrainingPlan();
+    const saved =
+      await saveTrainingPlan();
+
+
+    if (!saved) {
+
+      return;
+
+    }
 
 
     renderWeek();
@@ -2451,11 +3292,25 @@
     )
     .addEventListener(
       "click",
-      () => {
+      async () => {
 
         if (
-          !editingDate
+          !editingDate ||
+          !requireLogin()
         ) {
+
+          return;
+
+        }
+
+
+        const confirmed =
+          window.confirm(
+            "Diesen Lauf wirklich aus deinem Trainingsplan löschen?"
+          );
+
+
+        if (!confirmed) {
 
           return;
 
@@ -2467,7 +3322,15 @@
         ];
 
 
-        saveTrainingPlan();
+        const saved =
+          await saveTrainingPlan();
+
+
+        if (!saved) {
+
+          return;
+
+        }
 
 
         renderWeek();
@@ -2500,6 +3363,16 @@
     .addEventListener(
       "click",
       closeRunModal
+    );
+
+
+  document
+    .getElementById(
+      "runDay"
+    )
+    .addEventListener(
+      "change",
+      updateModalDate
     );
 
 
@@ -2551,6 +3424,15 @@
       "click",
       () => {
 
+        if (
+          !requireLogin()
+        ) {
+
+          return;
+
+        }
+
+
         const today =
           new Date();
 
@@ -2560,6 +3442,12 @@
             today
           );
 
+
+        /*
+         * Wenn eine andere Woche geöffnet ist,
+         * springen wir beim oberen "+ Lauf planen"
+         * auf die aktuelle Woche.
+         */
 
         if (
           dateToKey(
@@ -2578,6 +3466,11 @@
 
         }
 
+
+        /*
+         * Der heutige Tag wird direkt vorausgewählt.
+         * Der Nutzer kann ihn danach ändern.
+         */
 
         openRunModal(
           today
@@ -2598,6 +3491,15 @@
     .addEventListener(
       "click",
       () => {
+
+        if (
+          !requireLogin()
+        ) {
+
+          return;
+
+        }
+
 
         currentWeekStart =
           addDays(
@@ -2620,6 +3522,15 @@
       "click",
       () => {
 
+        if (
+          !requireLogin()
+        ) {
+
+          return;
+
+        }
+
+
         currentWeekStart =
           addDays(
             currentWeekStart,
@@ -2640,6 +3551,15 @@
     .addEventListener(
       "click",
       () => {
+
+        if (
+          !requireLogin()
+        ) {
+
+          return;
+
+        }
+
 
         currentWeekStart =
           startOfWeek(
@@ -3080,7 +4000,7 @@
      INITIAL LOAD
   ========================================================= */
 
-  renderWeek();
+  initializeAuth();
 
 </script>
 
