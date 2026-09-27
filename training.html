@@ -2,39 +2,36 @@
 <html lang="de">
 
 <head>
-
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Training – Miles Apart Running Club</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
-  >
-
-  <title>
-    Training — Miles Apart Running Club
-  </title>
-
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+  <link rel="stylesheet" href="style.css">
 
   <style>
-
-    /* =========================================================
-       TRAINING PAGE
-    ========================================================= */
-
-    .training-page {
-      max-width: 1180px;
-      margin: 0 auto;
+    :root {
+      --turquoise: #18b8c7;
+      --turquoise-light: #e4f8fb;
+      --text: #111;
+      --muted: #777;
+      --border: #dedede;
+      --soft: #f5f5f5;
+      --danger: #b32632;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--text);
+    }
 
     /* =========================================================
-       LOGO
-       Übernommen von der Events-Seite
-    ========================================================= */
+       SIDEBAR
+       ========================================================= */
 
     .brand {
       display: flex;
@@ -45,13 +42,11 @@
       margin: 0;
     }
 
-
     .brand a {
       display: block;
       width: 100%;
       text-decoration: none;
     }
-
 
     .brand img {
       display: block;
@@ -59,11 +54,6 @@
       max-width: 100%;
       height: auto;
     }
-
-
-    /* =========================================================
-       NAVIGATION
-    ========================================================= */
 
     .nav {
       display: grid;
@@ -73,7 +63,6 @@
       width: 100%;
       margin-top: 28px;
     }
-
 
     .nav a {
       position: relative;
@@ -95,18 +84,15 @@
       box-sizing: border-box;
     }
 
-
     .nav a:hover {
       color: #111;
       transform: translateY(-1px);
     }
 
-
     .nav a.active::before {
       content: none !important;
       display: none !important;
     }
-
 
     .nav a.active {
       background: #e4f8fb;
@@ -114,7 +100,6 @@
       padding: 0 12px !important;
       font-weight: 800 !important;
     }
-
 
     .nav a.active .nav-active-dot {
       display: block !important;
@@ -127,7 +112,6 @@
       background: #18b8c7;
     }
 
-
     .nav a.active .nav-active-text {
       display: block;
       flex: 0 0 auto;
@@ -138,509 +122,563 @@
       letter-spacing: inherit;
     }
 
+    /* =========================================================
+       TRAINING PAGE
+       ========================================================= */
+
+    .training-page {
+      width: 100%;
+    }
+
+    .training-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 42px;
+    }
+
+    .training-kicker {
+      margin-bottom: 12px;
+      color: #777;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .training-title {
+      margin: 0;
+      font-size: clamp(52px, 6vw, 88px);
+      line-height: .95;
+      letter-spacing: -.055em;
+      font-weight: 900;
+    }
+
+    .training-subtitle {
+      max-width: 650px;
+      margin: 20px 0 0;
+      color: #777;
+      font-size: 24px;
+      line-height: 1.35;
+      font-weight: 500;
+      letter-spacing: -.02em;
+    }
+
+    .add-training-btn {
+      flex: 0 0 auto;
+      min-height: 58px;
+      padding: 0 28px;
+      border: 1px solid #111;
+      border-radius: 999px;
+      background: #111;
+      color: #fff;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition:
+        background .18s ease,
+        border-color .18s ease,
+        transform .18s ease;
+    }
+
+    .add-training-btn:hover {
+      background: var(--turquoise);
+      border-color: var(--turquoise);
+      transform: translateY(-1px);
+    }
 
     /* =========================================================
        WEEK CONTROLS
-    ========================================================= */
+       ========================================================= */
 
-    .week-controls {
+    .week-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      margin-top: 28px;
-      margin-bottom: 18px;
+      margin-bottom: 22px;
     }
 
+    .week-title-wrap {
+      min-width: 0;
+    }
 
-    .week-title {
+    .week-label {
       margin: 0;
-      font-size: 25px;
-      line-height: 1.1;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -.02em;
     }
 
-
-    .week-subtitle {
-      margin: 7px 0 0;
+    .week-range {
+      margin-top: 5px;
       color: #777;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 600;
     }
 
-
-    .week-buttons {
+    .week-actions {
       display: flex;
+      align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
     }
 
-
-    .week-btn {
-      border: 1px solid #ddd;
+    .week-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 44px;
+      height: 44px;
+      padding: 0 14px;
+      border: 1px solid #d9d9d9;
+      border-radius: 999px;
       background: #fff;
       color: #111;
-      min-width: 42px;
-      height: 42px;
-      padding: 0 13px;
-      border-radius: 7px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
       cursor: pointer;
-      font: inherit;
-      font-weight: 700;
-      transition: .15s ease;
+      transition:
+        border-color .18s ease,
+        background .18s ease,
+        color .18s ease;
     }
 
-
-    .week-btn:hover {
-      background: #f1f1f1;
+    .week-action:hover {
+      border-color: #111;
+      background: #111;
+      color: #fff;
     }
-
-
-    .week-btn:focus-visible {
-      outline: 2px solid #18b8c7;
-      outline-offset: 2px;
-    }
-
 
     /* =========================================================
-       WEEK PLANNER
-    ========================================================= */
+       WEEK GRID
+       ========================================================= */
 
-    .planner-grid {
+    .week-grid {
       display: grid;
-      grid-template-columns:
-        repeat(
-          7,
-          minmax(0, 1fr)
-        );
-      gap: 10px;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 14px;
     }
-
 
     .day-card {
-      min-width: 0;
-      min-height: 285px;
-      padding: 17px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      background: #fff;
+      position: relative;
       display: flex;
       flex-direction: column;
+      min-height: 460px;
+      padding: 24px 18px 18px;
+      border: 1px solid #dedede;
+      border-radius: 24px;
+      background: #fff;
+      overflow: hidden;
+      transition:
+        border-color .18s ease,
+        transform .18s ease;
     }
 
-
-    /* =========================================================
-       HEUTIGER TAG
-       Türkis statt gelb/grün
-    ========================================================= */
+    .day-card:hover {
+      transform: translateY(-1px);
+    }
 
     .day-card.today {
       border-color: #18b8c7;
-      box-shadow:
-        inset 0 3px 0 #18b8c7;
+      box-shadow: inset 0 3px 0 #18b8c7;
     }
 
-
-    .day-head {
+    .day-top {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 18px;
+      gap: 10px;
     }
-
 
     .day-name {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .08em;
+      color: #6d6f70;
+      font-size: 17px;
+      line-height: 1;
+      font-weight: 900;
       text-transform: uppercase;
-      color: #777;
+      letter-spacing: .04em;
     }
-
 
     .day-number {
-      margin-top: 3px;
-      font-size: 20px;
-      font-weight: 800;
+      margin-top: 10px;
+      font-size: 48px;
+      line-height: .9;
+      font-weight: 900;
+      letter-spacing: -.045em;
     }
-
 
     .day-today {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      padding: 4px 7px;
+      min-height: 25px;
+      padding: 0 9px;
       border-radius: 999px;
       background: #18b8c7;
       color: #fff;
-      font-size: 9px;
-      font-weight: 900;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-    }
-
-
-    /* =========================================================
-       EMPTY DAY
-    ========================================================= */
-
-    .empty-run {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 12px 4px 18px;
-    }
-
-
-    .empty-run-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #f2f2f2;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 21px;
-      margin-bottom: 11px;
-    }
-
-
-    .empty-run p {
-      margin: 0 0 15px;
-      color: #888;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-
-    .add-run-btn {
-      width: 100%;
-      border: 1px solid #111;
-      background: #111;
-      color: #fff;
-      border-radius: 7px;
-      min-height: 39px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font: inherit;
-      font-size: 12px;
-      font-weight: 800;
-      transition: .15s ease;
-    }
-
-
-    .add-run-btn:hover {
-      background: #18b8c7;
-      color: #fff;
-      border-color: #18b8c7;
-    }
-
-
-    .add-run-btn:focus-visible {
-      outline: 2px solid #18b8c7;
-      outline-offset: 2px;
-    }
-
-
-    /* =========================================================
-       PLANNED RUN
-    ========================================================= */
-
-    .planned-run {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-
-    .run-type {
-      display: inline-flex;
-      align-self: flex-start;
-      padding: 5px 8px;
-      border-radius: 999px;
-      background: #18b8c7;
-      color: #fff;
-      font-size: 9px;
+      font-size: 11px;
       line-height: 1;
       font-weight: 900;
       letter-spacing: .04em;
       text-transform: uppercase;
-      margin-bottom: 12px;
     }
 
+    .day-content {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 35px 0 20px;
+    }
+
+    .empty-plus {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 126px;
+      height: 126px;
+      margin-bottom: 26px;
+      border: 0;
+      border-radius: 50%;
+      background: #f2f2f2;
+      color: #111;
+      font-family: inherit;
+      font-size: 52px;
+      line-height: 1;
+      font-weight: 300;
+      cursor: pointer;
+      transition:
+        background .18s ease,
+        color .18s ease,
+        transform .18s ease;
+    }
+
+    .empty-plus:hover {
+      background: var(--turquoise);
+      color: #fff;
+      transform: scale(1.03);
+    }
+
+    .empty-message {
+      max-width: 310px;
+      color: #929292;
+      font-size: 24px;
+      line-height: 1.25;
+      font-weight: 500;
+      letter-spacing: -.02em;
+    }
+
+    .day-add-btn {
+      width: 100%;
+      min-height: 58px;
+      margin-top: auto;
+      border: 1px solid #111;
+      border-radius: 18px;
+      background: #111;
+      color: #fff;
+      font-family: inherit;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition:
+        background .18s ease,
+        border-color .18s ease;
+    }
+
+    .day-add-btn:hover {
+      background: var(--turquoise);
+      border-color: var(--turquoise);
+    }
+
+    /* =========================================================
+       PLANNED RUN
+       ========================================================= */
+
+    .planned-run {
+      width: 100%;
+      padding: 16px;
+      border-radius: 18px;
+      background: #f6f6f6;
+      text-align: left;
+    }
+
+    .run-type {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: #18b8c7;
+      color: #fff;
+      font-size: 11px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
 
     .run-distance {
+      margin-top: 13px;
       font-size: 32px;
       line-height: 1;
       font-weight: 900;
       letter-spacing: -.04em;
-      margin-bottom: 4px;
     }
-
 
     .run-distance span {
-      font-size: 13px;
+      color: #777;
+      font-size: 15px;
       font-weight: 700;
       letter-spacing: 0;
-      color: #777;
     }
-
 
     .run-pace {
-      font-size: 13px;
+      margin-top: 8px;
       color: #666;
-      margin-bottom: 14px;
+      font-size: 15px;
+      font-weight: 700;
     }
 
-
-    .run-note {
+    .run-notes {
+      margin-top: 12px;
       color: #444;
-      font-size: 12px;
-      line-height: 1.5;
-      padding-top: 12px;
-      border-top: 1px solid #eee;
+      font-size: 14px;
+      line-height: 1.4;
       white-space: pre-wrap;
       overflow-wrap: anywhere;
     }
 
-
-    .run-actions {
-      display: flex;
-      gap: 6px;
-      margin-top: auto;
-      padding-top: 15px;
-    }
-
-
-    .run-action {
-      flex: 1;
-      min-height: 34px;
-      border: 1px solid #ddd;
-      border-radius: 6px;
+    .edit-run-btn {
+      width: 100%;
+      min-height: 48px;
+      margin-top: 12px;
+      border: 1px solid #d7d7d7;
+      border-radius: 15px;
       background: #fff;
+      color: #111;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
       cursor: pointer;
-      font: inherit;
-      font-size: 11px;
-      font-weight: 700;
+      transition:
+        background .18s ease,
+        border-color .18s ease;
     }
 
-
-    .run-action:hover {
-      background: #f4f4f4;
-    }
-
-
-    .run-action:focus-visible {
-      outline: 2px solid #18b8c7;
-      outline-offset: 2px;
-    }
-
-
-    .run-action.delete {
-      color: #777;
-    }
-
-
-    /* =========================================================
-       WEEK SUMMARY
-    ========================================================= */
-
-    .week-summary {
-      margin-top: 18px;
-      display: grid;
-      grid-template-columns:
-        repeat(
-          3,
-          1fr
-        );
-      gap: 10px;
-    }
-
-
-    .summary-card {
-      padding: 18px;
-      border-radius: 9px;
+    .edit-run-btn:hover {
       background: #111;
+      border-color: #111;
       color: #fff;
     }
 
+    /* =========================================================
+       SUMMARY
+       ========================================================= */
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .summary-card {
+      min-height: 150px;
+      padding: 24px;
+      border: 1px solid #dedede;
+      border-radius: 24px;
+      background: #fff;
+    }
 
     .summary-label {
-      color: #aaa;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: .08em;
+      color: #777;
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      margin-bottom: 8px;
     }
-
 
     .summary-value {
-      font-size: 26px;
-      font-weight: 900;
+      margin-top: 18px;
+      font-size: 42px;
       line-height: 1;
+      font-weight: 900;
+      letter-spacing: -.045em;
     }
 
-
-    .summary-value span {
-      font-size: 12px;
-      font-weight: 600;
-      color: #aaa;
+    .summary-value small {
+      color: #777;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0;
     }
-
 
     /* =========================================================
        MODAL
-    ========================================================= */
+       ========================================================= */
 
-    .training-modal {
+    .modal-backdrop {
       position: fixed;
       inset: 0;
       z-index: 1000;
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      background: rgba(0,0,0,.58);
+      padding: 24px;
+      background: rgba(0, 0, 0, .52);
     }
 
-
-    .training-modal.open {
+    .modal-backdrop.open {
       display: flex;
     }
 
-
-    .training-modal-box {
-      width: min(100%, 560px);
-      max-height: calc(100vh - 40px);
+    .training-modal {
+      position: relative;
+      width: min(620px, 100%);
+      max-height: min(900px, calc(100dvh - 48px));
       overflow-y: auto;
+      padding: 34px;
+      border-radius: 28px;
       background: #fff;
-      border-radius: 12px;
-      padding: 28px;
-      box-shadow:
-        0 25px 80px rgba(0,0,0,.25);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .2);
     }
-
 
     .modal-head {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .modal-title {
+      margin: 0;
+      font-size: 36px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -.045em;
+    }
+
+    .modal-date {
+      margin-top: 10px;
+      color: #888;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      border: 1px solid #dedede;
+      border-radius: 50%;
+      background: #fff;
+      color: #111;
+      font-family: Arial, sans-serif;
+      font-size: 31px;
+      line-height: 1;
+      font-weight: 300;
+      cursor: pointer;
+      transition:
+        border-color .18s ease,
+        background .18s ease;
+    }
+
+    .modal-close:hover {
+      border-color: #111;
+      background: #f4f4f4;
+    }
+
+    .form-group {
       margin-bottom: 25px;
     }
 
-
-    .modal-head h2 {
-      margin: 0;
-      font-size: 26px;
-    }
-
-
-    .modal-head p {
-      margin: 7px 0 0;
-      color: #777;
-      font-size: 13px;
-    }
-
-
-    .modal-close {
-      width: 36px;
-      height: 36px;
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      line-height: 1;
-    }
-
-
-    .modal-close:hover {
-      background: #f3f3f3;
-    }
-
-
-    .modal-close:focus-visible {
-      outline: 2px solid #18b8c7;
-      outline-offset: 2px;
-    }
-
-
-    .form-group {
-      margin-bottom: 17px;
-    }
-
-
     .form-label {
       display: block;
-      margin-bottom: 7px;
-      color: #333;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .06em;
+      margin-bottom: 10px;
+      color: #363636;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .08em;
       text-transform: uppercase;
     }
 
-
     .form-control {
       width: 100%;
-      min-height: 44px;
-      border: 1px solid #d8d8d8;
-      border-radius: 7px;
-      background: #fff;
-      padding: 10px 12px;
-      color: #111;
-      font: inherit;
-      font-size: 14px;
+      min-height: 64px;
+      padding: 0 18px;
+      border: 2px solid #d9d9d9;
+      border-radius: 15px;
       outline: none;
-      box-sizing: border-box;
+      background: #fff;
+      color: #222;
+      font-family: inherit;
+      font-size: 19px;
+      font-weight: 500;
+      transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
     }
 
+    select.form-control {
+      appearance: auto;
+      -webkit-appearance: auto;
+      padding-right: 14px;
+    }
+
+    textarea.form-control {
+      min-height: 170px;
+      padding-top: 16px;
+      padding-bottom: 16px;
+      resize: vertical;
+      line-height: 1.45;
+    }
 
     .form-control:focus {
       border-color: #18b8c7;
-      box-shadow:
-        0 0 0 2px rgba(24,184,199,.18);
+      box-shadow: 0 0 0 2px rgba(24, 184, 199, .18);
     }
 
-
-    textarea.form-control {
-      min-height: 105px;
-      resize: vertical;
-      line-height: 1.5;
+    /* Pace deliberately uses text input so values like 5:30 work. */
+    #runPace {
+      -webkit-appearance: none;
+      appearance: none;
     }
-
-
-    .form-row {
-      display: grid;
-      grid-template-columns:
-        1fr 1fr;
-      gap: 12px;
-    }
-
 
     .modal-actions {
-      display: flex;
-      gap: 9px;
-      justify-content: flex-end;
-      margin-top: 24px;
+      display: grid;
+      gap: 12px;
+      margin-top: 30px;
     }
-
 
     .modal-btn {
-      min-height: 43px;
-      border-radius: 7px;
-      padding: 9px 16px;
-      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 64px;
+      padding: 0 20px;
+      border: 2px solid #dcdcdc;
+      border-radius: 15px;
       background: #fff;
+      color: #111;
+      font-family: inherit;
+      font-size: 20px;
+      font-weight: 900;
       cursor: pointer;
-      font: inherit;
-      font-weight: 800;
+      transition:
+        background .18s ease,
+        border-color .18s ease,
+        color .18s ease;
     }
-
 
     .modal-btn.primary {
       background: #18b8c7;
@@ -648,124 +686,161 @@
       color: #fff;
     }
 
-
     .modal-btn.primary:hover {
-      background: #1199a6;
-      border-color: #1199a6;
+      background: #111;
+      border-color: #111;
     }
 
+    .modal-btn.danger {
+      color: #b32632;
+    }
+
+    .modal-btn.danger:hover {
+      background: #b32632;
+      border-color: #b32632;
+      color: #fff;
+    }
+
+    .modal-btn.secondary {
+      color: #3e83e8;
+    }
 
     .modal-btn.secondary:hover {
-      background: #f3f3f3;
+      background: #3e83e8;
+      border-color: #3e83e8;
+      color: #fff;
     }
-
-
-    .delete-confirm {
-      margin-top: 8px;
-      padding: 12px;
-      background: #f5f5f5;
-      border-radius: 7px;
-      color: #666;
-      font-size: 12px;
-      line-height: 1.5;
-      display: none;
-    }
-
 
     /* =========================================================
-       MOBILE
-    ========================================================= */
+       SIDEBAR WEEK PROGRESS
+       ========================================================= */
 
-    @media (max-width: 1100px) {
-
-      .planner-grid {
-        grid-template-columns:
-          repeat(
-            4,
-            minmax(0, 1fr)
-          );
-      }
-
+    .sidebar-week {
+      margin-top: 38px;
+      padding: 20px;
+      border-radius: 20px;
+      background: #f5f5f5;
     }
 
+    .sidebar-week-label {
+      color: #777;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
 
-    @media (max-width: 820px) {
+    .sidebar-week-value {
+      margin-top: 8px;
+      font-size: 25px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -.03em;
+    }
 
-      .week-controls {
+    .sidebar-progress-track {
+      width: 100%;
+      height: 7px;
+      margin-top: 14px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #ddd;
+    }
+
+    .sidebar-progress {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: var(--turquoise);
+      transition: width .25s ease;
+    }
+
+    .sidebar-week-text {
+      margin-top: 9px;
+      color: #777;
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 1200px) {
+      .week-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .training-header {
         align-items: flex-start;
         flex-direction: column;
       }
 
-
-      .week-buttons {
+      .add-training-btn {
         width: 100%;
       }
 
-
-      .week-btn {
-        flex: 1;
+      .week-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+    }
 
-
-      .planner-grid {
-        grid-template-columns:
-          repeat(
-            2,
-            minmax(0, 1fr)
-          );
-      }
-
-
-      .week-summary {
-        grid-template-columns: 1fr;
-      }
-
-
+    @media (max-width: 760px) {
       .nav {
         column-gap: 18px;
         row-gap: 16px;
       }
-
 
       .nav a {
         min-height: 54px;
         font-size: 21px;
       }
 
-
       .nav a.active {
         padding: 0 8px !important;
       }
 
-
       .nav a.active .nav-active-dot {
-        flex-basis: 9px;
         width: 9px;
         height: 9px;
+        flex-basis: 9px;
         margin-left: 14px;
         margin-right: 18px;
       }
 
+      .training-title {
+        font-size: 58px;
+      }
+
+      .training-subtitle {
+        font-size: 20px;
+      }
+
+      .week-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .day-card {
+        min-height: 430px;
+      }
+
+      .summary-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
-
     @media (max-width: 560px) {
-
       .brand {
         margin-bottom: 22px;
       }
-
-
-      .brand img {
-        width: 100%;
-      }
-
 
       .nav {
         column-gap: 10px;
         row-gap: 12px;
       }
-
 
       .nav a {
         min-height: 48px;
@@ -773,231 +848,162 @@
         font-size: 18px;
       }
 
-
       .nav a.active {
         padding: 0 4px !important;
       }
 
-
       .nav a.active .nav-active-dot {
-        flex-basis: 8px;
         width: 8px;
         height: 8px;
+        flex-basis: 8px;
         margin-left: 12px;
         margin-right: 14px;
       }
 
-
-      .planner-grid {
-        grid-template-columns: 1fr;
+      .training-title {
+        font-size: 50px;
       }
 
-
-      .day-card {
-        min-height: 230px;
+      .training-subtitle {
+        font-size: 18px;
       }
 
-
-      .form-row {
-        grid-template-columns: 1fr;
+      .training-header {
+        margin-bottom: 30px;
       }
 
-
-      .training-modal {
-        padding: 10px;
+      .week-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
       }
 
-
-      .training-modal-box {
-        padding: 21px;
-        max-height: calc(100vh - 20px);
-      }
-
-
-      .modal-actions {
-        flex-direction: column-reverse;
-      }
-
-
-      .modal-btn {
+      .week-actions {
         width: 100%;
       }
 
+      .week-action {
+        flex: 1;
+      }
+
+      .training-modal {
+        max-height: calc(100dvh - 24px);
+        padding: 25px 20px;
+        border-radius: 24px;
+      }
+
+      .modal-title {
+        font-size: 31px;
+      }
+
+      .modal-close {
+        width: 46px;
+        height: 46px;
+        font-size: 27px;
+      }
+
+      .form-control {
+        min-height: 60px;
+      }
     }
-
   </style>
-
 </head>
-
 
 <body>
 
-<div class="shell">
-
-
-  <!-- =======================================================
+  <!-- =========================================================
        SIDEBAR
-  ======================================================== -->
+       ========================================================= -->
 
   <aside class="sidebar">
 
-
-    <!-- =====================================================
-         LOGO
-         Genau wie auf der Events-Seite
-    ====================================================== -->
-
     <div class="brand">
-
       <a href="index.html">
-
         <img
           src="miles-apart-wordmark.png"
           alt="Miles Apart Running Club"
         >
-
       </a>
-
     </div>
 
-
-    <!-- =====================================================
-         NAVIGATION
-    ====================================================== -->
-
     <nav class="nav">
-
       <a href="index.html">
         Miles Apart
       </a>
-
 
       <a href="home.html">
         Home
       </a>
 
-
       <a href="challenges.html">
         Challenges
       </a>
-
 
       <a href="community.html">
         Community
       </a>
 
-
       <a href="events.html">
         Events
       </a>
 
-
-      <a
-        class="active"
-        href="training.html"
-      >
-
-        <span
-          class="nav-active-dot"
-          aria-hidden="true"
-        ></span>
-
-
-        <span class="nav-active-text">
-          Training
-        </span>
-
+      <a href="training.html" class="active">
+        <span class="nav-active-dot"></span>
+        <span class="nav-active-text">Training</span>
       </a>
-
     </nav>
 
+    <div class="sidebar-week">
+      <div class="sidebar-week-label">Diese Woche</div>
 
-    <!-- =====================================================
-         SIDEBAR WEEK PROGRESS
-    ====================================================== -->
-
-    <div class="side-bottom">
-
-      <small>
-        THIS WEEK
-      </small>
-
-
-      <strong id="sidebarWeekKm">
-        0 / 30 KM
-      </strong>
-
-
-      <div class="mini-progress">
-
-        <i
-          id="sidebarProgress"
-          style="width:0%"
-        ></i>
-
+      <div class="sidebar-week-value">
+        <span id="sidebarWeekKm">0</span> km
       </div>
 
+      <div class="sidebar-progress-track">
+        <div
+          class="sidebar-progress"
+          id="sidebarProgress"
+        ></div>
+      </div>
 
-      <p
-        class="small"
+      <div
+        class="sidebar-week-text"
         id="sidebarWeekText"
-        style="color:#aaa;margin-bottom:0"
       >
-        Plane deine Woche.
-      </p>
-
+        0 von 30 km geplant
+      </div>
     </div>
 
   </aside>
 
 
-  <!-- =======================================================
+  <!-- =========================================================
        MAIN
-  ======================================================== -->
+       ========================================================= -->
 
   <main class="main">
-
-
     <div class="training-page">
 
-
-      <!-- ===================================================
-           TOP
-      ==================================================== -->
-
-      <div class="top">
-
-        <div class="crumb">
-          MILES APART / TRAINING
-        </div>
-
-      </div>
-
-
-      <!-- ===================================================
-           HERO
-      ==================================================== -->
-
-      <div class="hero">
+      <div class="training-header">
 
         <div>
+          <div class="training-kicker">
+            Miles Apart / Training
+          </div>
 
-          <h1>
+          <h1 class="training-title">
             Training.
           </h1>
 
-
-          <p class="lead">
+          <p class="training-subtitle">
             Dein Laufplan. Deine Woche. Dein Rhythmus.
           </p>
-
         </div>
 
-
         <button
-          class="btn lime"
-          id="heroAddRun"
           type="button"
+          class="add-training-btn"
+          id="openAddRunBtn"
         >
           + Lauf planen
         </button>
@@ -1005,57 +1011,51 @@
       </div>
 
 
-      <!-- ===================================================
-           WEEK CONTROLS
-      ==================================================== -->
+      <!-- =====================================================
+           WEEK TOOLBAR
+           ===================================================== -->
 
-      <div class="week-controls">
+      <div class="week-toolbar">
 
-        <div>
-
-          <h2
-            class="week-title"
-            id="weekTitle"
+        <div class="week-title-wrap">
+          <div
+            class="week-label"
+            id="weekLabel"
           >
-            Deine Woche
-          </h2>
+            Diese Woche
+          </div>
 
-
-          <p
-            class="week-subtitle"
-            id="weekSubtitle"
+          <div
+            class="week-range"
+            id="weekRange"
           >
-            Wird geladen …
-          </p>
-
+            –
+          </div>
         </div>
 
-
-        <div class="week-buttons">
+        <div class="week-actions">
 
           <button
-            class="week-btn"
-            id="previousWeek"
             type="button"
+            class="week-action"
+            id="previousWeekBtn"
             aria-label="Vorherige Woche"
           >
             ←
           </button>
 
-
           <button
-            class="week-btn"
-            id="currentWeek"
             type="button"
+            class="week-action"
+            id="todayWeekBtn"
           >
             Heute
           </button>
 
-
           <button
-            class="week-btn"
-            id="nextWeek"
             type="button"
+            class="week-action"
+            id="nextWeekBtn"
             aria-label="Nächste Woche"
           >
             →
@@ -1066,146 +1066,138 @@
       </div>
 
 
-      <!-- ===================================================
-           WEEK PLANNER
-      ==================================================== -->
+      <!-- =====================================================
+           DAYS
+           ===================================================== -->
 
-      <section>
-
-        <div
-          class="planner-grid"
-          id="plannerGrid"
-        >
-        </div>
-
-      </section>
+      <section
+        class="week-grid"
+        id="weekGrid"
+        aria-label="Trainingswoche"
+      ></section>
 
 
-      <!-- ===================================================
+      <!-- =====================================================
            SUMMARY
-      ==================================================== -->
+           ===================================================== -->
 
-      <section class="week-summary">
-
+      <section class="summary-grid">
 
         <div class="summary-card">
-
           <div class="summary-label">
             Wochenumfang
           </div>
 
-
-          <div
-            class="summary-value"
-            id="summaryKm"
-          >
-            0
-            <span>
-              KM
-            </span>
+          <div class="summary-value">
+            <span id="summaryKm">0</span>
+            <small>km</small>
           </div>
-
         </div>
 
 
         <div class="summary-card">
-
           <div class="summary-label">
             Läufe
           </div>
 
-
-          <div
-            class="summary-value"
-            id="summaryRuns"
-          >
-            0
-            <span>
-              Einheiten
-            </span>
+          <div class="summary-value">
+            <span id="summaryRuns">0</span>
           </div>
-
         </div>
 
 
         <div class="summary-card">
-
           <div class="summary-label">
             Geplante Pace
           </div>
 
-
-          <div
-            class="summary-value"
-            id="summaryPace"
-          >
-            —
-            <span>
-              min/km
-            </span>
+          <div class="summary-value">
+            <span id="summaryPace">–</span>
+            <small id="summaryPaceUnit"></small>
           </div>
-
         </div>
 
       </section>
 
     </div>
-
   </main>
 
-</div>
 
+  <!-- =========================================================
+       RUN MODAL
+       ========================================================= -->
 
-<!-- =========================================================
-     ADD / EDIT RUN MODAL
-========================================================= -->
+  <div
+    class="modal-backdrop"
+    id="runModal"
+    aria-hidden="true"
+  >
 
-<div
-  class="training-modal"
-  id="runModal"
-  aria-hidden="true"
->
+    <div
+      class="training-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
 
+      <div class="modal-head">
 
-  <div class="training-modal-box">
+        <div>
+          <h2
+            class="modal-title"
+            id="modalTitle"
+          >
+            Lauf planen
+          </h2>
 
+          <div
+            class="modal-date"
+            id="modalDate"
+          >
+            –
+          </div>
+        </div>
 
-    <div class="modal-head">
-
-      <div>
-
-        <h2 id="modalTitle">
-          Lauf planen
-        </h2>
-
-
-        <p id="modalDate">
-          Montag
-        </p>
+        <button
+          type="button"
+          class="modal-close"
+          id="closeModalBtn"
+          aria-label="Schließen"
+        >
+          ×
+        </button>
 
       </div>
 
 
-      <button
-        class="modal-close"
-        id="closeModal"
-        type="button"
-        aria-label="Fenster schließen"
-      >
-        ×
-      </button>
+      <!-- TAG -->
 
-    </div>
+      <div class="form-group">
+
+        <label
+          class="form-label"
+          for="runDay"
+        >
+          Tag
+        </label>
+
+        <select
+          class="form-control"
+          id="runDay"
+        >
+          <option value="1">Montag</option>
+          <option value="2">Dienstag</option>
+          <option value="3">Mittwoch</option>
+          <option value="4">Donnerstag</option>
+          <option value="5">Freitag</option>
+          <option value="6">Samstag</option>
+          <option value="0">Sonntag</option>
+        </select>
+
+      </div>
 
 
-    <form id="runForm">
-
-
-      <input
-        type="hidden"
-        id="runDate"
-      >
-
+      <!-- LAUFART -->
 
       <div class="form-group">
 
@@ -1216,1388 +1208,1205 @@
           Laufart
         </label>
 
-
         <select
           class="form-control"
           id="runType"
-          required
         >
-
-          <option value="Easy Run">
-            Easy Run
-          </option>
-
-          <option value="Zone 2">
-            Zone 2
-          </option>
-
-          <option value="Tempolauf">
-            Tempolauf
-          </option>
-
-          <option value="Intervalle">
-            Intervalle
-          </option>
-
-          <option value="Long Run">
-            Long Run
-          </option>
-
-          <option value="Recovery">
-            Recovery Run
-          </option>
-
-          <option value="Frei">
-            Freier Lauf
-          </option>
-
+          <option value="Easy Run">Easy Run</option>
+          <option value="Zone 2">Zone 2</option>
+          <option value="Tempolauf">Tempolauf</option>
+          <option value="Intervalle">Intervalle</option>
+          <option value="Long Run">Long Run</option>
+          <option value="Recovery Run">Recovery Run</option>
+          <option value="Frei">Frei</option>
         </select>
 
       </div>
 
 
-      <div class="form-row">
-
-
-        <div class="form-group">
-
-          <label
-            class="form-label"
-            for="runDistance"
-          >
-            Distanz
-          </label>
-
-
-          <input
-            class="form-control"
-            id="runDistance"
-            type="number"
-            min="0"
-            step="0.1"
-            placeholder="z. B. 8"
-            required
-          >
-
-        </div>
-
-
-        <div class="form-group">
-
-          <label
-            class="form-label"
-            for="runPace"
-          >
-            Pace
-          </label>
-
-
-          <input
-            class="form-control"
-            id="runPace"
-            type="text"
-            inputmode="numeric"
-            placeholder="z. B. 5:45"
-          >
-
-        </div>
-
-      </div>
-
+      <!-- DISTANZ -->
 
       <div class="form-group">
 
         <label
           class="form-label"
-          for="runNote"
+          for="runDistance"
+        >
+          Distanz
+        </label>
+
+        <input
+          class="form-control"
+          id="runDistance"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          step="0.1"
+          placeholder="z. B. 10"
+          autocomplete="off"
+        >
+
+      </div>
+
+
+      <!-- PACE -->
+
+      <div class="form-group">
+
+        <label
+          class="form-label"
+          for="runPace"
+        >
+          Pace
+        </label>
+
+        <input
+          class="form-control"
+          id="runPace"
+          type="text"
+          inputmode="text"
+          placeholder="z. B. 5:30"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+        >
+
+      </div>
+
+
+      <!-- NOTIZEN -->
+
+      <div class="form-group">
+
+        <label
+          class="form-label"
+          for="runNotes"
         >
           Notizen / Details
         </label>
 
-
         <textarea
           class="form-control"
-          id="runNote"
-          placeholder="z. B. 6 × 1000 m, 2 min Trabpause zwischen den Intervallen."
+          id="runNotes"
+          placeholder="z. B. 6 × 1000 m, 2 min Trabpause"
         ></textarea>
 
       </div>
 
 
-      <div
-        class="delete-confirm"
-        id="deleteConfirm"
-      >
-        Dieser Lauf wird aus deiner Planung gelöscht.
-      </div>
-
+      <!-- ACTIONS -->
 
       <div class="modal-actions">
 
-
         <button
-          class="modal-btn secondary"
-          id="cancelModal"
           type="button"
-        >
-          Abbrechen
-        </button>
-
-
-        <button
-          class="modal-btn"
-          id="deleteRun"
-          type="button"
-          style="display:none;color:#b00020"
-        >
-          Lauf löschen
-        </button>
-
-
-        <button
           class="modal-btn primary"
-          type="submit"
+          id="saveRunBtn"
         >
           Lauf speichern
         </button>
 
+        <button
+          type="button"
+          class="modal-btn danger"
+          id="deleteRunBtn"
+          style="display:none;"
+        >
+          Lauf löschen
+        </button>
+
+        <button
+          type="button"
+          class="modal-btn secondary"
+          id="cancelRunBtn"
+        >
+          Abbrechen
+        </button>
+
       </div>
 
-    </form>
+    </div>
 
   </div>
 
-</div>
 
-
-<script>
-
-  /* =========================================================
-     DATE HELPERS
-  ========================================================= */
-
-  const DAY_NAMES = [
-
-    "Sonntag",
-    "Montag",
-    "Dienstag",
-    "Mittwoch",
-    "Donnerstag",
-    "Freitag",
-    "Samstag"
-
-  ];
-
-
-  const SHORT_DAY_NAMES = [
-
-    "SO",
-    "MO",
-    "DI",
-    "MI",
-    "DO",
-    "FR",
-    "SA"
-
-  ];
-
-
-  function dateToKey(
-    date
-  ) {
-
-    const year =
-      date.getFullYear();
-
-
-    const month =
-      String(
-        date.getMonth() + 1
-      ).padStart(
-        2,
-        "0"
-      );
-
-
-    const day =
-      String(
-        date.getDate()
-      ).padStart(
-        2,
-        "0"
-      );
-
-
-    return (
-      year +
-      "-" +
-      month +
-      "-" +
-      day
-    );
-
-  }
-
-
-  function startOfWeek(
-    date
-  ) {
-
-    const result =
-      new Date(
-        date
-      );
-
-
-    result.setHours(
-      0,
-      0,
-      0,
-      0
-    );
-
-
-    const day =
-      result.getDay();
-
-
-    const difference =
-      day === 0
-        ? -6
-        : 1 - day;
-
-
-    result.setDate(
-      result.getDate() +
-      difference
-    );
-
-
-    return result;
-
-  }
-
-
-  function addDays(
-    date,
-    amount
-  ) {
-
-    const result =
-      new Date(
-        date
-      );
-
-
-    result.setDate(
-      result.getDate() +
-      amount
-    );
-
-
-    return result;
-
-  }
-
-
-  function formatDate(
-    date
-  ) {
-
-    return (
-
-      String(
-        date.getDate()
-      ).padStart(
-        2,
-        "0"
-      ) +
-
-      "." +
-
-      String(
-        date.getMonth() + 1
-      ).padStart(
-        2,
-        "0"
-      ) +
-
-      "." +
-
-      date.getFullYear()
-
-    );
-
-  }
-
-
-  function formatShortDate(
-    date
-  ) {
-
-    return (
-
-      String(
-        date.getDate()
-      ).padStart(
-        2,
-        "0"
-      ) +
-
-      "." +
-
-      String(
-        date.getMonth() + 1
-      ).padStart(
-        2,
-        "0"
-      )
-
-    );
-
-  }
-
-
-  /* =========================================================
-     WEEK STATE
-  ========================================================= */
-
-  let currentWeekStart =
-    startOfWeek(
-      new Date()
-    );
-
-
-  let editingDate =
-    null;
-
-
-  let trainingPlan =
-    loadTrainingPlan();
-
-
-  /* =========================================================
-     LOCAL STORAGE
-  ========================================================= */
-
-  function getStorageKey() {
-
-    return (
-      "milesApartTrainingPlan"
-    );
-
-  }
-
-
-  function loadTrainingPlan() {
-
-    try {
-
-      const raw =
-        localStorage.getItem(
-          getStorageKey()
-        );
-
-
-      if (!raw) {
-
-        return {};
-
-      }
-
-
-      const parsed =
-        JSON.parse(
-          raw
-        );
-
-
-      if (
-        !parsed ||
-        typeof parsed !==
-          "object"
-      ) {
-
-        return {};
-
-      }
-
-
-      return parsed;
-
-    } catch (error) {
-
-      console.error(
-        "Trainingsplan konnte nicht geladen werden:",
-        error
-      );
-
-
-      return {};
-
-    }
-
-  }
-
-
-  function saveTrainingPlan() {
-
-    try {
-
-      localStorage.setItem(
-        getStorageKey(),
-        JSON.stringify(
-          trainingPlan
-        )
-      );
-
-    } catch (error) {
-
-      console.error(
-        "Trainingsplan konnte nicht gespeichert werden:",
-        error
-      );
-
-
-      alert(
-        "Der Trainingsplan konnte nicht gespeichert werden."
-      );
-
-    }
-
-  }
-
-
-  /* =========================================================
-     WEEK RENDERING
-  ========================================================= */
-
-  function renderWeek() {
-
-    const plannerGrid =
-      document.getElementById(
-        "plannerGrid"
-      );
-
-
-    plannerGrid.innerHTML =
-      "";
-
-
-    const weekEnd =
-      addDays(
-        currentWeekStart,
-        6
-      );
-
-
-    const firstDate =
-      formatShortDate(
-        currentWeekStart
-      );
-
-
-    const lastDate =
-      formatShortDate(
-        weekEnd
-      );
-
-
-    document.getElementById(
-      "weekTitle"
-    ).textContent =
-      "Deine Woche";
-
-
-    document.getElementById(
-      "weekSubtitle"
-    ).textContent =
-
-      firstDate +
-      " – " +
-      lastDate +
-      " · Montag bis Sonntag";
-
-
-    for (
-      let i = 0;
-      i < 7;
-      i++
-    ) {
-
-      const date =
-        addDays(
-          currentWeekStart,
-          i
-        );
-
-
-      plannerGrid.appendChild(
-        createDayCard(
-          date
-        )
-      );
-
-    }
-
-
-    updateWeekSummary();
-
-  }
-
-
-  function createDayCard(
-    date
-  ) {
-
-    const key =
-      dateToKey(
-        date
-      );
-
-
-    const run =
-      trainingPlan[
-        key
-      ];
-
-
-    const todayKey =
-      dateToKey(
-        new Date()
-      );
-
-
-    const card =
-      document.createElement(
-        "div"
-      );
-
-
-    card.className =
-      "day-card";
-
-
-    if (
-      key === todayKey
-    ) {
-
-      card.classList.add(
-        "today"
-      );
-
-    }
-
-
-    const head =
-      document.createElement(
-        "div"
-      );
-
-
-    head.className =
-      "day-head";
-
-
-    const headLeft =
-      document.createElement(
-        "div"
-      );
-
-
-    headLeft.innerHTML = `
-
-      <div class="day-name">
-        ${SHORT_DAY_NAMES[
-          date.getDay()
-        ]}
-      </div>
-
-      <div class="day-number">
-        ${date.getDate()}
-      </div>
-
-    `;
-
-
-    head.appendChild(
-      headLeft
-    );
-
-
-    if (
-      key === todayKey
-    ) {
-
-      const todayBadge =
-        document.createElement(
-          "span"
-        );
-
-
-      todayBadge.className =
-        "day-today";
-
-
-      todayBadge.textContent =
-        "Heute";
-
-
-      head.appendChild(
-        todayBadge
-      );
-
-    }
-
-
-    card.appendChild(
-      head
-    );
-
-
-    if (!run) {
-
-      card.appendChild(
-        createEmptyRun(
-          date
-        )
-      );
-
-    } else {
-
-      card.appendChild(
-        createPlannedRun(
-          date,
-          run
-        )
-      );
-
-    }
-
-
-    return card;
-
-  }
-
-
-  function createEmptyRun(
-    date
-  ) {
-
-    const wrapper =
-      document.createElement(
-        "div"
-      );
-
-
-    wrapper.className =
-      "empty-run";
-
-
-    wrapper.innerHTML = `
-
-      <div class="empty-run-icon">
-        +
-      </div>
-
-      <p>
-        Noch kein Lauf<br>
-        für ${
-          DAY_NAMES[
-            date.getDay()
-          ]
-        } geplant.
-      </p>
-
-      <button
-        class="add-run-btn"
-        type="button"
-      >
-        + Lauf hinzufügen
-      </button>
-
-    `;
-
-
-    wrapper
-      .querySelector(
-        ".add-run-btn"
-      )
-      .addEventListener(
-        "click",
-        () =>
-          openRunModal(
-            date
-          )
-      );
-
-
-    return wrapper;
-
-  }
-
-
-  function createPlannedRun(
-    date,
-    run
-  ) {
-
-    const wrapper =
-      document.createElement(
-        "div"
-      );
-
-
-    wrapper.className =
-      "planned-run";
-
-
-    const type =
-      document.createElement(
-        "div"
-      );
-
-
-    type.className =
-      "run-type";
-
-
-    type.textContent =
-      run.type ||
-      "Lauf";
-
-
-    wrapper.appendChild(
-      type
-    );
-
-
-    const distance =
-      document.createElement(
-        "div"
-      );
-
-
-    distance.className =
-      "run-distance";
-
-
-    distance.innerHTML =
-      escapeHtml(
-        String(
-          run.distance
-        )
-      ) +
-      " <span>KM</span>";
-
-
-    wrapper.appendChild(
-      distance
-    );
-
-
-    if (
-      run.pace &&
-      run.pace.trim()
-    ) {
-
-      const pace =
-        document.createElement(
-          "div"
-        );
-
-
-      pace.className =
-        "run-pace";
-
-
-      pace.textContent =
-        "Pace " +
-        run.pace +
-        " min/km";
-
-
-      wrapper.appendChild(
-        pace
-      );
-
-    }
-
-
-    if (
-      run.note &&
-      run.note.trim()
-    ) {
-
-      const note =
-        document.createElement(
-          "div"
-        );
-
-
-      note.className =
-        "run-note";
-
-
-      note.textContent =
-        run.note;
-
-
-      wrapper.appendChild(
-        note
-      );
-
-    }
-
-
-    const actions =
-      document.createElement(
-        "div"
-      );
-
-
-    actions.className =
-      "run-actions";
-
-
-    const editButton =
-      document.createElement(
-        "button"
-      );
-
-
-    editButton.type =
-      "button";
-
-
-    editButton.className =
-      "run-action";
-
-
-    editButton.textContent =
-      "Bearbeiten";
-
-
-    editButton.addEventListener(
-      "click",
-      () =>
-        openRunModal(
-          date
-        )
-    );
-
-
-    const deleteButton =
-      document.createElement(
-        "button"
-      );
-
-
-    deleteButton.type =
-      "button";
-
-
-    deleteButton.className =
-      "run-action delete";
-
-
-    deleteButton.textContent =
-      "Löschen";
-
-
-    deleteButton.addEventListener(
-      "click",
-      () =>
-        deleteRun(
-          date
-        )
-    );
-
-
-    actions.appendChild(
-      editButton
-    );
-
-
-    actions.appendChild(
-      deleteButton
-    );
-
-
-    wrapper.appendChild(
-      actions
-    );
-
-
-    return wrapper;
-
-  }
-
-
-  /* =========================================================
-     MODAL
-  ========================================================= */
-
-  const runModal =
-    document.getElementById(
-      "runModal"
-    );
-
-
-  const runForm =
-    document.getElementById(
-      "runForm"
-    );
-
-
-  function openRunModal(
-    date
-  ) {
-
-    editingDate =
-      dateToKey(
-        date
-      );
-
-
-    const existingRun =
-      trainingPlan[
-        editingDate
-      ];
-
-
-    document.getElementById(
-      "runDate"
-    ).value =
-      editingDate;
-
-
-    document.getElementById(
-      "modalTitle"
-    ).textContent =
-      existingRun
-        ? "Lauf bearbeiten"
-        : "Lauf planen";
-
-
-    document.getElementById(
-      "modalDate"
-    ).textContent =
-
-      DAY_NAMES[
-        date.getDay()
-      ] +
-
-      " · " +
-
-      formatDate(
-        date
-      );
-
-
-    document.getElementById(
-      "runType"
-    ).value =
-      existingRun?.type ||
-      "Easy Run";
-
-
-    document.getElementById(
-      "runDistance"
-    ).value =
-      existingRun?.distance ||
-      "";
-
-
-    document.getElementById(
-      "runPace"
-    ).value =
-      existingRun?.pace ||
-      "";
-
-
-    document.getElementById(
-      "runNote"
-    ).value =
-      existingRun?.note ||
-      "";
-
-
-    const deleteButton =
-      document.getElementById(
-        "deleteRun"
-      );
-
-
-    const deleteConfirm =
-      document.getElementById(
-        "deleteConfirm"
-      );
-
-
-    if (
-      existingRun
-    ) {
-
-      deleteButton.style.display =
-        "block";
-
-    } else {
-
-      deleteButton.style.display =
-        "none";
-
-    }
-
-
-    deleteConfirm.style.display =
-      "none";
-
-
-    runModal.classList.add(
-      "open"
-    );
-
-
-    runModal.setAttribute(
-      "aria-hidden",
-      "false"
-    );
-
-
-    setTimeout(
-      () => {
-
-        document
-          .getElementById(
-            "runType"
-          )
-          .focus();
-
-      },
-      50
-    );
-
-  }
-
-
-  function closeRunModal() {
-
-    runModal.classList.remove(
-      "open"
-    );
-
-
-    runModal.setAttribute(
-      "aria-hidden",
-      "true"
-    );
-
-
-    editingDate =
-      null;
-
-
-    runForm.reset();
-
-  }
-
-
-  /* =========================================================
-     SAVE RUN
-  ========================================================= */
-
-  runForm.addEventListener(
-    "submit",
-    event => {
-
-      event.preventDefault();
-
-
-      if (
-        !editingDate
-      ) {
-
-        return;
-
-      }
-
-
-      const type =
-        document.getElementById(
-          "runType"
-        ).value;
-
-
-      const distance =
-        parseFloat(
-          document.getElementById(
-            "runDistance"
-          ).value
-        );
-
-
-      const pace =
-        document.getElementById(
-          "runPace"
-        ).value.trim();
-
-
-      const note =
-        document.getElementById(
-          "runNote"
-        ).value.trim();
-
-
-      if (
-        !Number.isFinite(
-          distance
-        ) ||
-        distance <= 0
-      ) {
-
-        alert(
-          "Bitte gib eine gültige Distanz ein."
-        );
-
-
-        return;
-
-      }
-
-
-      trainingPlan[
-        editingDate
-      ] = {
-
-        type,
-
-        distance:
-          Math.round(
-            distance * 10
-          ) / 10,
-
-        pace,
-
-        note
-
-      };
-
-
-      saveTrainingPlan();
-
-
-      renderWeek();
-
-
-      closeRunModal();
-
-    }
-  );
-
-
-  /* =========================================================
-     DELETE RUN
-  ========================================================= */
-
-  function deleteRun(
-    date
-  ) {
-
-    const key =
-      dateToKey(
-        date
-      );
-
-
-    if (
-      !trainingPlan[key]
-    ) {
-
-      return;
-
-    }
-
-
-    const confirmed =
-      window.confirm(
-        "Diesen Lauf wirklich aus deinem Trainingsplan löschen?"
-      );
-
-
-    if (!confirmed) {
-
-      return;
-
-    }
-
-
-    delete trainingPlan[
-      key
+  <script>
+    /* =========================================================
+       CONSTANTS
+       ========================================================= */
+
+    const STORAGE_KEY = "milesApartTrainingPlan";
+    const WEEKLY_TARGET = 30;
+
+    const DAY_NAMES = [
+      "Sonntag",
+      "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag"
+    ];
+
+    const DAY_SHORT = [
+      "SO",
+      "MO",
+      "DI",
+      "MI",
+      "DO",
+      "FR",
+      "SA"
     ];
 
 
-    saveTrainingPlan();
+    /* =========================================================
+       DOM
+       ========================================================= */
+
+    const weekGrid = document.getElementById("weekGrid");
+
+    const weekLabel = document.getElementById("weekLabel");
+    const weekRange = document.getElementById("weekRange");
+
+    const previousWeekBtn =
+      document.getElementById("previousWeekBtn");
+
+    const todayWeekBtn =
+      document.getElementById("todayWeekBtn");
+
+    const nextWeekBtn =
+      document.getElementById("nextWeekBtn");
+
+    const openAddRunBtn =
+      document.getElementById("openAddRunBtn");
+
+    const runModal =
+      document.getElementById("runModal");
+
+    const closeModalBtn =
+      document.getElementById("closeModalBtn");
+
+    const cancelRunBtn =
+      document.getElementById("cancelRunBtn");
+
+    const saveRunBtn =
+      document.getElementById("saveRunBtn");
+
+    const deleteRunBtn =
+      document.getElementById("deleteRunBtn");
+
+    const modalTitle =
+      document.getElementById("modalTitle");
+
+    const modalDate =
+      document.getElementById("modalDate");
+
+    const runDay =
+      document.getElementById("runDay");
+
+    const runType =
+      document.getElementById("runType");
+
+    const runDistance =
+      document.getElementById("runDistance");
+
+    const runPace =
+      document.getElementById("runPace");
+
+    const runNotes =
+      document.getElementById("runNotes");
+
+    const summaryKm =
+      document.getElementById("summaryKm");
+
+    const summaryRuns =
+      document.getElementById("summaryRuns");
+
+    const summaryPace =
+      document.getElementById("summaryPace");
+
+    const summaryPaceUnit =
+      document.getElementById("summaryPaceUnit");
+
+    const sidebarWeekKm =
+      document.getElementById("sidebarWeekKm");
+
+    const sidebarProgress =
+      document.getElementById("sidebarProgress");
+
+    const sidebarWeekText =
+      document.getElementById("sidebarWeekText");
 
 
-    renderWeek();
+    /* =========================================================
+       STATE
+       ========================================================= */
 
-  }
+    let currentWeekStart = startOfWeek(new Date());
+
+    let editingDateKey = null;
+
+    let trainingPlan = loadTrainingPlan();
 
 
-  document
-    .getElementById(
-      "deleteRun"
-    )
-    .addEventListener(
-      "click",
-      () => {
+    /* =========================================================
+       DATE HELPERS
+       ========================================================= */
 
-        if (
-          !editingDate
-        ) {
+    function startOfWeek(date) {
+      const result = new Date(date);
+      result.setHours(0, 0, 0, 0);
 
-          return;
+      const day = result.getDay();
 
+      const diff = day === 0
+        ? -6
+        : 1 - day;
+
+      result.setDate(result.getDate() + diff);
+
+      return result;
+    }
+
+
+    function addDays(date, amount) {
+      const result = new Date(date);
+      result.setDate(result.getDate() + amount);
+      return result;
+    }
+
+
+    function dateKey(date) {
+      const year = date.getFullYear();
+
+      const month = String(
+        date.getMonth() + 1
+      ).padStart(2, "0");
+
+      const day = String(
+        date.getDate()
+      ).padStart(2, "0");
+
+      return `${year}-${month}-${day}`;
+    }
+
+
+    function formatDate(date) {
+      return date.toLocaleDateString(
+        "de-DE",
+        {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        }
+      );
+    }
+
+
+    function formatShortDate(date) {
+      return date.toLocaleDateString(
+        "de-DE",
+        {
+          day: "2-digit",
+          month: "2-digit"
+        }
+      );
+    }
+
+
+    function isSameDay(a, b) {
+      return dateKey(a) === dateKey(b);
+    }
+
+
+    function getDayIndexFromMonday(date) {
+      const day = date.getDay();
+
+      return day === 0
+        ? 6
+        : day - 1;
+    }
+
+
+    /* =========================================================
+       STORAGE
+       ========================================================= */
+
+    function loadTrainingPlan() {
+      try {
+        const saved =
+          localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+          return {};
         }
 
+        const parsed = JSON.parse(saved);
 
-        delete trainingPlan[
-          editingDate
-        ];
+        if (
+          parsed &&
+          typeof parsed === "object"
+        ) {
+          return parsed;
+        }
 
+        return {};
+      } catch (error) {
+        console.error(
+          "Trainingsplan konnte nicht geladen werden:",
+          error
+        );
 
-        saveTrainingPlan();
-
-
-        renderWeek();
-
-
-        closeRunModal();
-
+        return {};
       }
-    );
+    }
 
 
-  /* =========================================================
-     MODAL CONTROLS
-  ========================================================= */
-
-  document
-    .getElementById(
-      "closeModal"
-    )
-    .addEventListener(
-      "click",
-      closeRunModal
-    );
-
-
-  document
-    .getElementById(
-      "cancelModal"
-    )
-    .addEventListener(
-      "click",
-      closeRunModal
-    );
+    function saveTrainingPlan() {
+      try {
+        localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(trainingPlan)
+        );
+      } catch (error) {
+        console.error(
+          "Trainingsplan konnte nicht gespeichert werden:",
+          error
+        );
+      }
+    }
 
 
-  runModal.addEventListener(
-    "click",
-    event => {
+    /* =========================================================
+       HTML ESCAPE
+       ========================================================= */
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+
+    /* =========================================================
+       PACE HELPERS
+       ========================================================= */
+
+    function normalizePace(value) {
+      if (!value) {
+        return "";
+      }
+
+      return String(value)
+        .trim()
+        .replace(",", ":");
+    }
+
+
+    function paceToSeconds(value) {
+      const pace = normalizePace(value);
+
+      if (!pace) {
+        return null;
+      }
+
+      const match =
+        pace.match(/^(\d{1,2})(?::(\d{1,2}))?$/);
+
+      if (!match) {
+        return null;
+      }
+
+      const minutes =
+        Number(match[1]);
+
+      const seconds =
+        match[2] !== undefined
+          ? Number(match[2])
+          : 0;
 
       if (
-        event.target ===
-        runModal
+        !Number.isFinite(minutes) ||
+        !Number.isFinite(seconds) ||
+        seconds >= 60
       ) {
-
-        closeRunModal();
-
+        return null;
       }
 
+      return (
+        minutes * 60 +
+        seconds
+      );
     }
-  );
 
 
-  document.addEventListener(
-    "keydown",
-    event => {
-
+    function secondsToPace(seconds) {
       if (
-        event.key === "Escape" &&
-        runModal.classList.contains(
-          "open"
-        )
+        !Number.isFinite(seconds)
       ) {
-
-        closeRunModal();
-
+        return "–";
       }
 
+      const rounded =
+        Math.round(seconds);
+
+      const minutes =
+        Math.floor(rounded / 60);
+
+      const secs =
+        rounded % 60;
+
+      return (
+        minutes +
+        ":" +
+        String(secs).padStart(2, "0")
+      );
     }
-  );
 
 
-  /* =========================================================
-     HERO ADD BUTTON
-  ========================================================= */
+    /* =========================================================
+       WEEK RENDERING
+       ========================================================= */
 
-  document
-    .getElementById(
-      "heroAddRun"
-    )
-    .addEventListener(
+    function renderWeek() {
+      renderWeekHeader();
+      renderDays();
+      renderSummary();
+      renderSidebarProgress();
+    }
+
+
+    function renderWeekHeader() {
+      const today =
+        startOfWeek(new Date());
+
+      const isCurrentWeek =
+        dateKey(currentWeekStart) ===
+        dateKey(today);
+
+      weekLabel.textContent =
+        isCurrentWeek
+          ? "Diese Woche"
+          : "Trainingswoche";
+
+      const endOfWeek =
+        addDays(currentWeekStart, 6);
+
+      weekRange.textContent =
+        `${formatShortDate(currentWeekStart)} – ${formatShortDate(endOfWeek)}`;
+    }
+
+
+    function renderDays() {
+      weekGrid.innerHTML = "";
+
+      const today = new Date();
+
+      for (let i = 0; i < 7; i++) {
+        const date =
+          addDays(currentWeekStart, i);
+
+        const key =
+          dateKey(date);
+
+        const run =
+          trainingPlan[key] || null;
+
+        const card =
+          document.createElement("article");
+
+        card.className =
+          "day-card";
+
+        if (isSameDay(date, today)) {
+          card.classList.add("today");
+        }
+
+        const dayName =
+          DAY_NAMES[date.getDay()];
+
+        const dayShort =
+          DAY_SHORT[date.getDay()];
+
+        const todayBadge =
+          isSameDay(date, today)
+            ? `<span class="day-today">Heute</span>`
+            : "";
+
+        card.innerHTML = `
+          <div class="day-top">
+
+            <div>
+              <div class="day-name">
+                ${dayShort}
+              </div>
+
+              <div class="day-number">
+                ${date.getDate()}
+              </div>
+            </div>
+
+            ${todayBadge}
+
+          </div>
+
+          <div class="day-content">
+
+            ${
+              run
+                ? renderPlannedRun(run, key)
+                : renderEmptyDay(dayName, key)
+            }
+
+          </div>
+
+          <button
+            type="button"
+            class="day-add-btn"
+            data-action="add"
+            data-date="${key}"
+          >
+            ${run ? "Lauf bearbeiten" : "+ Lauf hinzufügen"}
+          </button>
+        `;
+
+        weekGrid.appendChild(card);
+      }
+    }
+
+
+    function renderEmptyDay(dayName, key) {
+      return `
+        <button
+          type="button"
+          class="empty-plus"
+          data-action="add"
+          data-date="${key}"
+          aria-label="Lauf für ${escapeHtml(dayName)} planen"
+        >
+          +
+        </button>
+
+        <div class="empty-message">
+          Noch kein Lauf<br>
+          für ${escapeHtml(dayName)} geplant.
+        </div>
+      `;
+    }
+
+
+    function renderPlannedRun(run, key) {
+      const distance =
+        run.distance !== ""
+          ? escapeHtml(run.distance)
+          : "–";
+
+      const pace =
+        run.pace
+          ? escapeHtml(run.pace)
+          : "";
+
+      const notes =
+        run.notes
+          ? escapeHtml(run.notes)
+          : "";
+
+      return `
+        <div class="planned-run">
+
+          <div class="run-type">
+            ${escapeHtml(run.type || "Lauf")}
+          </div>
+
+          <div class="run-distance">
+            ${distance}
+            <span>km</span>
+          </div>
+
+          ${
+            pace
+              ? `
+                <div class="run-pace">
+                  Pace ${pace} min/km
+                </div>
+              `
+              : ""
+          }
+
+          ${
+            notes
+              ? `
+                <div class="run-notes">
+                  ${notes}
+                </div>
+              `
+              : ""
+          }
+
+          <button
+            type="button"
+            class="edit-run-btn"
+            data-action="edit"
+            data-date="${key}"
+          >
+            Lauf bearbeiten
+          </button>
+
+        </div>
+      `;
+    }
+
+
+    /* =========================================================
+       SUMMARY
+       ========================================================= */
+
+    function getCurrentWeekRuns() {
+      const runs = [];
+
+      for (let i = 0; i < 7; i++) {
+        const date =
+          addDays(currentWeekStart, i);
+
+        const key =
+          dateKey(date);
+
+        if (trainingPlan[key]) {
+          runs.push(trainingPlan[key]);
+        }
+      }
+
+      return runs;
+    }
+
+
+    function renderSummary() {
+      const runs =
+        getCurrentWeekRuns();
+
+      let totalKm = 0;
+
+      let paceSecondsTotal = 0;
+      let paceCount = 0;
+
+      runs.forEach(run => {
+        const distance =
+          Number(run.distance);
+
+        if (
+          Number.isFinite(distance) &&
+          distance > 0
+        ) {
+          totalKm += distance;
+        }
+
+        const paceSeconds =
+          paceToSeconds(run.pace);
+
+        if (paceSeconds !== null) {
+          paceSecondsTotal += paceSeconds;
+          paceCount++;
+        }
+      });
+
+      summaryKm.textContent =
+        formatNumber(totalKm);
+
+      summaryRuns.textContent =
+        runs.length;
+
+      if (paceCount > 0) {
+        const averagePace =
+          paceSecondsTotal / paceCount;
+
+        summaryPace.textContent =
+          secondsToPace(averagePace);
+
+        summaryPaceUnit.textContent =
+          " min/km";
+      } else {
+        summaryPace.textContent =
+          "–";
+
+        summaryPaceUnit.textContent =
+          "";
+      }
+    }
+
+
+    function renderSidebarProgress() {
+      const runs =
+        getCurrentWeekRuns();
+
+      let totalKm = 0;
+
+      runs.forEach(run => {
+        const distance =
+          Number(run.distance);
+
+        if (
+          Number.isFinite(distance) &&
+          distance > 0
+        ) {
+          totalKm += distance;
+        }
+      });
+
+      const percentage =
+        Math.min(
+          100,
+          Math.max(
+            0,
+            (totalKm / WEEKLY_TARGET) * 100
+          )
+        );
+
+      sidebarWeekKm.textContent =
+        formatNumber(totalKm);
+
+      sidebarProgress.style.width =
+        `${percentage}%`;
+
+      sidebarWeekText.textContent =
+        `${formatNumber(totalKm)} von ${WEEKLY_TARGET} km geplant`;
+    }
+
+
+    function formatNumber(value) {
+      if (
+        Number.isInteger(value)
+      ) {
+        return String(value);
+      }
+
+      return value
+        .toFixed(1)
+        .replace(".", ",");
+    }
+
+
+    /* =========================================================
+       MODAL
+       ========================================================= */
+
+    function openRunModal(date = null, mode = "add") {
+      let targetDate;
+
+      if (date) {
+        targetDate =
+          new Date(`${date}T12:00:00`);
+      } else {
+        targetDate =
+          new Date();
+      }
+
+      const key =
+        dateKey(targetDate);
+
+      editingDateKey =
+        mode === "edit"
+          ? key
+          : null;
+
+      const existingRun =
+        trainingPlan[key] || null;
+
+      modalTitle.textContent =
+        mode === "edit"
+          ? "Lauf bearbeiten"
+          : "Lauf planen";
+
+      modalDate.textContent =
+        `${DAY_NAMES[targetDate.getDay()]} · ${formatDate(targetDate)}`;
+
+      /*
+       * WICHTIG:
+       * Der Tag wird immer gesetzt.
+       *
+       * Beim Klick auf "+ Lauf planen" oben:
+       * -> heutiger/aktuell ausgewählter Tag
+       *
+       * Beim Klick auf das Plus eines Tages:
+       * -> genau dieser Tag
+       *
+       * Der Nutzer kann danach den Tag im Select
+       * trotzdem frei ändern.
+       */
+      runDay.value =
+        String(targetDate.getDay());
+
+      if (existingRun) {
+        runType.value =
+          existingRun.type || "Easy Run";
+
+        runDistance.value =
+          existingRun.distance ?? "";
+
+        runPace.value =
+          existingRun.pace ?? "";
+
+        runNotes.value =
+          existingRun.notes ?? "";
+
+        deleteRunBtn.style.display =
+          "flex";
+      } else {
+        runType.value =
+          "Easy Run";
+
+        runDistance.value =
+          "";
+
+        runPace.value =
+          "";
+
+        runNotes.value =
+          "";
+
+        deleteRunBtn.style.display =
+          "none";
+      }
+
+      runModal.classList.add("open");
+      runModal.setAttribute(
+        "aria-hidden",
+        "false"
+      );
+
+      document.body.style.overflow =
+        "hidden";
+
+      /*
+       * Auf Desktop direkt Tag fokussieren.
+       * Auf Mobile lassen wir den Nutzer
+       * zunächst das Formular sehen.
+       */
+      setTimeout(() => {
+        if (window.innerWidth > 760) {
+          runDay.focus();
+        }
+      }, 50);
+    }
+
+
+    function closeRunModal() {
+      runModal.classList.remove("open");
+
+      runModal.setAttribute(
+        "aria-hidden",
+        "true"
+      );
+
+      document.body.style.overflow =
+        "";
+
+      editingDateKey = null;
+    }
+
+
+    /* =========================================================
+       SELECTED DAY
+       ========================================================= */
+
+    function getSelectedDateKey() {
+      const selectedDay =
+        Number(runDay.value);
+
+      /*
+       * currentWeekStart ist Montag.
+       *
+       * Sonntag hat JS-Wert 0.
+       * Montag 1 ... Samstag 6.
+       */
+
+      let offset;
+
+      if (selectedDay === 0) {
+        offset = 6;
+      } else {
+        offset = selectedDay - 1;
+      }
+
+      const selectedDate =
+        addDays(
+          currentWeekStart,
+          offset
+        );
+
+      return dateKey(selectedDate);
+    }
+
+
+    function updateModalDateFromDay() {
+      const key =
+        getSelectedDateKey();
+
+      const selectedDate =
+        new Date(`${key}T12:00:00`);
+
+      modalDate.textContent =
+        `${DAY_NAMES[selectedDate.getDay()]} · ${formatDate(selectedDate)}`;
+    }
+
+
+    /* =========================================================
+       SAVE
+       ========================================================= */
+
+    function saveRun() {
+      const targetKey =
+        getSelectedDateKey();
+
+      /*
+       * Wenn ein bestehender Lauf bearbeitet wird
+       * und der Tag geändert wurde, entfernen wir
+       * den alten Eintrag und legen ihn am neuen
+       * Tag wieder an.
+       */
+      if (
+        editingDateKey &&
+        editingDateKey !== targetKey
+      ) {
+        delete trainingPlan[editingDateKey];
+      }
+
+      const distanceValue =
+        runDistance.value.trim();
+
+      const paceValue =
+        normalizePace(
+          runPace.value
+        );
+
+      const notesValue =
+        runNotes.value.trim();
+
+      const run = {
+        type: runType.value,
+        distance: distanceValue,
+        pace: paceValue,
+        notes: notesValue
+      };
+
+      trainingPlan[targetKey] =
+        run;
+
+      saveTrainingPlan();
+
+      closeRunModal();
+
+      renderWeek();
+    }
+
+
+    /* =========================================================
+       DELETE
+       ========================================================= */
+
+    function deleteRun() {
+      if (!editingDateKey) {
+        return;
+      }
+
+      const confirmed =
+        window.confirm(
+          "Diesen Lauf wirklich löschen?"
+        );
+
+      if (!confirmed) {
+        return;
+      }
+
+      delete trainingPlan[
+        editingDateKey
+      ];
+
+      saveTrainingPlan();
+
+      closeRunModal();
+
+      renderWeek();
+    }
+
+
+    /* =========================================================
+       EVENT DELEGATION – DAY CARDS
+       ========================================================= */
+
+    weekGrid.addEventListener(
       "click",
-      () => {
+      function(event) {
+
+        const button =
+          event.target.closest(
+            "[data-action]"
+          );
+
+        if (!button) {
+          return;
+        }
+
+        const action =
+          button.dataset.action;
+
+        const date =
+          button.dataset.date;
+
+        if (
+          action === "add"
+        ) {
+          openRunModal(
+            date,
+            "add"
+          );
+        }
+
+        if (
+          action === "edit"
+        ) {
+          openRunModal(
+            date,
+            "edit"
+          );
+        }
+      }
+    );
+
+
+    /* =========================================================
+       TOP ADD BUTTON
+       ========================================================= */
+
+    openAddRunBtn.addEventListener(
+      "click",
+      function() {
+
+        /*
+         * Oben "+ Lauf planen":
+         * Wir öffnen das Formular mit dem
+         * heutigen Tag innerhalb der aktuell
+         * angezeigten Woche.
+         *
+         * Ist eine andere Woche geöffnet,
+         * wird der Montag dieser Woche
+         * vorausgewählt.
+         *
+         * Der Nutzer kann den Tag danach
+         * über das neue TAG-Feld ändern.
+         */
 
         const today =
           new Date();
 
-
         const todayWeek =
-          startOfWeek(
-            today
-          );
+          startOfWeek(today);
 
+        const currentWeekKey =
+          dateKey(currentWeekStart);
+
+        const todayWeekKey =
+          dateKey(todayWeek);
+
+        let defaultDate;
 
         if (
-          dateToKey(
-            todayWeek
-          ) !==
-          dateToKey(
-            currentWeekStart
-          )
+          currentWeekKey ===
+          todayWeekKey
         ) {
-
-          currentWeekStart =
-            todayWeek;
-
-
-          renderWeek();
-
+          defaultDate =
+            today;
+        } else {
+          defaultDate =
+            currentWeekStart;
         }
 
-
         openRunModal(
-          today
+          dateKey(defaultDate),
+          "add"
         );
-
       }
     );
 
 
-  /* =========================================================
-     WEEK NAVIGATION
-  ========================================================= */
+    /* =========================================================
+       MODAL EVENTS
+       ========================================================= */
 
-  document
-    .getElementById(
-      "previousWeek"
-    )
-    .addEventListener(
+    closeModalBtn.addEventListener(
       "click",
-      () => {
+      closeRunModal
+    );
+
+    cancelRunBtn.addEventListener(
+      "click",
+      closeRunModal
+    );
+
+    saveRunBtn.addEventListener(
+      "click",
+      saveRun
+    );
+
+    deleteRunBtn.addEventListener(
+      "click",
+      deleteRun
+    );
+
+
+    /*
+     * Wenn im Modal ein anderer Tag gewählt wird,
+     * aktualisieren wir direkt das Datum oben.
+     */
+    runDay.addEventListener(
+      "change",
+      updateModalDateFromDay
+    );
+
+
+    /*
+     * Klick auf den dunklen Bereich außerhalb
+     * des Modals schließt das Fenster.
+     */
+    runModal.addEventListener(
+      "click",
+      function(event) {
+
+        if (
+          event.target === runModal
+        ) {
+          closeRunModal();
+        }
+      }
+    );
+
+
+    /*
+     * ESC schließt das Fenster.
+     */
+    document.addEventListener(
+      "keydown",
+      function(event) {
+
+        if (
+          event.key === "Escape" &&
+          runModal.classList.contains("open")
+        ) {
+          closeRunModal();
+        }
+      }
+    );
+
+
+    /* =========================================================
+       WEEK NAVIGATION
+       ========================================================= */
+
+    previousWeekBtn.addEventListener(
+      "click",
+      function() {
 
         currentWeekStart =
           addDays(
@@ -2605,20 +2414,14 @@
             -7
           );
 
-
         renderWeek();
-
       }
     );
 
 
-  document
-    .getElementById(
-      "nextWeek"
-    )
-    .addEventListener(
+    nextWeekBtn.addEventListener(
       "click",
-      () => {
+      function() {
 
         currentWeekStart =
           addDays(
@@ -2626,463 +2429,32 @@
             7
           );
 
-
         renderWeek();
-
       }
     );
 
 
-  document
-    .getElementById(
-      "currentWeek"
-    )
-    .addEventListener(
+    todayWeekBtn.addEventListener(
       "click",
-      () => {
+      function() {
 
         currentWeekStart =
           startOfWeek(
             new Date()
           );
 
-
         renderWeek();
-
       }
     );
 
 
-  /* =========================================================
-     WEEK SUMMARY
-  ========================================================= */
+    /* =========================================================
+       INITIAL RENDER
+       ========================================================= */
 
-  function updateWeekSummary() {
+    renderWeek();
 
-    let totalKm =
-      0;
-
-
-    let totalRuns =
-      0;
-
-
-    const paces =
-      [];
-
-
-    for (
-      let i = 0;
-      i < 7;
-      i++
-    ) {
-
-      const date =
-        addDays(
-          currentWeekStart,
-          i
-        );
-
-
-      const key =
-        dateToKey(
-          date
-        );
-
-
-      const run =
-        trainingPlan[
-          key
-        ];
-
-
-      if (!run) {
-
-        continue;
-
-      }
-
-
-      totalRuns++;
-
-
-      const distance =
-        Number(
-          run.distance
-        );
-
-
-      if (
-        Number.isFinite(
-          distance
-        )
-      ) {
-
-        totalKm +=
-          distance;
-
-      }
-
-
-      const pace =
-        parsePace(
-          run.pace
-        );
-
-
-      if (
-        pace !== null
-      ) {
-
-        paces.push(
-          pace
-        );
-
-      }
-
-    }
-
-
-    totalKm =
-      Math.round(
-        totalKm * 10
-      ) / 10;
-
-
-    document.getElementById(
-      "summaryKm"
-    ).innerHTML =
-
-      totalKm +
-      " <span>KM</span>";
-
-
-    document.getElementById(
-      "summaryRuns"
-    ).innerHTML =
-
-      totalRuns +
-
-      " <span>" +
-
-      (
-        totalRuns === 1
-          ? "Einheit"
-          : "Einheiten"
-      ) +
-
-      "</span>";
-
-
-    if (
-      paces.length
-    ) {
-
-      const averagePace =
-        paces.reduce(
-          (
-            sum,
-            value
-          ) =>
-            sum + value,
-          0
-        ) /
-        paces.length;
-
-
-      document.getElementById(
-        "summaryPace"
-      ).innerHTML =
-
-        formatPace(
-          averagePace
-        ) +
-
-        " <span>min/km</span>";
-
-    } else {
-
-      document.getElementById(
-        "summaryPace"
-      ).innerHTML =
-
-        "— <span>min/km</span>";
-
-    }
-
-
-    updateSidebar(
-      totalKm
-    );
-
-  }
-
-
-  /* =========================================================
-     PACE HELPERS
-  ========================================================= */
-
-  function parsePace(
-    value
-  ) {
-
-    if (
-      !value ||
-      !String(value).trim()
-    ) {
-
-      return null;
-
-    }
-
-
-    const normalized =
-      String(
-        value
-      )
-        .trim()
-        .replace(
-          ",",
-          "."
-        );
-
-
-    const parts =
-      normalized.split(
-        ":"
-      );
-
-
-    if (
-      parts.length === 2
-    ) {
-
-      const minutes =
-        parseFloat(
-          parts[0]
-        );
-
-
-      const seconds =
-        parseFloat(
-          parts[1]
-        );
-
-
-      if (
-        !Number.isFinite(
-          minutes
-        ) ||
-        !Number.isFinite(
-          seconds
-        ) ||
-        seconds < 0 ||
-        seconds >= 60
-      ) {
-
-        return null;
-
-      }
-
-
-      return (
-
-        minutes +
-        seconds / 60
-
-      );
-
-    }
-
-
-    const decimal =
-      parseFloat(
-        normalized
-      );
-
-
-    return Number.isFinite(
-      decimal
-    )
-      ? decimal
-      : null;
-
-  }
-
-
-  function formatPace(
-    value
-  ) {
-
-    const minutes =
-      Math.floor(
-        value
-      );
-
-
-    const seconds =
-      Math.round(
-        (
-          value -
-          minutes
-        ) * 60
-      );
-
-
-    if (
-      seconds >= 60
-    ) {
-
-      return (
-        minutes + 1
-      ) +
-      ":00";
-
-    }
-
-
-    return (
-
-      minutes +
-      ":" +
-      String(
-        seconds
-      ).padStart(
-        2,
-        "0"
-      )
-
-    );
-
-  }
-
-
-  /* =========================================================
-     SIDEBAR WEEK PROGRESS
-  ========================================================= */
-
-  function updateSidebar(
-    totalKm
-  ) {
-
-    const target =
-      30;
-
-
-    const percentage =
-      Math.min(
-        100,
-        Math.max(
-          0,
-          (
-            totalKm /
-            target
-          ) * 100
-        )
-      );
-
-
-    document.getElementById(
-      "sidebarWeekKm"
-    ).textContent =
-
-      totalKm +
-      " / " +
-      target +
-      " KM";
-
-
-    document.getElementById(
-      "sidebarProgress"
-    ).style.width =
-
-      percentage +
-      "%";
-
-
-    const remaining =
-      Math.max(
-        0,
-        Math.round(
-          (
-            target -
-            totalKm
-          ) * 10
-        ) / 10
-      );
-
-
-    if (
-      remaining <= 0
-    ) {
-
-      document.getElementById(
-        "sidebarWeekText"
-      ).textContent =
-        "Wochenziel erreicht. Stark.";
-
-    } else {
-
-      document.getElementById(
-        "sidebarWeekText"
-      ).textContent =
-
-        "Noch " +
-        remaining +
-        " km bis zum Wochenziel.";
-
-    }
-
-  }
-
-
-  /* =========================================================
-     HTML ESCAPE
-  ========================================================= */
-
-  function escapeHtml(
-    value
-  ) {
-
-    return String(
-      value
-    )
-
-      .replace(
-        /&/g,
-        "&amp;"
-      )
-
-      .replace(
-        /</g,
-        "&lt;"
-      )
-
-      .replace(
-        />/g,
-        "&gt;"
-      )
-
-      .replace(
-        /"/g,
-        "&quot;"
-      )
-
-      .replace(
-        /'/g,
-        "&#039;"
-      );
-
-  }
-
-
-  /* =========================================================
-     INITIAL LOAD
-  ========================================================= */
-
-  renderWeek();
-
-</script>
+  </script>
 
 </body>
 
