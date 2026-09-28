@@ -668,60 +668,56 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 }
 
 /* =====================================================
-   EINGELOGGTE USER-SEITE
+   EINGELOGGTER BEREICH
 ===================================================== */
 
 .logged-profile-page{
   display:none;
-  width:100%;
-  max-width:none;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
   box-sizing:border-box;
   background:#fff!important;
   min-height:calc(100vh - 100px);
-  margin:0;
-  padding:0;
+  margin:0!important;
+  padding:0!important;
 }
 
 .logged-profile-page.active{
-  display:block;
-  width:100%;
-  max-width:none;
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
   background:#fff!important;
 }
 
 .logged-profile-frame{
-  display:block;
-  width:100%;
-  max-width:none;
-  min-width:0;
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
   min-height:calc(100vh - 100px);
   height:100vh;
-  border:0;
-  margin:0;
-  padding:0;
+  border:0!important;
+  margin:0!important;
+  padding:0!important;
   background:#fff!important;
 }
 
 .main:has(.logged-profile-page.active){
-  width:100% !important;
-  max-width:none !important;
-  margin-left:0 !important;
-  margin-right:0 !important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
   box-sizing:border-box;
   background:#fff!important;
 }
 
 .main:has(.logged-profile-page.active) .top{
-  width:100%;
-  max-width:none;
+  width:100%!important;
+  max-width:none!important;
   box-sizing:border-box;
-}
-
-.main:has(.logged-profile-page.active) .logged-profile-page,
-.main:has(.logged-profile-page.active) .logged-profile-frame{
-  width:100%;
-  max-width:none;
-  background:#fff!important;
 }
 
 /* =====================================================
@@ -1633,10 +1629,17 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         class="profile-loading"
         id="profileLoading"
       >
+
         <div class="profile-loading-inner">
+
           <div class="profile-loading-spinner"></div>
-          <div>Dein Profil wird geladen …</div>
+
+          <div>
+            Dein Profil wird geladen …
+          </div>
+
         </div>
+
       </div>
 
       <iframe
@@ -1663,7 +1666,9 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
           <h1>
             Laufen verbindet.<br>
-            <span>Auch wenn wir miles apart sind.</span>
+            <span>
+              Auch wenn wir miles apart sind.
+            </span>
           </h1>
 
           <p>
@@ -1682,7 +1687,9 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           <p class="intro-card-lead">
             Miles Apart ist für alle,<br>
             die laufen wollen.
-            <span>Gemeinsam, egal wo.</span>
+            <span>
+              Gemeinsam, egal wo.
+            </span>
           </p>
 
           <div class="intro-card-bottom">
@@ -1693,7 +1700,9 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
                 Miles Apart ist die virtuelle Running-Community
                 für alle, die laufen, trainieren und gemeinsam
                 besser werden wollen.
-                <strong>Egal, wo du gerade bist.</strong>
+                <strong>
+                  Egal, wo du gerade bist.
+                </strong>
               </p>
 
             </div>
@@ -1714,10 +1723,12 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         <div class="photo-caption">
 
           <div>
+
             <strong>
               ONE COMMUNITY.<br>
               COUNTLESS MILES.
             </strong>
+
           </div>
 
           <span>
@@ -1759,7 +1770,9 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
             <p>
               Wir glauben:
               Dieses Gefühl sollte nicht davon abhängen,
-              <strong>wo du gerade wohnst.</strong>
+              <strong>
+                wo du gerade wohnst.
+              </strong>
             </p>
 
             <p>
@@ -1942,11 +1955,27 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
             </p>
 
             <div class="founder-tags">
-              <span class="founder-tag">Running</span>
-              <span class="founder-tag">Ultra Running</span>
-              <span class="founder-tag">Hyrox</span>
-              <span class="founder-tag">Hybrid Athlete</span>
-              <span class="founder-tag">Strength</span>
+
+              <span class="founder-tag">
+                Running
+              </span>
+
+              <span class="founder-tag">
+                Ultra Running
+              </span>
+
+              <span class="founder-tag">
+                Hyrox
+              </span>
+
+              <span class="founder-tag">
+                Hybrid Athlete
+              </span>
+
+              <span class="founder-tag">
+                Strength
+              </span>
+
             </div>
 
           </div>
@@ -2035,6 +2064,11 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   </main>
 
 </div>
+
+
+<!-- =====================================================
+     AUTH
+===================================================== -->
 
 <div
   class="auth-overlay"
@@ -2161,7 +2195,10 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
       <div class="registration-intro">
 
-        <strong>🏁 Bevor du loslegst:</strong>
+        <strong>
+          🏁 Bevor du loslegst:
+        </strong>
+
         Miles Apart soll eine echte Community sein.
         Deshalb gehören zwei kleine Schritte zur Registrierung:
         Tano Loew auf Instagram folgen und einen Freund zur
@@ -2278,7 +2315,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
             target="_blank"
             rel="noopener noreferrer"
           >
-            📸 Instagram öffnen&nbsp; →
+            📸 Instagram öffnen →
           </a>
 
           <div class="gate-divider"></div>
@@ -2604,6 +2641,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   </div>
 
 </div>
+
 
 <script>
 
@@ -3173,20 +3211,11 @@ function hideProfileLoading(){
 
 
 /* =====================================================
-   USER.HTML IFRAME
+   NEU:
+   USER.HTML AUF DIE GLEICHE BREITE ZIEHEN
 ===================================================== */
 
-/*
- * WICHTIG:
- * user.html läuft im selben GitHub-Pages-Origin.
- * Deshalb können wir nach dem Laden den Hintergrund
- * der geladenen Seite direkt aus der index.html setzen.
- *
- * Genau damit entfernen wir den grauen Bereich,
- * der innerhalb des iFrames von user.html erzeugt wird.
- */
-
-function forceLoggedProfileWhite(){
+function forceLoggedProfileLayout(){
 
   try{
 
@@ -3197,24 +3226,87 @@ function forceLoggedProfileWhite(){
       return;
     }
 
+    /*
+     * Grundfläche der User-Seite.
+     */
+
     if(doc.documentElement){
+
+      doc.documentElement.style.setProperty(
+        "width",
+        "100%",
+        "important"
+      );
+
+      doc.documentElement.style.setProperty(
+        "max-width",
+        "none",
+        "important"
+      );
+
+      doc.documentElement.style.setProperty(
+        "min-width",
+        "0",
+        "important"
+      );
+
+      doc.documentElement.style.setProperty(
+        "margin",
+        "0",
+        "important"
+      );
+
+      doc.documentElement.style.setProperty(
+        "padding",
+        "0",
+        "important"
+      );
 
       doc.documentElement.style.setProperty(
         "background",
         "#fff",
         "important"
       );
-
-      doc.documentElement.style.setProperty(
-        "background-color",
-        "#fff",
-        "important"
-      );
     }
+
+
+    /*
+     * Body.
+     */
 
     if(doc.body){
 
       doc.body.style.setProperty(
+        "width",
+        "100%",
+        "important"
+      );
+
+      doc.body.style.setProperty(
+        "max-width",
+        "none",
+        "important"
+      );
+
+      doc.body.style.setProperty(
+        "min-width",
+        "0",
+        "important"
+      );
+
+      doc.body.style.setProperty(
+        "margin",
+        "0",
+        "important"
+      );
+
+      doc.body.style.setProperty(
+        "padding",
+        "0",
+        "important"
+      );
+
+      doc.body.style.setProperty(
         "background",
         "#fff",
         "important"
@@ -3227,9 +3319,18 @@ function forceLoggedProfileWhite(){
       );
     }
 
+
+    /*
+     * Wir legen einen zusätzlichen Style direkt
+     * in user.html ab.
+     *
+     * Damit überschreiben wir mögliche
+     * max-width-Begrenzungen aus user.html.
+     */
+
     let forceStyle =
       doc.getElementById(
-        "miles-apart-index-profile-fix"
+        "miles-apart-index-profile-layout-fix"
       );
 
     if(!forceStyle){
@@ -3238,37 +3339,195 @@ function forceLoggedProfileWhite(){
         doc.createElement("style");
 
       forceStyle.id =
-        "miles-apart-index-profile-fix";
+        "miles-apart-index-profile-layout-fix";
 
       doc.head.appendChild(
         forceStyle
       );
     }
 
+
     forceStyle.textContent = `
 
       html,
       body{
+        width:100% !important;
+        max-width:none !important;
+        min-width:0 !important;
+        margin:0 !important;
+        padding:0 !important;
         background:#fff !important;
         background-color:#fff !important;
       }
 
+      /*
+       * Hauptcontainer der Profilseite.
+       */
+
       .user-page{
+        width:100% !important;
+        max-width:none !important;
+        min-width:0 !important;
+        margin:0 !important;
+        padding-left:0 !important;
+        padding-right:0 !important;
+        box-sizing:border-box !important;
         background:#fff !important;
         background-color:#fff !important;
+      }
+
+      /*
+       * Häufige Wrapper in user.html.
+       */
+
+      .user-shell,
+      .user-container,
+      .user-content,
+      .user-main,
+      .profile-page,
+      .profile-shell,
+      .profile-container,
+      .profile-content,
+      .profile-main,
+      .profile-wrapper,
+      .profile-inner{
+        width:100% !important;
+        max-width:none !important;
+        min-width:0 !important;
+        box-sizing:border-box !important;
+      }
+
+      /*
+       * Falls user.html einen zentrierten
+       * Hauptbereich verwendet.
+       */
+
+      .user-page > *,
+      .profile-page > *,
+      .profile-shell > *,
+      .profile-container > *{
+        max-width:none !important;
+      }
+
+      /*
+       * Karten dürfen weiterhin ihr eigenes Design
+       * behalten, aber nicht den gesamten Seiteninhalt
+       * künstlich schmal machen.
+       */
+
+      .user-page .profile-card,
+      .user-page .profile-header,
+      .user-page .profile-body,
+      .user-page .profile-section,
+      .user-page .profile-grid,
+      .user-page .stats,
+      .user-page .activity,
+      .user-page .posts,
+      .user-page .content{
+        max-width:none !important;
+        box-sizing:border-box !important;
+      }
+
+      /*
+       * Alle direkten großen Seitenbereiche
+       * verwenden die verfügbare Breite.
+       */
+
+      .user-page > section,
+      .user-page > header,
+      .user-page > main,
+      .user-page > div{
+        box-sizing:border-box !important;
       }
 
     `;
 
+
+    /*
+     * Noch einmal erzwingen, falls user.html
+     * ihre Styles nachträglich neu setzt.
+     */
+
+    const importantContainers =
+      doc.querySelectorAll(`
+        .user-page,
+        .user-shell,
+        .user-container,
+        .user-content,
+        .user-main,
+        .profile-page,
+        .profile-shell,
+        .profile-container,
+        .profile-content,
+        .profile-main,
+        .profile-wrapper,
+        .profile-inner
+      `);
+
+    importantContainers.forEach(
+      element => {
+
+        element.style.setProperty(
+          "width",
+          "100%",
+          "important"
+        );
+
+        element.style.setProperty(
+          "max-width",
+          "none",
+          "important"
+        );
+
+        element.style.setProperty(
+          "min-width",
+          "0",
+          "important"
+        );
+
+        element.style.setProperty(
+          "box-sizing",
+          "border-box",
+          "important"
+        );
+
+      }
+    );
+
+
+    /*
+     * Hintergrund endgültig weiß.
+     */
+
+    doc.documentElement.style.setProperty(
+      "background",
+      "#fff",
+      "important"
+    );
+
+    if(doc.body){
+
+      doc.body.style.setProperty(
+        "background",
+        "#fff",
+        "important"
+      );
+    }
+
+
   }catch(error){
 
     console.error(
-      "Profil-Hintergrund konnte nicht auf weiß gesetzt werden:",
+      "Logged profile layout fix:",
       error
     );
   }
 }
 
+
+/* =====================================================
+   IFRAME RESIZE
+===================================================== */
 
 function resizeLoggedProfileFrame(){
 
@@ -3282,11 +3541,11 @@ function resizeLoggedProfileFrame(){
     }
 
     /*
-     * Hintergrund bei jeder Größenanpassung
-     * ebenfalls sicherheitshalber weiß setzen.
+     * Erst Layout anwenden.
      */
 
-    forceLoggedProfileWhite();
+    forceLoggedProfileLayout();
+
 
     const bodyHeight =
       doc.body
@@ -3351,25 +3610,25 @@ function observeLoggedProfileFrame(){
       return;
     }
 
-    /*
-     * Sofort weißen Hintergrund erzwingen.
-     */
 
-    forceLoggedProfileWhite();
+    forceLoggedProfileLayout();
+
 
     profileFrameObserver =
       new ResizeObserver(
         () => {
 
-          forceLoggedProfileWhite();
+          forceLoggedProfileLayout();
 
           resizeLoggedProfileFrame();
         }
       );
 
+
     profileFrameObserver.observe(
       doc.documentElement
     );
+
 
     if(doc.body){
 
@@ -3378,30 +3637,57 @@ function observeLoggedProfileFrame(){
       );
     }
 
+
     resizeLoggedProfileFrame();
+
+
+    /*
+     * Mehrfach anwenden, damit auch nach
+     * dynamischem Laden des Profils die
+     * Breite erhalten bleibt.
+     */
 
     setTimeout(
       () => {
-        forceLoggedProfileWhite();
+
+        forceLoggedProfileLayout();
         resizeLoggedProfileFrame();
+
       },
       100
     );
 
+
     setTimeout(
       () => {
-        forceLoggedProfileWhite();
+
+        forceLoggedProfileLayout();
         resizeLoggedProfileFrame();
+
       },
       500
     );
 
+
     setTimeout(
       () => {
-        forceLoggedProfileWhite();
+
+        forceLoggedProfileLayout();
         resizeLoggedProfileFrame();
+
       },
       1000
+    );
+
+
+    setTimeout(
+      () => {
+
+        forceLoggedProfileLayout();
+        resizeLoggedProfileFrame();
+
+      },
+      2000
     );
 
   }catch(error){
@@ -3421,14 +3707,13 @@ loggedProfileFrame.addEventListener(
     hideProfileLoading();
 
     /*
-     * Das ist der entscheidende Fix:
-     * Sobald user.html geladen wurde,
-     * wird deren Hintergrund weiß gemacht.
+     * Hintergrund + komplette Breite.
      */
 
-    forceLoggedProfileWhite();
+    forceLoggedProfileLayout();
 
     observeLoggedProfileFrame();
+
   }
 );
 
@@ -3530,7 +3815,7 @@ async function loadLoggedProfilePage(){
 
       hideProfileLoading();
 
-      forceLoggedProfileWhite();
+      forceLoggedProfileLayout();
 
       resizeLoggedProfileFrame();
     }
