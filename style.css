@@ -30,13 +30,14 @@
 html,
 body{
   width:100%;
-  max-width:100%;
+  max-width:none;
   min-width:0;
+  margin:0;
+  padding:0;
   overflow-x:hidden;
 }
 
 body{
-  margin:0;
   background:var(--paper);
   color:var(--ink);
   font-family:var(--font-main);
@@ -98,27 +99,102 @@ select{
    LAYOUT
    ========================================================= */
 
+/*
+   WICHTIG:
+   Der komplette Seitenrahmen darf nicht mehr auf eine
+   bestimmte Maximalbreite begrenzt werden.
+
+   Sidebar = 248px
+   Inhalt   = kompletter restlicher Bildschirm
+*/
+
 .shell{
   display:grid;
-  grid-template-columns:248px 1fr;
+  grid-template-columns:248px minmax(0,1fr);
+
+  width:100%;
+  max-width:none;
+
   min-height:100vh;
+  min-width:0;
+
+  margin:0;
+  padding:0;
 }
+
+/*
+   Die Sidebar bleibt links fest.
+*/
 
 .sidebar{
   position:sticky;
   top:0;
+
+  width:248px;
+  min-width:248px;
+  max-width:248px;
+
   height:100vh;
+
   background:var(--paper);
+
   border-right:1px solid var(--line);
+
   padding:24px 18px;
+
   display:flex;
   flex-direction:column;
+
+  box-sizing:border-box;
+
+  z-index:20;
 }
 
+/*
+   WICHTIG:
+   KEIN max-width:1500px mehr.
+
+   Der Main-Bereich nimmt jetzt den kompletten
+   verfügbaren Platz rechts neben der Sidebar ein.
+*/
+
 .main{
-  padding:30px 42px 60px;
-  max-width:1500px;
   width:100%;
+  max-width:none;
+  min-width:0;
+
+  margin:0;
+  padding:30px 42px 60px;
+
+  box-sizing:border-box;
+
+  overflow:visible;
+}
+
+/*
+   Der öffentliche Miles-Apart-Inhalt darf ebenfalls
+   nicht durch einen inneren Container begrenzt werden.
+*/
+
+#publicSite{
+  width:100%;
+  max-width:none;
+  min-width:0;
+
+  margin:0;
+  padding:0;
+
+  box-sizing:border-box;
+}
+
+/*
+   Alle direkten großen Inhaltsbereiche nutzen
+   die komplette verfügbare Breite.
+*/
+
+#publicSite > *,
+.main > *{
+  max-width:none;
 }
 
 /* =========================================================
@@ -137,9 +213,12 @@ select{
 
 .brand img{
   display:block;
+
   width:205px;
   height:auto;
+
   max-width:none;
+
   object-fit:contain;
   overflow:visible;
 }
@@ -213,7 +292,9 @@ select{
   outline:none !important;
 }
 
-/* AKTIVE SEITE */
+/* =========================================================
+   AKTIVE SEITE
+   ========================================================= */
 
 .nav a.active,
 .nav a.active:link,
@@ -237,7 +318,9 @@ select{
   color:#050909 !important;
 }
 
-/* BLAUER PUNKT NUR BEI AKTIVER SEITE */
+/* =========================================================
+   BLAUER PUNKT NUR BEI AKTIVER SEITE
+   ========================================================= */
 
 .nav a.active::before{
   content:"";
@@ -271,9 +354,12 @@ select{
 
 .side-bottom{
   margin-top:auto;
+
   background:var(--dark);
   color:white;
+
   border-radius:18px;
+
   padding:15px;
 }
 
@@ -284,21 +370,28 @@ select{
 
 .side-bottom strong{
   display:block;
+
   margin:4px 0 12px;
+
   font-weight:var(--font-heading);
 }
 
 .mini-progress{
   height:7px;
+
   background:#34403c;
+
   border-radius:99px;
+
   overflow:hidden;
 }
 
 .mini-progress i{
   display:block;
+
   height:100%;
   width:72%;
+
   background:var(--miles-blue);
 }
 
@@ -308,30 +401,44 @@ select{
 
 .top{
   position:relative;
+
   display:flex;
+
   align-items:center;
   justify-content:space-between;
+
+  width:100%;
+
   margin-bottom:28px;
 }
 
 .crumb{
   color:var(--muted);
+
   font-size:12px;
+
   font-weight:var(--font-light);
+
   letter-spacing:.11em;
 }
 
 .top-right{
   display:flex;
+
   align-items:center;
+
   gap:12px;
+
   position:relative;
 }
 
 .user-area{
   position:relative;
+
   display:flex;
+
   align-items:center;
+
   gap:10px;
 }
 
@@ -342,6 +449,7 @@ select{
 
 .login-button{
   display:inline-flex !important;
+
   align-items:center !important;
   justify-content:center !important;
 
@@ -357,8 +465,10 @@ select{
   color:#222 !important;
 
   font-family:var(--font-main) !important;
+
   font-size:12px !important;
   line-height:1 !important;
+
   font-weight:700 !important;
 
   cursor:pointer !important;
@@ -383,10 +493,14 @@ select{
 
 .user-greeting{
   display:inline;
+
   color:#666;
+
   font-size:13px;
   line-height:1.2;
+
   white-space:nowrap;
+
   font-weight:var(--font-light);
 }
 
@@ -409,15 +523,19 @@ select{
   color:var(--miles-blue);
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
   font-family:var(--font-main) !important;
+
   font-size:18px;
   line-height:1;
+
   font-weight:var(--font-heading) !important;
 
   cursor:pointer;
+
   overflow:hidden;
 
   box-shadow:none;
@@ -426,7 +544,9 @@ select{
 .user-avatar-button img{
   width:100%;
   height:100%;
+
   object-fit:cover;
+
   display:block;
 }
 
@@ -493,11 +613,14 @@ select{
   color:#111 !important;
 
   font-family:var(--font-main) !important;
+
   font-size:20px !important;
   line-height:1.25 !important;
+
   font-weight:800 !important;
 
   white-space:normal !important;
+
   overflow-wrap:anywhere !important;
 }
 
@@ -524,8 +647,10 @@ select{
   color:#888 !important;
 
   font-family:var(--font-main) !important;
+
   font-size:13px !important;
   line-height:1.4 !important;
+
   font-weight:300 !important;
 
   overflow-wrap:anywhere !important;
@@ -567,8 +692,10 @@ select{
   text-decoration:none !important;
 
   font-family:var(--font-main) !important;
+
   font-size:16px !important;
   line-height:1.3 !important;
+
   font-weight:300 !important;
 
   letter-spacing:normal !important;
@@ -605,33 +732,46 @@ select{
 
 .hero{
   display:block;
+
+  width:100%;
+
   margin-bottom:28px;
 }
 
 .hero-logo{
   width:310px;
+
   margin-bottom:18px;
 }
 
 .hero-logo img{
   width:100%;
   height:auto;
+
   display:block;
+
   object-fit:contain;
 }
 
 h1{
   font-size:42px;
+
   letter-spacing:-2.2px;
+
   margin:0 0 8px;
+
   line-height:1.05;
+
   font-weight:var(--font-heading);
 }
 
 .lead{
   color:var(--muted);
+
   font-size:17px;
+
   margin:0;
+
   font-weight:var(--font-light);
 }
 
@@ -646,18 +786,20 @@ h1{
 .grid{
   display:grid;
   gap:18px;
+
+  width:100%;
 }
 
 .g4{
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(4,minmax(0,1fr));
 }
 
 .g3{
-  grid-template-columns:repeat(3,1fr);
+  grid-template-columns:repeat(3,minmax(0,1fr));
 }
 
 .g2{
-  grid-template-columns:repeat(2,1fr);
+  grid-template-columns:repeat(2,minmax(0,1fr));
 }
 
 /* =========================================================
@@ -666,9 +808,13 @@ h1{
 
 .card{
   background:var(--card);
+
   border:1px solid var(--line);
+
   border-radius:var(--radius);
+
   padding:22px;
+
   box-shadow:0 8px 25px rgba(0,0,0,.025);
 }
 
@@ -680,7 +826,9 @@ h1{
 
 .card.lime{
   background:var(--miles-blue);
+
   border-color:var(--miles-blue);
+
   color:#fff;
 }
 
@@ -690,15 +838,21 @@ h1{
 
 .kpi{
   font-size:32px;
+
   font-weight:var(--font-heading);
+
   letter-spacing:-1px;
 }
 
 .label{
   color:var(--miles-blue);
+
   font-size:13px;
+
   font-weight:var(--font-heading);
+
   text-transform:uppercase;
+
   letter-spacing:.08em;
 }
 
@@ -712,23 +866,29 @@ h1{
 
 .row{
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   gap:12px;
 }
 
 .stack{
   display:grid;
+
   gap:12px;
 }
 
 .muted{
   color:var(--muted);
+
   font-weight:var(--font-light);
 }
 
 .small{
   font-size:13px;
+
   font-weight:var(--font-light);
 }
 
@@ -738,10 +898,12 @@ h1{
 
 .btn{
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
 
   border:0;
+
   border-radius:13px;
 
   padding:12px 17px;
@@ -751,21 +913,25 @@ h1{
   cursor:pointer;
 
   background:var(--dark);
+
   color:white;
 }
 
 .btn.lime{
   background:var(--miles-blue);
+
   color:#fff;
 }
 
 .btn.ghost{
   background:#eef7f8;
+
   color:#111;
 }
 
 .btn.white{
   background:#fff;
+
   color:#111;
 }
 
@@ -775,15 +941,21 @@ h1{
 
 .progress{
   height:10px;
+
   background:#e9ece6;
+
   border-radius:99px;
+
   overflow:hidden;
 }
 
 .progress i{
   display:block;
+
   height:100%;
+
   background:var(--miles-blue);
+
   border-radius:99px;
 }
 
@@ -805,15 +977,21 @@ h1{
 
 .section-head{
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   margin-bottom:13px;
 }
 
 .section h2{
   font-size:22px;
+
   letter-spacing:-.7px;
+
   margin:0;
+
   font-weight:var(--font-heading);
 }
 
@@ -823,14 +1001,19 @@ h1{
 
 .badge{
   font-size:12px;
+
   font-weight:var(--font-light);
+
   border-radius:999px;
+
   padding:6px 9px;
+
   background:#eef7f8;
 }
 
 .badge.lime{
   background:var(--miles-blue);
+
   color:#fff;
 }
 
@@ -840,29 +1023,41 @@ h1{
 
 .event{
   display:grid;
-  grid-template-columns:70px 1fr auto;
+
+  grid-template-columns:70px minmax(0,1fr) auto;
+
   gap:16px;
+
   align-items:center;
 }
 
 .date{
   background:var(--dark);
+
   color:white;
+
   border-radius:16px;
+
   padding:10px;
+
   text-align:center;
 }
 
 .date b{
   font-size:22px;
+
   display:block;
+
   font-weight:var(--font-heading);
 }
 
 .date span{
   font-size:11px;
+
   text-transform:uppercase;
+
   color:#bbb;
+
   font-weight:var(--font-light);
 }
 
@@ -872,10 +1067,15 @@ h1{
 
 .rank{
   display:grid;
-  grid-template-columns:42px 1fr auto;
+
+  grid-template-columns:42px minmax(0,1fr) auto;
+
   align-items:center;
+
   gap:12px;
+
   padding:12px 0;
+
   border-bottom:1px solid var(--line);
 }
 
@@ -885,23 +1085,32 @@ h1{
 
 .ranknum{
   font-weight:var(--font-heading);
+
   color:#999;
 }
 
 .person{
   display:flex;
+
   align-items:center;
+
   gap:10px;
 }
 
 .pavatar{
   width:34px;
   height:34px;
+
   border-radius:50%;
+
   display:grid;
+
   place-items:center;
+
   background:#ddd;
+
   font-size:12px;
+
   font-weight:var(--font-heading);
 }
 
@@ -911,23 +1120,33 @@ h1{
 
 .post{
   display:grid;
-  grid-template-columns:40px 1fr;
+
+  grid-template-columns:40px minmax(0,1fr);
+
   gap:12px;
 }
 
 .post+.post{
   padding-top:18px;
+
   margin-top:18px;
+
   border-top:1px solid var(--line);
 }
 
 .tag{
   display:inline-block;
+
   background:#eef7f8;
+
   padding:5px 8px;
+
   border-radius:8px;
+
   font-size:11px;
+
   font-weight:var(--font-light);
+
   margin-right:5px;
 }
 
@@ -937,14 +1156,19 @@ h1{
 
 .bar{
   display:flex;
+
   gap:7px;
+
   align-items:end;
+
   height:150px;
 }
 
 .bar i{
   flex:1;
+
   background:#ddd;
+
   border-radius:7px 7px 2px 2px;
 }
 
@@ -963,7 +1187,9 @@ h1{
 
 .route{
   height:190px;
+
   border-radius:18px;
+
   background:
     radial-gradient(
       circle at 20% 70%,
@@ -971,19 +1197,28 @@ h1{
       transparent 5px
     ),
     linear-gradient(135deg,#eef8fa,#fff);
+
   position:relative;
+
   overflow:hidden;
 }
 
 .route:after{
   content:"";
+
   position:absolute;
+
   inset:25px 40px;
+
   background:transparent;
+
   border:4px solid #171716;
+
   border-left-color:transparent;
   border-bottom-color:transparent;
+
   border-radius:48% 52% 48% 52%;
+
   transform:rotate(-20deg);
 }
 
@@ -998,14 +1233,18 @@ h1{
 .hero-logo a,
 .hero-logo img{
   overflow:visible !important;
+
   clip-path:none !important;
+
   contain:none !important;
 }
 
 .brand img,
 .hero-logo img{
   max-width:100%;
+
   height:auto;
+
   object-fit:contain;
 }
 
@@ -1015,6 +1254,7 @@ h1{
 
 .auth-overlay{
   position:fixed;
+
   inset:0;
 
   background:rgba(0,0,0,.55);
@@ -1022,6 +1262,7 @@ h1{
   display:none;
 
   align-items:center;
+
   justify-content:center;
 
   padding:20px;
@@ -1039,6 +1280,7 @@ h1{
   position:relative;
 
   width:min(440px,100%);
+
   max-height:calc(100vh - 40px);
 
   overflow-y:auto;
@@ -1064,6 +1306,7 @@ h1{
   background:transparent;
 
   font-size:25px;
+
   line-height:1;
 
   cursor:pointer;
@@ -1081,9 +1324,11 @@ h1{
   color:var(--miles-blue);
 
   font-size:10px;
+
   font-weight:var(--font-heading);
 
   letter-spacing:2px;
+
   text-transform:uppercase;
 
   margin-bottom:10px;
@@ -1091,7 +1336,9 @@ h1{
 
 .auth-modal h2{
   font-size:32px;
+
   line-height:1;
+
   letter-spacing:-1px;
 
   margin:0 0 10px;
@@ -1103,6 +1350,7 @@ h1{
   color:#777;
 
   font-size:14px;
+
   line-height:1.5;
 
   margin:0 0 25px;
@@ -1112,6 +1360,7 @@ h1{
 
 .auth-tabs{
   display:grid;
+
   grid-template-columns:1fr 1fr;
 
   border-bottom:1px solid #ddd;
@@ -1129,6 +1378,7 @@ h1{
   color:#888;
 
   font-size:12px;
+
   font-weight:var(--font-light);
 
   cursor:pointer;
@@ -1138,6 +1388,7 @@ h1{
 
 .auth-tab.active{
   color:var(--miles-blue);
+
   border-bottom-color:var(--miles-blue);
 }
 
@@ -1157,6 +1408,7 @@ h1{
   display:block;
 
   font-size:11px;
+
   font-weight:var(--font-heading);
 
   margin-bottom:7px;
@@ -1180,6 +1432,7 @@ h1{
   font-family:var(--font-main);
 
   font-size:14px;
+
   font-weight:var(--font-light);
 
   outline:none;
@@ -1187,6 +1440,7 @@ h1{
 
 .form-group input:focus{
   border-color:var(--miles-blue);
+
   background:#fff;
 }
 
@@ -1202,6 +1456,7 @@ h1{
   padding:14px;
 
   font-size:12px;
+
   font-weight:var(--font-light);
 
   cursor:pointer;
@@ -1211,11 +1466,13 @@ h1{
 
 .auth-submit:hover{
   background:#1199a6;
+
   border-color:#1199a6;
 }
 
 .auth-submit:disabled{
   opacity:.6;
+
   cursor:wait;
 }
 
@@ -1225,6 +1482,7 @@ h1{
   margin-top:12px;
 
   font-size:12px;
+
   line-height:1.5;
 
   color:#d34b4b;
@@ -1261,6 +1519,7 @@ h1{
 
 .auth-back{
   margin-bottom:18px;
+
   text-decoration:none;
 }
 
@@ -1281,6 +1540,7 @@ h1{
   color:#666;
 
   font-size:11px;
+
   line-height:1.5;
 
   font-weight:var(--font-light);
@@ -1311,18 +1571,79 @@ h6,
 }
 
 /* =========================================================
+   DESKTOP — BREITE BILDSCHIRME
+   ========================================================= */
+
+/*
+   Ab großen Bildschirmen wird die Seite wirklich
+   über die komplette verfügbare Breite gezogen.
+
+   Es gibt KEIN max-width mehr für .main.
+*/
+
+@media(min-width:1400px){
+
+  .shell{
+    width:100%;
+    max-width:none;
+  }
+
+  .main{
+    width:100%;
+    max-width:none;
+
+    padding-left:50px;
+    padding-right:50px;
+  }
+
+  .top{
+    width:100%;
+  }
+
+  #publicSite{
+    width:100%;
+    max-width:none;
+  }
+}
+
+/*
+   Sehr große Bildschirme:
+   etwas mehr seitlicher Innenabstand, damit die
+   Inhalte nicht direkt am Bildschirmrand kleben.
+*/
+
+@media(min-width:1800px){
+
+  .main{
+    padding-left:70px;
+    padding-right:70px;
+  }
+}
+
+/* =========================================================
    MOBILE / TABLET — 900PX
    ========================================================= */
 
 @media(max-width:900px){
 
   .shell{
+    display:grid;
+
     grid-template-columns:1fr;
+
+    width:100%;
+    max-width:none;
   }
 
   .sidebar{
     position:relative;
+
+    width:100%;
+    min-width:0;
+    max-width:none;
+
     height:auto;
+
     min-height:0;
 
     overflow:visible;
@@ -1335,22 +1656,29 @@ h6,
 
   .brand{
     padding:0 0 28px;
+
     overflow:visible;
   }
 
   .brand a{
     display:block;
+
     overflow:visible;
   }
 
   .brand img{
     width:min(390px,100%);
+
     height:auto;
+
     max-width:none;
+
     display:block;
   }
 
-  /* NAVIGATION */
+  /* =====================================================
+     NAVIGATION
+     ===================================================== */
 
   .nav{
     grid-template-columns:
@@ -1398,9 +1726,18 @@ h6,
     display:none;
   }
 
+  /*
+     Auch auf Tablet keine Maximalbreite.
+  */
+
   .main{
-    padding:22px 32px 90px;
+    width:100%;
+
     max-width:none;
+
+    min-width:0;
+
+    padding:22px 32px 90px;
   }
 
   .top{
@@ -1418,17 +1755,20 @@ h6,
   .avatar{
     width:56px;
     height:56px;
+
     font-size:20px;
   }
 
   .user-avatar-button{
     width:58px;
     height:58px;
+
     flex-basis:58px;
   }
 
   .account-menu{
     top:calc(100% + 12px) !important;
+
     right:0 !important;
     left:auto !important;
 
@@ -1454,13 +1794,20 @@ h6,
 
 @media(max-width:600px){
 
+  .shell{
+    width:100%;
+    max-width:none;
+  }
+
   .sidebar{
     width:100%;
+
     padding:28px 24px 16px;
   }
 
   .brand{
     width:100%;
+
     padding:8px 0 30px;
   }
 
@@ -1470,12 +1817,17 @@ h6,
 
   .brand img{
     width:100%;
+
     max-width:100%;
+
     height:auto;
+
     margin:0 auto;
   }
 
-  /* NAVIGATION */
+  /* =====================================================
+     NAVIGATION
+     ===================================================== */
 
   .nav{
     width:100% !important;
@@ -1485,6 +1837,7 @@ h6,
       minmax(0,1fr) !important;
 
     column-gap:12px !important;
+
     row-gap:6px !important;
   }
 
@@ -1492,6 +1845,7 @@ h6,
   .nav a:link,
   .nav a:visited{
     height:48px !important;
+
     min-height:48px !important;
 
     font-size:18px !important;
@@ -1501,10 +1855,13 @@ h6,
     border-radius:18px !important;
 
     white-space:nowrap !important;
+
     overflow:hidden !important;
+
     text-overflow:ellipsis !important;
 
     font-family:var(--font-main) !important;
+
     font-weight:800 !important;
   }
 
@@ -1527,7 +1884,10 @@ h6,
 
   .main{
     width:100%;
-    max-width:100%;
+
+    max-width:none;
+
+    min-width:0;
 
     padding:18px 24px 90px;
   }
@@ -1552,7 +1912,9 @@ h6,
     min-width:0;
 
     overflow:hidden;
+
     text-overflow:ellipsis;
+
     white-space:nowrap;
 
     font-size:11px;
@@ -1572,6 +1934,7 @@ h6,
 
   .top-right .small{
     font-size:14px;
+
     white-space:nowrap;
   }
 
@@ -1582,14 +1945,15 @@ h6,
   .user-avatar-button{
     width:48px;
     height:48px;
+
     flex-basis:48px;
 
     border-width:2px;
   }
 
   /*
-    ACCOUNT POPUP AUCH AUF DEM HANDY
-    GLEICHE BREITE UND TYPOGRAFIE
+     ACCOUNT POPUP AUCH AUF DEM HANDY
+     GLEICHE BREITE UND TYPOGRAFIE
   */
 
   .account-menu{
@@ -1609,7 +1973,9 @@ h6,
     padding:16px 18px 4px !important;
 
     font-size:20px !important;
+
     line-height:1.25 !important;
+
     font-weight:800 !important;
   }
 
@@ -1617,7 +1983,9 @@ h6,
     padding:0 18px 16px !important;
 
     font-size:13px !important;
+
     line-height:1.4 !important;
+
     font-weight:300 !important;
   }
 
@@ -1628,7 +1996,9 @@ h6,
     padding:16px 18px !important;
 
     font-size:16px !important;
+
     line-height:1.3 !important;
+
     font-weight:300 !important;
   }
 
@@ -1648,13 +2018,17 @@ h6,
 .hero-logo a,
 .hero-logo img{
   overflow:visible !important;
+
   clip-path:none !important;
+
   contain:none !important;
 }
 
 .brand img,
 .hero-logo img{
   max-width:100%;
+
   height:auto;
+
   object-fit:contain;
 }
