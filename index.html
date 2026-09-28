@@ -669,6 +669,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
 /* =====================================================
    EINGELOGGTE USER-SEITE
+   GRAUER BEREICH ENTFERNT
 ===================================================== */
 
 .logged-profile-page{
@@ -676,7 +677,9 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   width:100%;
   max-width:none;
   box-sizing:border-box;
-  background:#fafafa;
+
+  background:#fff;
+
   min-height:calc(100vh - 100px);
   margin:0;
   padding:0;
@@ -686,6 +689,8 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   display:block;
   width:100%;
   max-width:none;
+
+  background:#fff;
 }
 
 .logged-profile-frame{
@@ -693,17 +698,21 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   width:100%;
   max-width:none;
   min-width:0;
+
   min-height:calc(100vh - 100px);
   height:100vh;
+
+  margin:0;
+  padding:0;
+
   border:0;
-  background:#fafafa;
+
+  background:#fff;
 }
 
 /*
- * WICHTIG:
- * Sobald die eingeloggte Profilseite sichtbar ist,
- * darf der .main-Bereich die komplette verfügbare
- * Breite verwenden.
+ * PROFILSEITE:
+ * Kein grauer Außenbereich.
  */
 
 .main:has(.logged-profile-page.active){
@@ -712,6 +721,8 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   margin-left:0 !important;
   margin-right:0 !important;
   box-sizing:border-box;
+
+  background:#fff !important;
 }
 
 .main:has(.logged-profile-page.active) .top{
@@ -724,6 +735,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 .main:has(.logged-profile-page.active) .logged-profile-frame{
   width:100%;
   max-width:none;
+  background:#fff !important;
 }
 
 /* =====================================================
@@ -737,7 +749,9 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   box-sizing:border-box;
   align-items:center;
   justify-content:center;
-  background:#fafafa;
+
+  background:#fff;
+
   color:#777;
   font-size:14px;
 }
@@ -1489,16 +1503,17 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
   .logged-profile-frame{
     min-height:calc(100vh - 80px);
+    background:#fff !important;
   }
 
-  /*
-   * Auf Mobilgeräten darf der Profilbereich ebenfalls
-   * die komplette verfügbare Breite verwenden.
-   */
+  .logged-profile-page{
+    background:#fff !important;
+  }
 
   .main:has(.logged-profile-page.active){
     width:100% !important;
     max-width:none !important;
+    background:#fff !important;
   }
 }
 </style>
@@ -1625,11 +1640,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
     </div>
 
-
-    <!-- =====================================================
-         EINGELOGGTE USER-SEITE
-    ====================================================== -->
-
     <section
       class="logged-profile-page"
       id="loggedProfilePage"
@@ -1653,11 +1663,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
       ></iframe>
 
     </section>
-
-
-    <!-- =====================================================
-         PUBLIC SITE
-    ====================================================== -->
 
     <div id="publicSite">
 
@@ -1685,7 +1690,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         </div>
 
       </div>
-
 
       <section class="home-intro">
 
@@ -1716,7 +1720,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
       </section>
 
-
       <div class="story-photo">
 
         <img
@@ -1741,7 +1744,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         </div>
 
       </div>
-
 
       <section class="about-project">
 
@@ -1795,7 +1797,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
         </div>
 
-
         <div class="principles">
 
           <div class="principle">
@@ -1827,7 +1828,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
           </div>
 
-
           <div class="principle">
 
             <div class="principle-number">
@@ -1855,7 +1855,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
             </p>
 
           </div>
-
 
           <div class="principle">
 
@@ -1887,7 +1886,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         </div>
 
       </section>
-
 
       <section class="founder">
 
@@ -1973,7 +1971,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
       </section>
 
-
       <section class="visual-story">
 
         <div class="visual-story-head">
@@ -2013,7 +2010,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         </div>
 
       </section>
-
 
       <section class="statement">
 
@@ -2055,11 +2051,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   </main>
 
 </div>
-
-
-<!-- =====================================================
-     AUTH OVERLAY
-===================================================== -->
 
 <div
   class="auth-overlay"
@@ -2118,7 +2109,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
       </button>
 
     </div>
-
 
     <form
       class="auth-form active"
@@ -2179,7 +2169,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
       ></div>
 
     </form>
-
 
     <form
       class="auth-form"
@@ -2335,7 +2324,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
         </div>
 
-
         <div class="gate-card">
 
           <div class="gate-top">
@@ -2462,7 +2450,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
       </div>
 
-
       <div class="registration-progress">
 
         <div
@@ -2497,7 +2484,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
       </div>
 
-
       <div
         class="registration-status"
         id="registrationStatus"
@@ -2511,7 +2497,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         </span>
 
       </div>
-
 
       <button
         class="auth-submit"
@@ -2528,7 +2513,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
       ></div>
 
     </form>
-
 
     <form
       class="auth-form"
@@ -2578,7 +2562,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
       </div>
 
     </form>
-
 
     <form
       class="auth-form"
@@ -2638,12 +2621,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
 </div>
 
-
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
   "https://orbrkdrsihsacsnprewf.supabase.co";
@@ -2661,22 +2639,10 @@ const supabaseClient =
     SUPABASE_PUBLISHABLE_KEY
   );
 
-
-/* =====================================================
-   STATE
-===================================================== */
-
 let currentUser = null;
 let currentProfile = null;
-
 let profileFrameObserver = null;
-
 let profileNavigationInProgress = false;
-
-
-/* =====================================================
-   DOM
-===================================================== */
 
 const publicSite =
   document.getElementById("publicSite");
@@ -2813,11 +2779,6 @@ const shareWhatsapp =
 const shareInstagram =
   document.getElementById("shareInstagram");
 
-
-/* =====================================================
-   HELPER
-===================================================== */
-
 function getDisplayName(){
 
   if(
@@ -2852,7 +2813,6 @@ function getDisplayName(){
   return "Runner";
 }
 
-
 function getInitials(name){
 
   const parts =
@@ -2876,7 +2836,6 @@ function getInitials(name){
     parts[parts.length - 1].charAt(0)
   ).toUpperCase();
 }
-
 
 function getPublicStorageUrl(
   value,
@@ -2908,11 +2867,6 @@ function getPublicStorageUrl(
   );
 }
 
-
-/* =====================================================
-   USERNAME
-===================================================== */
-
 function slugifyUsername(value){
 
   return String(value || "")
@@ -2928,7 +2882,6 @@ function slugifyUsername(value){
     )
     .slice(0,24);
 }
-
 
 function createFallbackUsername(user){
 
@@ -2957,11 +2910,6 @@ function createFallbackUsername(user){
     `${base}${suffix || Date.now().toString(36)}`
   );
 }
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
 
 async function loadProfile(user){
 
@@ -3001,7 +2949,6 @@ async function loadProfile(user){
 
   return currentProfile;
 }
-
 
 async function ensureProfileForUser(user){
 
@@ -3133,11 +3080,6 @@ async function ensureProfileForUser(user){
   return currentProfile;
 }
 
-
-/* =====================================================
-   PROFILE VIEW
-===================================================== */
-
 function showPublicSite(){
 
   if(profileFrameObserver){
@@ -3168,7 +3110,6 @@ function showPublicSite(){
   });
 }
 
-
 function showLoggedProfile(){
 
   publicSite.style.display =
@@ -3184,7 +3125,6 @@ function showLoggedProfile(){
   });
 }
 
-
 function showProfileLoading(){
 
   publicSite.style.display =
@@ -3199,18 +3139,12 @@ function showProfileLoading(){
   );
 }
 
-
 function hideProfileLoading(){
 
   profileLoading.classList.remove(
     "active"
   );
 }
-
-
-/* =====================================================
-   USER.HTML IFRAME
-===================================================== */
 
 function resizeLoggedProfileFrame(){
 
@@ -3265,7 +3199,6 @@ function resizeLoggedProfileFrame(){
     );
   }
 }
-
 
 function observeLoggedProfileFrame(){
 
@@ -3330,7 +3263,6 @@ function observeLoggedProfileFrame(){
   }
 }
 
-
 loggedProfileFrame.addEventListener(
   "load",
   () => {
@@ -3340,11 +3272,6 @@ loggedProfileFrame.addEventListener(
     observeLoggedProfileFrame();
   }
 );
-
-
-/* =====================================================
-   LOAD LOGGED PROFILE
-===================================================== */
 
 async function loadLoggedProfilePage(){
 
@@ -3464,11 +3391,6 @@ async function loadLoggedProfilePage(){
   }
 }
 
-
-/* =====================================================
-   UI
-===================================================== */
-
 function updateUserInterface(){
 
   if(!currentUser){
@@ -3566,11 +3488,6 @@ function updateUserInterface(){
     };
 }
 
-
-/* =====================================================
-   ACCOUNT MENU
-===================================================== */
-
 avatarButton.addEventListener(
   "click",
   event => {
@@ -3583,7 +3500,6 @@ avatarButton.addEventListener(
     );
   }
 );
-
 
 document.addEventListener(
   "click",
@@ -3602,7 +3518,6 @@ document.addEventListener(
   }
 );
 
-
 profileButton.addEventListener(
   "click",
   async event => {
@@ -3617,11 +3532,6 @@ profileButton.addEventListener(
     await loadLoggedProfilePage();
   }
 );
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
 
 logoutButton.addEventListener(
   "click",
@@ -3671,11 +3581,6 @@ logoutButton.addEventListener(
   }
 );
 
-
-/* =====================================================
-   AUTH
-===================================================== */
-
 function openAuth(){
 
   authOverlay.classList.add(
@@ -3688,7 +3593,6 @@ function openAuth(){
   showLogin();
 }
 
-
 function closeAuth(){
 
   authOverlay.classList.remove(
@@ -3700,7 +3604,6 @@ function closeAuth(){
 
   clearMessages();
 }
-
 
 function clearMessages(){
 
@@ -3733,7 +3636,6 @@ function clearMessages(){
   );
 }
 
-
 function showLogin(){
 
   loginForm.classList.add("active");
@@ -3755,7 +3657,6 @@ function showLogin(){
 
   clearMessages();
 }
-
 
 function showRegister(){
 
@@ -3781,7 +3682,6 @@ function showRegister(){
   updateRegistrationGate();
 }
 
-
 function showForgotPassword(){
 
   loginForm.classList.remove("active");
@@ -3801,7 +3701,6 @@ function showForgotPassword(){
   clearMessages();
 }
 
-
 function showRecovery(){
 
   loginForm.classList.remove("active");
@@ -3820,7 +3719,6 @@ function showRecovery(){
 
   clearMessages();
 }
-
 
 openLoginButton.addEventListener(
   "click",
@@ -3880,13 +3778,7 @@ document.addEventListener(
   }
 );
 
-
-/* =====================================================
-   REGISTRATION
-===================================================== */
-
 let inviteActionCompleted = false;
-
 
 function updateRegistrationGate(){
 
@@ -3952,12 +3844,10 @@ function updateRegistrationGate(){
   }
 }
 
-
 followConfirmation.addEventListener(
   "change",
   updateRegistrationGate
 );
-
 
 inviteConfirmation.addEventListener(
   "change",
@@ -3975,7 +3865,6 @@ inviteConfirmation.addEventListener(
   }
 );
 
-
 function getInviteUrl(){
 
   return(
@@ -3983,7 +3872,6 @@ function getInviteUrl(){
     window.location.pathname
   );
 }
-
 
 function getInviteMessage(){
 
@@ -3994,7 +3882,6 @@ function getInviteMessage(){
     getInviteUrl()
   );
 }
-
 
 function markInviteActionStarted(){
 
@@ -4007,7 +3894,6 @@ function markInviteActionStarted(){
 
   updateRegistrationGate();
 }
-
 
 shareWhatsapp.addEventListener(
   "click",
@@ -4025,7 +3911,6 @@ shareWhatsapp.addEventListener(
     );
   }
 );
-
 
 shareInstagram.addEventListener(
   "click",
@@ -4082,11 +3967,6 @@ shareInstagram.addEventListener(
     );
   }
 );
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
 
 loginForm.addEventListener(
   "submit",
@@ -4170,11 +4050,6 @@ loginForm.addEventListener(
     await loadLoggedProfilePage();
   }
 );
-
-
-/* =====================================================
-   REGISTRATION
-===================================================== */
 
 registerForm.addEventListener(
   "submit",
@@ -4350,11 +4225,6 @@ registerForm.addEventListener(
   }
 );
 
-
-/* =====================================================
-   PASSWORD RESET
-===================================================== */
-
 forgotForm.addEventListener(
   "submit",
   async event => {
@@ -4412,11 +4282,6 @@ forgotForm.addEventListener(
     );
   }
 );
-
-
-/* =====================================================
-   PASSWORD RECOVERY
-===================================================== */
 
 recoveryForm.addEventListener(
   "submit",
@@ -4496,11 +4361,6 @@ recoveryForm.addEventListener(
   }
 );
 
-
-/* =====================================================
-   AUTH ERROR
-===================================================== */
-
 function translateAuthError(
   error
 ){
@@ -4574,11 +4434,6 @@ function translateAuthError(
   );
 }
 
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
 async function handleAuthStateChange(
   event,
   session
@@ -4618,7 +4473,6 @@ async function handleAuthStateChange(
 
     return;
   }
-
 
   if(
     session?.user
@@ -4687,7 +4541,6 @@ async function handleAuthStateChange(
   }
 }
 
-
 supabaseClient.auth.onAuthStateChange(
   (
     event,
@@ -4703,11 +4556,6 @@ supabaseClient.auth.onAuthStateChange(
     );
   }
 );
-
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
 
 async function initializeAuth(){
 
@@ -4775,11 +4623,6 @@ async function initializeAuth(){
     updateUserInterface();
   }
 }
-
-
-/* =====================================================
-   START
-===================================================== */
 
 updateRegistrationGate();
 
