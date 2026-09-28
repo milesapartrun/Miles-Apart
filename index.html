@@ -2065,80 +2065,43 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
 </div>
 
+<!-- AUTH -->
 
-<!-- =====================================================
-     AUTH
-===================================================== -->
+<div class="auth-overlay" id="authOverlay">
 
-<div
-  class="auth-overlay"
-  id="authOverlay"
->
-
-  <div
-    class="auth-modal"
-    role="dialog"
-    aria-modal="true"
-  >
+  <div class="auth-modal" role="dialog" aria-modal="true">
 
     <button
       class="auth-close"
       id="closeAuthButton"
       type="button"
       aria-label="Schließen"
-    >
-      ×
-    </button>
+    >×</button>
 
-    <div class="auth-eyebrow">
-      MILES APART
-    </div>
+    <div class="auth-eyebrow">MILES APART</div>
 
-    <h2 id="authTitle">
-      Willkommen zurück.
-    </h2>
+    <h2 id="authTitle">Willkommen zurück.</h2>
 
-    <p
-      class="auth-description"
-      id="authDescription"
-    >
+    <p class="auth-description" id="authDescription">
       Melde dich an und werde Teil der Community.
     </p>
 
-    <div
-      class="auth-tabs"
-      id="authTabs"
-    >
+    <div class="auth-tabs" id="authTabs">
 
-      <button
-        class="auth-tab active"
-        id="loginTab"
-        type="button"
-      >
+      <button class="auth-tab active" id="loginTab" type="button">
         🏃‍♂️ Anmelden
       </button>
 
-      <button
-        class="auth-tab"
-        id="registerTab"
-        type="button"
-      >
+      <button class="auth-tab" id="registerTab" type="button">
         🏃‍♀️ Konto erstellen
       </button>
 
     </div>
 
-    <form
-      class="auth-form active"
-      id="loginForm"
-    >
+    <form class="auth-form active" id="loginForm">
 
       <div class="form-group">
-
-        <label for="loginEmail">
-          📧 E-Mail
-        </label>
-
+        <label for="loginEmail">📧 E-Mail</label>
         <input
           id="loginEmail"
           type="email"
@@ -2146,15 +2109,10 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           autocomplete="email"
           required
         >
-
       </div>
 
       <div class="form-group">
-
-        <label for="loginPassword">
-          🔐 Passwort
-        </label>
-
+        <label for="loginPassword">🔐 Passwort</label>
         <input
           id="loginPassword"
           type="password"
@@ -2162,56 +2120,32 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           autocomplete="current-password"
           required
         >
-
       </div>
 
-      <button
-        class="auth-submit"
-        id="loginSubmit"
-        type="submit"
-      >
+      <button class="auth-submit" id="loginSubmit" type="submit">
         🏃‍♂️ Anmelden →
       </button>
 
-      <button
-        class="forgot-password"
-        id="forgotPasswordButton"
-        type="button"
-      >
+      <button class="forgot-password" id="forgotPasswordButton" type="button">
         🔑 Passwort vergessen?
       </button>
 
-      <div
-        class="auth-message"
-        id="loginMessage"
-      ></div>
+      <div class="auth-message" id="loginMessage"></div>
 
     </form>
 
-    <form
-      class="auth-form"
-      id="registerForm"
-    >
+    <form class="auth-form" id="registerForm">
 
       <div class="registration-intro">
-
-        <strong>
-          🏁 Bevor du loslegst:
-        </strong>
-
+        <strong>🏁 Bevor du loslegst:</strong>
         Miles Apart soll eine echte Community sein.
         Deshalb gehören zwei kleine Schritte zur Registrierung:
         Tano Loew auf Instagram folgen und einen Freund zur
         Community einladen.
-
       </div>
 
       <div class="form-group">
-
-        <label for="registerName">
-          👤 Dein Name
-        </label>
-
+        <label for="registerName">👤 Dein Name</label>
         <input
           id="registerName"
           type="text"
@@ -2219,15 +2153,10 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           autocomplete="name"
           required
         >
-
       </div>
 
       <div class="form-group">
-
-        <label for="registerEmail">
-          📧 E-Mail
-        </label>
-
+        <label for="registerEmail">📧 E-Mail</label>
         <input
           id="registerEmail"
           type="email"
@@ -2235,15 +2164,10 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           autocomplete="email"
           required
         >
-
       </div>
 
       <div class="form-group">
-
-        <label for="registerPassword">
-          🔐 Passwort
-        </label>
-
+        <label for="registerPassword">🔐 Passwort</label>
         <input
           id="registerPassword"
           type="password"
@@ -2252,7 +2176,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           autocomplete="new-password"
           required
         >
-
       </div>
 
       <div class="registration-gate">
@@ -2264,36 +2187,16 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
             <div class="gate-icon">
 
               <svg viewBox="0 0 32 32">
-
-                <rect
-                  x="6"
-                  y="6"
-                  width="20"
-                  height="20"
-                  rx="6"
-                ></rect>
-
-                <circle
-                  cx="16"
-                  cy="16"
-                  r="5"
-                ></circle>
-
-                <circle
-                  cx="22.5"
-                  cy="9.5"
-                  r="1"
-                ></circle>
-
+                <rect x="6" y="6" width="20" height="20" rx="6"></rect>
+                <circle cx="16" cy="16" r="5"></circle>
+                <circle cx="22.5" cy="9.5" r="1"></circle>
               </svg>
 
             </div>
 
             <div class="gate-copy">
 
-              <h3>
-                📸 Folge Tano Loew auf Instagram
-              </h3>
+              <h3>📸 Folge Tano Loew auf Instagram</h3>
 
               <p>
                 Folge meinem persönlichen Instagram-Account
@@ -2322,18 +2225,13 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
           <label class="gate-check">
 
-            <input
-              type="checkbox"
-              id="followConfirmation"
-            >
+            <input type="checkbox" id="followConfirmation">
 
             <span class="custom-check"></span>
 
             <span class="gate-check-text">
 
-              <strong>
-                ✅ Ja, ich folge Tano Loew bereits.
-              </strong>
+              <strong>✅ Ja, ich folge Tano Loew bereits.</strong>
 
               <small>
                 Mit dem Haken bestätigst du dies.
@@ -2349,32 +2247,14 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
           <div class="gate-top">
 
-            <div
-              class="gate-icon"
-              style="color:#315f70;"
-            >
+            <div class="gate-icon" style="color:#315f70;">
 
               <svg viewBox="0 0 32 32">
 
-                <circle
-                  cx="11"
-                  cy="11"
-                  r="4"
-                ></circle>
-
-                <circle
-                  cx="21"
-                  cy="11"
-                  r="4"
-                ></circle>
-
-                <path
-                  d="M4 25c.5-5 3-7.5 7-7.5s6.5 2.5 7 7.5"
-                ></path>
-
-                <path
-                  d="M14 25c.5-5 3-7.5 7-7.5s6.5 2.5 7 7.5"
-                ></path>
+                <circle cx="11" cy="11" r="4"></circle>
+                <circle cx="21" cy="11" r="4"></circle>
+                <path d="M4 25c.5-5 3-7.5 7-7.5s6.5 2.5 7 7.5"></path>
+                <path d="M14 25c.5-5 3-7.5 7-7.5s6.5 2.5 7 7.5"></path>
 
               </svg>
 
@@ -2382,9 +2262,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
             <div class="gate-copy">
 
-              <h3>
-                🏃‍♂️ Lade jetzt einen Freund ein
-              </h3>
+              <h3>🏃‍♂️ Lade jetzt einen Freund ein</h3>
 
               <p>
                 Teile Miles Apart mit einem Freund –
@@ -2398,9 +2276,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
           <div class="invite-card">
 
-            <div class="invite-brand">
-              MILES APART
-            </div>
+            <div class="invite-brand">MILES APART</div>
 
             <div class="invite-title">
               RUN <span>TOGETHER</span>
@@ -2444,18 +2320,13 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
             <label class="gate-check">
 
-              <input
-                type="checkbox"
-                id="inviteConfirmation"
-              >
+              <input type="checkbox" id="inviteConfirmation">
 
               <span class="custom-check"></span>
 
               <span class="gate-check-text">
 
-                <strong>
-                  ✅ Ja, ich habe einen Freund eingeladen.
-                </strong>
+                <strong>✅ Ja, ich habe einen Freund eingeladen.</strong>
 
                 <small>
                   Teile zuerst über WhatsApp oder Instagram.
@@ -2478,9 +2349,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           id="progressInstagram"
         >
 
-          <span class="registration-progress-number">
-            1
-          </span>
+          <span class="registration-progress-number">1</span>
 
           <span>
             📸 Instagram-Follow bestätigen
@@ -2493,9 +2362,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
           id="progressInvite"
         >
 
-          <span class="registration-progress-number">
-            2
-          </span>
+          <span class="registration-progress-number">2</span>
 
           <span>
             🏃‍♂️ Freund einladen
@@ -2505,10 +2372,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
       </div>
 
-      <div
-        class="registration-status"
-        id="registrationStatus"
-      >
+      <div class="registration-status" id="registrationStatus">
 
         <span class="registration-status-dot"></span>
 
@@ -2528,17 +2392,11 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         🏃‍♀️ Erst Voraussetzungen erfüllen
       </button>
 
-      <div
-        class="auth-message"
-        id="registerMessage"
-      ></div>
+      <div class="auth-message" id="registerMessage"></div>
 
     </form>
 
-    <form
-      class="auth-form"
-      id="forgotForm"
-    >
+    <form class="auth-form" id="forgotForm">
 
       <button
         class="auth-back"
@@ -2564,18 +2422,11 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
       </div>
 
-      <button
-        class="auth-submit"
-        id="forgotSubmit"
-        type="submit"
-      >
+      <button class="auth-submit" id="forgotSubmit" type="submit">
         📩 Reset-Link senden →
       </button>
 
-      <div
-        class="auth-message"
-        id="forgotMessage"
-      ></div>
+      <div class="auth-message" id="forgotMessage"></div>
 
       <div class="auth-note">
         Wir senden dir einen Link per E-Mail.
@@ -2584,10 +2435,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
     </form>
 
-    <form
-      class="auth-form"
-      id="recoveryForm"
-    >
+    <form class="auth-form" id="recoveryForm">
 
       <div class="form-group">
 
@@ -2631,10 +2479,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
         🔒 Neues Passwort speichern →
       </button>
 
-      <div
-        class="auth-message"
-        id="recoveryMessage"
-      ></div>
+      <div class="auth-message" id="recoveryMessage"></div>
 
     </form>
 
@@ -2642,12 +2487,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
 </div>
 
-
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
 
 const SUPABASE_URL =
   "https://orbrkdrsihsacsnprewf.supabase.co";
@@ -2665,184 +2505,70 @@ const supabaseClient =
     SUPABASE_PUBLISHABLE_KEY
   );
 
-
-/* =====================================================
-   STATE
-===================================================== */
-
 let currentUser = null;
 let currentProfile = null;
 let profileFrameObserver = null;
 let profileNavigationInProgress = false;
 
-
-/* =====================================================
-   DOM
-===================================================== */
-
-const publicSite =
-  document.getElementById("publicSite");
-
-const loggedProfilePage =
-  document.getElementById("loggedProfilePage");
-
-const loggedProfileFrame =
-  document.getElementById("loggedProfileFrame");
-
-const profileLoading =
-  document.getElementById("profileLoading");
-
-const guestArea =
-  document.getElementById("guestArea");
-
-const loggedInArea =
-  document.getElementById("loggedInArea");
-
-const userGreeting =
-  document.getElementById("userGreeting");
-
-const avatarButton =
-  document.getElementById("avatarButton");
-
-const accountMenu =
-  document.getElementById("accountMenu");
-
-const accountMenuName =
-  document.getElementById("accountMenuName");
-
-const accountMenuEmail =
-  document.getElementById("accountMenuEmail");
-
-const profileButton =
-  document.getElementById("profileButton");
-
-const logoutButton =
-  document.getElementById("logoutButton");
-
-const openLoginButton =
-  document.getElementById("openLoginButton");
-
-const statementCta =
-  document.getElementById("statementCta");
-
-const authOverlay =
-  document.getElementById("authOverlay");
-
-const closeAuthButton =
-  document.getElementById("closeAuthButton");
-
-const authTabs =
-  document.getElementById("authTabs");
-
-const loginTab =
-  document.getElementById("loginTab");
-
-const registerTab =
-  document.getElementById("registerTab");
-
-const loginForm =
-  document.getElementById("loginForm");
-
-const registerForm =
-  document.getElementById("registerForm");
-
-const forgotForm =
-  document.getElementById("forgotForm");
-
-const recoveryForm =
-  document.getElementById("recoveryForm");
-
-const authTitle =
-  document.getElementById("authTitle");
-
-const authDescription =
-  document.getElementById("authDescription");
-
-const loginMessage =
-  document.getElementById("loginMessage");
-
-const registerMessage =
-  document.getElementById("registerMessage");
-
-const forgotMessage =
-  document.getElementById("forgotMessage");
-
-const recoveryMessage =
-  document.getElementById("recoveryMessage");
-
-const forgotPasswordButton =
-  document.getElementById("forgotPasswordButton");
-
-const backToLoginButton =
-  document.getElementById("backToLoginButton");
-
-const loginSubmit =
-  document.getElementById("loginSubmit");
-
-const registerSubmit =
-  document.getElementById("registerSubmit");
-
-const forgotSubmit =
-  document.getElementById("forgotSubmit");
-
-const recoverySubmit =
-  document.getElementById("recoverySubmit");
-
-const followConfirmation =
-  document.getElementById("followConfirmation");
-
-const inviteConfirmation =
-  document.getElementById("inviteConfirmation");
-
-const inviteConfirmationArea =
-  document.getElementById("inviteConfirmationArea");
-
-const registrationStatus =
-  document.getElementById("registrationStatus");
-
-const registrationStatusText =
-  document.getElementById("registrationStatusText");
-
-const progressInstagram =
-  document.getElementById("progressInstagram");
-
-const progressInvite =
-  document.getElementById("progressInvite");
-
-const shareWhatsapp =
-  document.getElementById("shareWhatsapp");
-
-const shareInstagram =
-  document.getElementById("shareInstagram");
-
-
-/* =====================================================
-   HELPER
-===================================================== */
+const publicSite = document.getElementById("publicSite");
+const loggedProfilePage = document.getElementById("loggedProfilePage");
+const loggedProfileFrame = document.getElementById("loggedProfileFrame");
+const profileLoading = document.getElementById("profileLoading");
+const guestArea = document.getElementById("guestArea");
+const loggedInArea = document.getElementById("loggedInArea");
+const userGreeting = document.getElementById("userGreeting");
+const avatarButton = document.getElementById("avatarButton");
+const accountMenu = document.getElementById("accountMenu");
+const accountMenuName = document.getElementById("accountMenuName");
+const accountMenuEmail = document.getElementById("accountMenuEmail");
+const profileButton = document.getElementById("profileButton");
+const logoutButton = document.getElementById("logoutButton");
+const openLoginButton = document.getElementById("openLoginButton");
+const statementCta = document.getElementById("statementCta");
+const authOverlay = document.getElementById("authOverlay");
+const closeAuthButton = document.getElementById("closeAuthButton");
+const authTabs = document.getElementById("authTabs");
+const loginTab = document.getElementById("loginTab");
+const registerTab = document.getElementById("registerTab");
+const loginForm = document.getElementById("loginForm");
+const registerForm = document.getElementById("registerForm");
+const forgotForm = document.getElementById("forgotForm");
+const recoveryForm = document.getElementById("recoveryForm");
+const authTitle = document.getElementById("authTitle");
+const authDescription = document.getElementById("authDescription");
+const loginMessage = document.getElementById("loginMessage");
+const registerMessage = document.getElementById("registerMessage");
+const forgotMessage = document.getElementById("forgotMessage");
+const recoveryMessage = document.getElementById("recoveryMessage");
+const forgotPasswordButton = document.getElementById("forgotPasswordButton");
+const backToLoginButton = document.getElementById("backToLoginButton");
+const loginSubmit = document.getElementById("loginSubmit");
+const registerSubmit = document.getElementById("registerSubmit");
+const forgotSubmit = document.getElementById("forgotSubmit");
+const recoverySubmit = document.getElementById("recoverySubmit");
+const followConfirmation = document.getElementById("followConfirmation");
+const inviteConfirmation = document.getElementById("inviteConfirmation");
+const inviteConfirmationArea = document.getElementById("inviteConfirmationArea");
+const registrationStatus = document.getElementById("registrationStatus");
+const registrationStatusText = document.getElementById("registrationStatusText");
+const progressInstagram = document.getElementById("progressInstagram");
+const progressInvite = document.getElementById("progressInvite");
+const shareWhatsapp = document.getElementById("shareWhatsapp");
+const shareInstagram = document.getElementById("shareInstagram");
 
 function getDisplayName(){
 
-  if(
-    currentProfile &&
-    currentProfile.display_name
-  ){
+  if(currentProfile && currentProfile.display_name){
     return currentProfile.display_name;
   }
 
-  if(
-    currentUser &&
-    currentUser.user_metadata
-  ){
+  if(currentUser && currentUser.user_metadata){
 
-    if(
-      currentUser.user_metadata.display_name
-    ){
+    if(currentUser.user_metadata.display_name){
       return currentUser.user_metadata.display_name;
     }
 
-    if(
-      currentUser.user_metadata.name
-    ){
+    if(currentUser.user_metadata.name){
       return currentUser.user_metadata.name;
     }
   }
@@ -2853,7 +2579,6 @@ function getDisplayName(){
 
   return "Runner";
 }
-
 
 function getInitials(name){
 
@@ -2868,9 +2593,7 @@ function getInitials(name){
   }
 
   if(parts.length === 1){
-    return parts[0]
-      .charAt(0)
-      .toUpperCase();
+    return parts[0].charAt(0).toUpperCase();
   }
 
   return(
@@ -2879,11 +2602,7 @@ function getInitials(name){
   ).toUpperCase();
 }
 
-
-function getPublicStorageUrl(
-  value,
-  bucket="avatars"
-){
+function getPublicStorageUrl(value,bucket="avatars"){
 
   if(!value){
     return null;
@@ -2896,41 +2615,23 @@ function getPublicStorageUrl(
     return value;
   }
 
-  const {
-    data
-  } =
-    supabaseClient
-      .storage
+  const {data} =
+    supabaseClient.storage
       .from(bucket)
       .getPublicUrl(value);
 
-  return(
-    data?.publicUrl ||
-    null
-  );
+  return data?.publicUrl || null;
 }
-
-
-/* =====================================================
-   USERNAME
-===================================================== */
 
 function slugifyUsername(value){
 
   return String(value || "")
     .normalize("NFKD")
-    .replace(
-      /[\u0300-\u036f]/g,
-      ""
-    )
+    .replace(/[\u0300-\u036f]/g,"")
     .toLowerCase()
-    .replace(
-      /[^a-z0-9]+/g,
-      ""
-    )
+    .replace(/[^a-z0-9]+/g,"")
     .slice(0,24);
 }
-
 
 function createFallbackUsername(user){
 
@@ -2940,10 +2641,7 @@ function createFallbackUsername(user){
     user?.email?.split("@")[0] ||
     "runner";
 
-  let base =
-    slugifyUsername(
-      displayName
-    );
+  let base = slugifyUsername(displayName);
 
   if(!base){
     base = "runner";
@@ -2955,29 +2653,17 @@ function createFallbackUsername(user){
       .slice(0,8)
       .toLowerCase();
 
-  return(
-    `${base}${suffix || Date.now().toString(36)}`
-  );
+  return `${base}${suffix || Date.now().toString(36)}`;
 }
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
 
 async function loadProfile(user){
 
   if(!user){
-
     currentProfile = null;
-
     return null;
   }
 
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await supabaseClient
       .from("profiles")
       .select(`
@@ -2988,22 +2674,17 @@ async function loadProfile(user){
         bio,
         location
       `)
-      .eq(
-        "id",
-        user.id
-      )
+      .eq("id",user.id)
       .maybeSingle();
 
   if(error){
     throw error;
   }
 
-  currentProfile =
-    data || null;
+  currentProfile = data || null;
 
   return currentProfile;
 }
-
 
 async function ensureProfileForUser(user){
 
@@ -3011,17 +2692,12 @@ async function ensureProfileForUser(user){
     return null;
   }
 
-  if(
-    currentProfile &&
-    currentProfile.username
-  ){
+  if(currentProfile && currentProfile.username){
     return currentProfile;
   }
 
   const fallbackUsername =
-    createFallbackUsername(
-      user
-    );
+    createFallbackUsername(user);
 
   const displayName =
     currentProfile?.display_name ||
@@ -3032,20 +2708,13 @@ async function ensureProfileForUser(user){
 
   if(currentProfile){
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await supabaseClient
         .from("profiles")
         .update({
-          username:
-            fallbackUsername
+          username:fallbackUsername
         })
-        .eq(
-          "id",
-          user.id
-        )
+        .eq("id",user.id)
         .select(`
           id,
           display_name,
@@ -3057,27 +2726,19 @@ async function ensureProfileForUser(user){
         .maybeSingle();
 
     if(error){
-
       console.error(
         "Username konnte nicht ergänzt werden:",
         error
       );
-
     }else if(data){
-
-      currentProfile =
-        data;
-
+      currentProfile = data;
       return currentProfile;
     }
   }
 
   if(!currentProfile){
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await supabaseClient
         .from("profiles")
         .insert({
@@ -3096,17 +2757,12 @@ async function ensureProfileForUser(user){
         .maybeSingle();
 
     if(error){
-
       console.error(
         "Profil konnte nicht automatisch erstellt werden:",
         error
       );
-
     }else if(data){
-
-      currentProfile =
-        data;
-
+      currentProfile = data;
       return currentProfile;
     }
   }
@@ -3114,13 +2770,9 @@ async function ensureProfileForUser(user){
   try{
 
     const refreshedProfile =
-      await loadProfile(
-        user
-      );
+      await loadProfile(user);
 
-    if(
-      refreshedProfile?.username
-    ){
+    if(refreshedProfile?.username){
       return refreshedProfile;
     }
 
@@ -3135,11 +2787,6 @@ async function ensureProfileForUser(user){
   return currentProfile;
 }
 
-
-/* =====================================================
-   PROFILE VIEW
-===================================================== */
-
 function showPublicSite(){
 
   if(profileFrameObserver){
@@ -3153,32 +2800,21 @@ function showPublicSite(){
     profileFrameObserver = null;
   }
 
-  loggedProfilePage.classList.remove(
-    "active"
-  );
-
-  profileLoading.classList.remove(
-    "active"
-  );
-
-  publicSite.style.display =
-    "";
+  loggedProfilePage.classList.remove("active");
+  profileLoading.classList.remove("active");
+  publicSite.style.display = "";
 
   window.scrollTo({
     top:0,
     behavior:"instant"
   });
 }
-
 
 function showLoggedProfile(){
 
-  publicSite.style.display =
-    "none";
+  publicSite.style.display = "none";
 
-  loggedProfilePage.classList.add(
-    "active"
-  );
+  loggedProfilePage.classList.add("active");
 
   window.scrollTo({
     top:0,
@@ -3186,33 +2822,25 @@ function showLoggedProfile(){
   });
 }
 
-
 function showProfileLoading(){
 
-  publicSite.style.display =
-    "none";
+  publicSite.style.display = "none";
 
-  loggedProfilePage.classList.add(
-    "active"
-  );
+  loggedProfilePage.classList.add("active");
 
-  profileLoading.classList.add(
-    "active"
-  );
+  profileLoading.classList.add("active");
 }
-
 
 function hideProfileLoading(){
 
-  profileLoading.classList.remove(
-    "active"
-  );
+  profileLoading.classList.remove("active");
 }
 
 
 /* =====================================================
-   NEU:
-   USER.HTML AUF DIE GLEICHE BREITE ZIEHEN
+   USER.HTML LAYOUT
+   EINZIGE GEWÜNSCHTE ÄNDERUNG:
+   TEXT WIRD BREITER
 ===================================================== */
 
 function forceLoggedProfileLayout(){
@@ -3226,107 +2854,63 @@ function forceLoggedProfileLayout(){
       return;
     }
 
-    /*
-     * Grundfläche der User-Seite.
-     */
-
     if(doc.documentElement){
 
       doc.documentElement.style.setProperty(
-        "width",
-        "100%",
-        "important"
+        "width","100%","important"
       );
 
       doc.documentElement.style.setProperty(
-        "max-width",
-        "none",
-        "important"
+        "max-width","none","important"
       );
 
       doc.documentElement.style.setProperty(
-        "min-width",
-        "0",
-        "important"
+        "min-width","0","important"
       );
 
       doc.documentElement.style.setProperty(
-        "margin",
-        "0",
-        "important"
+        "margin","0","important"
       );
 
       doc.documentElement.style.setProperty(
-        "padding",
-        "0",
-        "important"
+        "padding","0","important"
       );
 
       doc.documentElement.style.setProperty(
-        "background",
-        "#fff",
-        "important"
+        "background","#fff","important"
       );
     }
-
-
-    /*
-     * Body.
-     */
 
     if(doc.body){
 
       doc.body.style.setProperty(
-        "width",
-        "100%",
-        "important"
+        "width","100%","important"
       );
 
       doc.body.style.setProperty(
-        "max-width",
-        "none",
-        "important"
+        "max-width","none","important"
       );
 
       doc.body.style.setProperty(
-        "min-width",
-        "0",
-        "important"
+        "min-width","0","important"
       );
 
       doc.body.style.setProperty(
-        "margin",
-        "0",
-        "important"
+        "margin","0","important"
       );
 
       doc.body.style.setProperty(
-        "padding",
-        "0",
-        "important"
+        "padding","0","important"
       );
 
       doc.body.style.setProperty(
-        "background",
-        "#fff",
-        "important"
+        "background","#fff","important"
       );
 
       doc.body.style.setProperty(
-        "background-color",
-        "#fff",
-        "important"
+        "background-color","#fff","important"
       );
     }
-
-
-    /*
-     * Wir legen einen zusätzlichen Style direkt
-     * in user.html ab.
-     *
-     * Damit überschreiben wir mögliche
-     * max-width-Begrenzungen aus user.html.
-     */
 
     let forceStyle =
       doc.getElementById(
@@ -3341,11 +2925,8 @@ function forceLoggedProfileLayout(){
       forceStyle.id =
         "miles-apart-index-profile-layout-fix";
 
-      doc.head.appendChild(
-        forceStyle
-      );
+      doc.head.appendChild(forceStyle);
     }
-
 
     forceStyle.textContent = `
 
@@ -3360,10 +2941,6 @@ function forceLoggedProfileLayout(){
         background-color:#fff !important;
       }
 
-      /*
-       * Hauptcontainer der Profilseite.
-       */
-
       .user-page{
         width:100% !important;
         max-width:none !important;
@@ -3375,10 +2952,6 @@ function forceLoggedProfileLayout(){
         background:#fff !important;
         background-color:#fff !important;
       }
-
-      /*
-       * Häufige Wrapper in user.html.
-       */
 
       .user-shell,
       .user-container,
@@ -3397,23 +2970,12 @@ function forceLoggedProfileLayout(){
         box-sizing:border-box !important;
       }
 
-      /*
-       * Falls user.html einen zentrierten
-       * Hauptbereich verwendet.
-       */
-
       .user-page > *,
       .profile-page > *,
       .profile-shell > *,
       .profile-container > *{
         max-width:none !important;
       }
-
-      /*
-       * Karten dürfen weiterhin ihr eigenes Design
-       * behalten, aber nicht den gesamten Seiteninhalt
-       * künstlich schmal machen.
-       */
 
       .user-page .profile-card,
       .user-page .profile-header,
@@ -3429,9 +2991,20 @@ function forceLoggedProfileLayout(){
       }
 
       /*
-       * Alle direkten großen Seitenbereiche
-       * verwenden die verfügbare Breite.
+       * GEWÜNSCHTE ÄNDERUNG:
+       * Textflächen so breit wie der verfügbare
+       * Inhaltsbereich.
        */
+
+      .user-page p,
+      .user-page h1,
+      .user-page h2,
+      .user-page h3,
+      .user-page h4,
+      .user-page h5,
+      .user-page h6{
+        max-width:none !important;
+      }
 
       .user-page > section,
       .user-page > header,
@@ -3441,12 +3014,6 @@ function forceLoggedProfileLayout(){
       }
 
     `;
-
-
-    /*
-     * Noch einmal erzwingen, falls user.html
-     * ihre Styles nachträglich neu setzt.
-     */
 
     const importantContainers =
       doc.querySelectorAll(`
@@ -3464,56 +3031,36 @@ function forceLoggedProfileLayout(){
         .profile-inner
       `);
 
-    importantContainers.forEach(
-      element => {
+    importantContainers.forEach(element => {
 
-        element.style.setProperty(
-          "width",
-          "100%",
-          "important"
-        );
+      element.style.setProperty(
+        "width","100%","important"
+      );
 
-        element.style.setProperty(
-          "max-width",
-          "none",
-          "important"
-        );
+      element.style.setProperty(
+        "max-width","none","important"
+      );
 
-        element.style.setProperty(
-          "min-width",
-          "0",
-          "important"
-        );
+      element.style.setProperty(
+        "min-width","0","important"
+      );
 
-        element.style.setProperty(
-          "box-sizing",
-          "border-box",
-          "important"
-        );
+      element.style.setProperty(
+        "box-sizing","border-box","important"
+      );
 
-      }
-    );
-
-
-    /*
-     * Hintergrund endgültig weiß.
-     */
+    });
 
     doc.documentElement.style.setProperty(
-      "background",
-      "#fff",
-      "important"
+      "background","#fff","important"
     );
 
     if(doc.body){
 
       doc.body.style.setProperty(
-        "background",
-        "#fff",
-        "important"
+        "background","#fff","important"
       );
     }
-
 
   }catch(error){
 
@@ -3523,11 +3070,6 @@ function forceLoggedProfileLayout(){
     );
   }
 }
-
-
-/* =====================================================
-   IFRAME RESIZE
-===================================================== */
 
 function resizeLoggedProfileFrame(){
 
@@ -3540,17 +3082,10 @@ function resizeLoggedProfileFrame(){
       return;
     }
 
-    /*
-     * Erst Layout anwenden.
-     */
-
     forceLoggedProfileLayout();
 
-
     const bodyHeight =
-      doc.body
-        ? doc.body.scrollHeight
-        : 0;
+      doc.body ? doc.body.scrollHeight : 0;
 
     const documentHeight =
       doc.documentElement
@@ -3558,9 +3093,7 @@ function resizeLoggedProfileFrame(){
         : 0;
 
     const bodyOffsetHeight =
-      doc.body
-        ? doc.body.offsetHeight
-        : 0;
+      doc.body ? doc.body.offsetHeight : 0;
 
     const documentOffsetHeight =
       doc.documentElement
@@ -3590,13 +3123,11 @@ function resizeLoggedProfileFrame(){
   }
 }
 
-
 function observeLoggedProfileFrame(){
 
   try{
 
     if(profileFrameObserver){
-
       profileFrameObserver.disconnect();
     }
 
@@ -3610,25 +3141,19 @@ function observeLoggedProfileFrame(){
       return;
     }
 
-
     forceLoggedProfileLayout();
 
-
     profileFrameObserver =
-      new ResizeObserver(
-        () => {
+      new ResizeObserver(() => {
 
-          forceLoggedProfileLayout();
+        forceLoggedProfileLayout();
+        resizeLoggedProfileFrame();
 
-          resizeLoggedProfileFrame();
-        }
-      );
-
+      });
 
     profileFrameObserver.observe(
       doc.documentElement
     );
-
 
     if(doc.body){
 
@@ -3637,58 +3162,35 @@ function observeLoggedProfileFrame(){
       );
     }
 
-
     resizeLoggedProfileFrame();
 
+    setTimeout(() => {
 
-    /*
-     * Mehrfach anwenden, damit auch nach
-     * dynamischem Laden des Profils die
-     * Breite erhalten bleibt.
-     */
+      forceLoggedProfileLayout();
+      resizeLoggedProfileFrame();
 
-    setTimeout(
-      () => {
+    },100);
 
-        forceLoggedProfileLayout();
-        resizeLoggedProfileFrame();
+    setTimeout(() => {
 
-      },
-      100
-    );
+      forceLoggedProfileLayout();
+      resizeLoggedProfileFrame();
 
+    },500);
 
-    setTimeout(
-      () => {
+    setTimeout(() => {
 
-        forceLoggedProfileLayout();
-        resizeLoggedProfileFrame();
+      forceLoggedProfileLayout();
+      resizeLoggedProfileFrame();
 
-      },
-      500
-    );
+    },1000);
 
+    setTimeout(() => {
 
-    setTimeout(
-      () => {
+      forceLoggedProfileLayout();
+      resizeLoggedProfileFrame();
 
-        forceLoggedProfileLayout();
-        resizeLoggedProfileFrame();
-
-      },
-      1000
-    );
-
-
-    setTimeout(
-      () => {
-
-        forceLoggedProfileLayout();
-        resizeLoggedProfileFrame();
-
-      },
-      2000
-    );
+    },2000);
 
   }catch(error){
 
@@ -3699,16 +3201,11 @@ function observeLoggedProfileFrame(){
   }
 }
 
-
 loggedProfileFrame.addEventListener(
   "load",
   () => {
 
     hideProfileLoading();
-
-    /*
-     * Hintergrund + komplette Breite.
-     */
 
     forceLoggedProfileLayout();
 
@@ -3716,11 +3213,6 @@ loggedProfileFrame.addEventListener(
 
   }
 );
-
-
-/* =====================================================
-   LOAD LOGGED PROFILE
-===================================================== */
 
 async function loadLoggedProfilePage(){
 
@@ -3736,16 +3228,13 @@ async function loadLoggedProfilePage(){
     return false;
   }
 
-  profileNavigationInProgress =
-    true;
+  profileNavigationInProgress = true;
 
   showProfileLoading();
 
   try{
 
-    await loadProfile(
-      currentUser
-    );
+    await loadProfile(currentUser);
 
     if(
       !currentProfile ||
@@ -3787,12 +3276,9 @@ async function loadLoggedProfilePage(){
       );
 
     const currentFrameUrl =
-      loggedProfileFrame.dataset.src ||
-      "";
+      loggedProfileFrame.dataset.src || "";
 
-    if(
-      currentFrameUrl !== profileUrl
-    ){
+    if(currentFrameUrl !== profileUrl){
 
       if(profileFrameObserver){
 
@@ -3837,38 +3323,25 @@ async function loadLoggedProfilePage(){
 
   }finally{
 
-    profileNavigationInProgress =
-      false;
+    profileNavigationInProgress = false;
   }
 }
-
-
-/* =====================================================
-   UI
-===================================================== */
 
 function updateUserInterface(){
 
   if(!currentUser){
 
-    guestArea.style.display =
-      "flex";
+    guestArea.style.display = "flex";
+    loggedInArea.style.display = "none";
 
-    loggedInArea.style.display =
-      "none";
-
-    accountMenu.classList.remove(
-      "open"
-    );
+    accountMenu.classList.remove("open");
 
     statementCta.textContent =
       "JETZT MITGLIED WERDEN →";
 
-    statementCta.href =
-      "home.html";
+    statementCta.href = "home.html";
 
-    statementCta.onclick =
-      null;
+    statementCta.onclick = null;
 
     return;
   }
@@ -3877,16 +3350,11 @@ function updateUserInterface(){
     getDisplayName();
 
   const firstName =
-    displayName
-      .trim()
-      .split(/\s+/)[0] ||
+    displayName.trim().split(/\s+/)[0] ||
     "Runner";
 
-  guestArea.style.display =
-    "none";
-
-  loggedInArea.style.display =
-    "flex";
+  guestArea.style.display = "none";
+  loggedInArea.style.display = "flex";
 
   userGreeting.textContent =
     `Hallo ${firstName}`;
@@ -3897,8 +3365,7 @@ function updateUserInterface(){
   accountMenuEmail.textContent =
     currentUser.email || "";
 
-  avatarButton.innerHTML =
-    "";
+  avatarButton.innerHTML = "";
 
   const avatarUrl =
     getPublicStorageUrl(
@@ -3911,29 +3378,21 @@ function updateUserInterface(){
     const img =
       document.createElement("img");
 
-    img.src =
-      avatarUrl;
+    img.src = avatarUrl;
+    img.alt = displayName;
 
-    img.alt =
-      displayName;
-
-    avatarButton.appendChild(
-      img
-    );
+    avatarButton.appendChild(img);
 
   }else{
 
     avatarButton.textContent =
-      getInitials(
-        displayName
-      );
+      getInitials(displayName);
   }
 
   statementCta.textContent =
     "ZU MEINEM PROFIL →";
 
-  statementCta.href =
-    "#";
+  statementCta.href = "#";
 
   statementCta.onclick =
     async event => {
@@ -3944,11 +3403,6 @@ function updateUserInterface(){
     };
 }
 
-
-/* =====================================================
-   ACCOUNT MENU
-===================================================== */
-
 avatarButton.addEventListener(
   "click",
   event => {
@@ -3956,30 +3410,20 @@ avatarButton.addEventListener(
     event.preventDefault();
     event.stopPropagation();
 
-    accountMenu.classList.toggle(
-      "open"
-    );
+    accountMenu.classList.toggle("open");
   }
 );
-
 
 document.addEventListener(
   "click",
   event => {
 
-    if(
-      !loggedInArea.contains(
-        event.target
-      )
-    ){
+    if(!loggedInArea.contains(event.target)){
 
-      accountMenu.classList.remove(
-        "open"
-      );
+      accountMenu.classList.remove("open");
     }
   }
 );
-
 
 profileButton.addEventListener(
   "click",
@@ -3988,28 +3432,18 @@ profileButton.addEventListener(
     event.preventDefault();
     event.stopPropagation();
 
-    accountMenu.classList.remove(
-      "open"
-    );
+    accountMenu.classList.remove("open");
 
     await loadLoggedProfilePage();
   }
 );
 
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
 logoutButton.addEventListener(
   "click",
   async () => {
 
-    const {
-      error
-    } =
-      await supabaseClient.auth
-        .signOut();
+    const {error} =
+      await supabaseClient.auth.signOut();
 
     if(error){
 
@@ -4023,9 +3457,7 @@ logoutButton.addEventListener(
 
     currentUser = null;
     currentProfile = null;
-
-    profileNavigationInProgress =
-      false;
+    profileNavigationInProgress = false;
 
     if(profileFrameObserver){
 
@@ -4038,79 +3470,45 @@ logoutButton.addEventListener(
       profileFrameObserver = null;
     }
 
-    loggedProfileFrame.src =
-      "about:blank";
+    loggedProfileFrame.src = "about:blank";
 
     delete loggedProfileFrame.dataset.src;
 
     showPublicSite();
-
     updateUserInterface();
   }
 );
 
-
-/* =====================================================
-   AUTH
-===================================================== */
-
 function openAuth(){
 
-  authOverlay.classList.add(
-    "open"
-  );
+  authOverlay.classList.add("open");
 
-  document.body.style.overflow =
-    "hidden";
+  document.body.style.overflow = "hidden";
 
   showLogin();
 }
 
-
 function closeAuth(){
 
-  authOverlay.classList.remove(
-    "open"
-  );
+  authOverlay.classList.remove("open");
 
-  document.body.style.overflow =
-    "";
+  document.body.style.overflow = "";
 
   clearMessages();
 }
 
-
 function clearMessages(){
 
-  loginMessage.textContent =
-    "";
+  loginMessage.textContent = "";
+  registerMessage.textContent = "";
+  forgotMessage.textContent = "";
+  recoveryMessage.textContent = "";
 
-  registerMessage.textContent =
-    "";
-
-  forgotMessage.textContent =
-    "";
-
-  recoveryMessage.textContent =
-    "";
-
-  loginMessage.classList.remove(
-    "success"
-  );
-
-  registerMessage.classList.remove(
-    "success"
-  );
-
-  forgotMessage.classList.remove(
-    "success"
-  );
-
-  recoveryMessage.classList.remove(
-    "success"
-  );
+  loginMessage.classList.remove("success");
+  registerMessage.classList.remove("success");
+  forgotMessage.classList.remove("success");
+  recoveryMessage.classList.remove("success");
 }
-
 
 function showLogin(){
 
@@ -4119,8 +3517,7 @@ function showLogin(){
   forgotForm.classList.remove("active");
   recoveryForm.classList.remove("active");
 
-  authTabs.style.display =
-    "grid";
+  authTabs.style.display = "grid";
 
   loginTab.classList.add("active");
   registerTab.classList.remove("active");
@@ -4134,7 +3531,6 @@ function showLogin(){
   clearMessages();
 }
 
-
 function showRegister(){
 
   loginForm.classList.remove("active");
@@ -4142,8 +3538,7 @@ function showRegister(){
   forgotForm.classList.remove("active");
   recoveryForm.classList.remove("active");
 
-  authTabs.style.display =
-    "grid";
+  authTabs.style.display = "grid";
 
   loginTab.classList.remove("active");
   registerTab.classList.add("active");
@@ -4159,7 +3554,6 @@ function showRegister(){
   updateRegistrationGate();
 }
 
-
 function showForgotPassword(){
 
   loginForm.classList.remove("active");
@@ -4167,8 +3561,7 @@ function showForgotPassword(){
   forgotForm.classList.add("active");
   recoveryForm.classList.remove("active");
 
-  authTabs.style.display =
-    "none";
+  authTabs.style.display = "none";
 
   authTitle.textContent =
     "Passwort zurücksetzen.";
@@ -4179,7 +3572,6 @@ function showForgotPassword(){
   clearMessages();
 }
 
-
 function showRecovery(){
 
   loginForm.classList.remove("active");
@@ -4187,8 +3579,7 @@ function showRecovery(){
   forgotForm.classList.remove("active");
   recoveryForm.classList.add("active");
 
-  authTabs.style.display =
-    "none";
+  authTabs.style.display = "none";
 
   authTitle.textContent =
     "Neues Passwort festlegen.";
@@ -4198,7 +3589,6 @@ function showRecovery(){
 
   clearMessages();
 }
-
 
 openLoginButton.addEventListener(
   "click",
@@ -4234,11 +3624,7 @@ authOverlay.addEventListener(
   "click",
   event => {
 
-    if(
-      event.target ===
-      authOverlay
-    ){
-
+    if(event.target === authOverlay){
       closeAuth();
     }
   }
@@ -4252,19 +3638,12 @@ document.addEventListener(
       event.key === "Escape" &&
       authOverlay.classList.contains("open")
     ){
-
       closeAuth();
     }
   }
 );
 
-
-/* =====================================================
-   REGISTRATION
-===================================================== */
-
 let inviteActionCompleted = false;
-
 
 function updateRegistrationGate(){
 
@@ -4275,11 +3654,9 @@ function updateRegistrationGate(){
     inviteConfirmation.checked;
 
   const ready =
-    follows &&
-    invited;
+    follows && invited;
 
-  registerSubmit.disabled =
-    !ready;
+  registerSubmit.disabled = !ready;
 
   progressInstagram.classList.toggle(
     "complete",
@@ -4330,12 +3707,10 @@ function updateRegistrationGate(){
   }
 }
 
-
 followConfirmation.addEventListener(
   "change",
   updateRegistrationGate
 );
-
 
 inviteConfirmation.addEventListener(
   "change",
@@ -4343,8 +3718,7 @@ inviteConfirmation.addEventListener(
 
     if(!inviteActionCompleted){
 
-      inviteConfirmation.checked =
-        false;
+      inviteConfirmation.checked = false;
 
       return;
     }
@@ -4353,7 +3727,6 @@ inviteConfirmation.addEventListener(
   }
 );
 
-
 function getInviteUrl(){
 
   return(
@@ -4361,7 +3734,6 @@ function getInviteUrl(){
     window.location.pathname
   );
 }
-
 
 function getInviteMessage(){
 
@@ -4373,11 +3745,9 @@ function getInviteMessage(){
   );
 }
 
-
 function markInviteActionStarted(){
 
-  inviteActionCompleted =
-    true;
+  inviteActionCompleted = true;
 
   inviteConfirmationArea.classList.add(
     "available"
@@ -4385,7 +3755,6 @@ function markInviteActionStarted(){
 
   updateRegistrationGate();
 }
-
 
 shareWhatsapp.addEventListener(
   "click",
@@ -4395,15 +3764,12 @@ shareWhatsapp.addEventListener(
 
     window.open(
       "https://wa.me/?text=" +
-      encodeURIComponent(
-        getInviteMessage()
-      ),
+      encodeURIComponent(getInviteMessage()),
       "_blank",
       "noopener,noreferrer"
     );
   }
 );
-
 
 shareInstagram.addEventListener(
   "click",
@@ -4428,11 +3794,7 @@ shareInstagram.addEventListener(
 
       }catch(error){
 
-        if(
-          error?.name ===
-          "AbortError"
-        ){
-
+        if(error?.name === "AbortError"){
           return;
         }
       }
@@ -4440,15 +3802,11 @@ shareInstagram.addEventListener(
 
     try{
 
-      await navigator.clipboard.writeText(
-        message
-      );
+      await navigator.clipboard.writeText(message);
 
     }catch(error){
 
-      console.error(
-        error
-      );
+      console.error(error);
     }
 
     markInviteActionStarted();
@@ -4460,11 +3818,6 @@ shareInstagram.addEventListener(
     );
   }
 );
-
-
-/* =====================================================
-   LOGIN
-===================================================== */
 
 loginForm.addEventListener(
   "submit",
@@ -4486,24 +3839,19 @@ loginForm.addEventListener(
         .getElementById("loginPassword")
         .value;
 
-    loginSubmit.disabled =
-      true;
+    loginSubmit.disabled = true;
 
     loginSubmit.textContent =
       "⏳ Anmeldung …";
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await supabaseClient.auth
         .signInWithPassword({
           email,
           password
         });
 
-    loginSubmit.disabled =
-      false;
+    loginSubmit.disabled = false;
 
     loginSubmit.textContent =
       "🏃‍♂️ Anmelden →";
@@ -4511,27 +3859,20 @@ loginForm.addEventListener(
     if(error){
 
       loginMessage.textContent =
-        translateAuthError(
-          error
-        );
+        translateAuthError(error);
 
       return;
     }
 
     loginForm.reset();
 
-    currentUser =
-      data.user;
+    currentUser = data.user;
 
     try{
 
-      await loadProfile(
-        currentUser
-      );
+      await loadProfile(currentUser);
 
-      await ensureProfileForUser(
-        currentUser
-      );
+      await ensureProfileForUser(currentUser);
 
     }catch(error){
 
@@ -4548,11 +3889,6 @@ loginForm.addEventListener(
     await loadLoggedProfilePage();
   }
 );
-
-
-/* =====================================================
-   REGISTRATION
-===================================================== */
 
 registerForm.addEventListener(
   "submit",
@@ -4609,20 +3945,15 @@ registerForm.addEventListener(
       return;
     }
 
-    registerSubmit.disabled =
-      true;
+    registerSubmit.disabled = true;
 
     registerSubmit.textContent =
       "⏳ Konto wird erstellt …";
 
-    const {
-      data,
-      error
-    } =
+    const {data,error} =
       await supabaseClient.auth.signUp({
 
         email,
-
         password,
 
         options:{
@@ -4635,8 +3966,7 @@ registerForm.addEventListener(
         }
       });
 
-    registerSubmit.disabled =
-      false;
+    registerSubmit.disabled = false;
 
     if(error){
 
@@ -4644,17 +3974,14 @@ registerForm.addEventListener(
         "🏃‍♀️ Konto erstellen →";
 
       registerMessage.textContent =
-        translateAuthError(
-          error
-        );
+        translateAuthError(error);
 
       return;
     }
 
     registerForm.reset();
 
-    inviteActionCompleted =
-      false;
+    inviteActionCompleted = false;
 
     inviteConfirmationArea.classList.remove(
       "available"
@@ -4662,39 +3989,26 @@ registerForm.addEventListener(
 
     updateRegistrationGate();
 
-    if(
-      data?.session &&
-      data?.user
-    ){
+    if(data?.session && data?.user){
 
       registerMessage.textContent =
         "Konto erfolgreich erstellt. Dein Profil wird vorbereitet …";
 
-      registerMessage.classList.add(
-        "success"
-      );
+      registerMessage.classList.add("success");
 
-      currentUser =
-        data.user;
+      currentUser = data.user;
 
       try{
 
-        await loadProfile(
-          currentUser
-        );
+        await loadProfile(currentUser);
 
-        await ensureProfileForUser(
-          currentUser
-        );
+        await ensureProfileForUser(currentUser);
 
         updateUserInterface();
 
         await new Promise(
           resolve =>
-            setTimeout(
-              resolve,
-              150
-            )
+            setTimeout(resolve,150)
         );
 
         closeAuth();
@@ -4721,17 +4035,10 @@ registerForm.addEventListener(
       registerMessage.textContent =
         "Fast geschafft! Bitte bestätige deine E-Mail-Adresse. Danach kannst du dich anmelden.";
 
-      registerMessage.classList.add(
-        "success"
-      );
+      registerMessage.classList.add("success");
     }
   }
 );
-
-
-/* =====================================================
-   PASSWORD RESET
-===================================================== */
 
 forgotForm.addEventListener(
   "submit",
@@ -4748,15 +4055,12 @@ forgotForm.addEventListener(
         .trim()
         .toLowerCase();
 
-    forgotSubmit.disabled =
-      true;
+    forgotSubmit.disabled = true;
 
     forgotSubmit.textContent =
       "⏳ Wird gesendet …";
 
-    const {
-      error
-    } =
+    const {error} =
       await supabaseClient.auth
         .resetPasswordForEmail(
           email,
@@ -4766,8 +4070,7 @@ forgotForm.addEventListener(
           }
         );
 
-    forgotSubmit.disabled =
-      false;
+    forgotSubmit.disabled = false;
 
     forgotSubmit.textContent =
       "📩 Reset-Link senden →";
@@ -4775,9 +4078,7 @@ forgotForm.addEventListener(
     if(error){
 
       forgotMessage.textContent =
-        translateAuthError(
-          error
-        );
+        translateAuthError(error);
 
       return;
     }
@@ -4785,16 +4086,9 @@ forgotForm.addEventListener(
     forgotMessage.textContent =
       "Wenn ein Konto mit dieser E-Mail existiert, wurde ein Reset-Link versendet.";
 
-    forgotMessage.classList.add(
-      "success"
-    );
+    forgotMessage.classList.add("success");
   }
 );
-
-
-/* =====================================================
-   PASSWORD RECOVERY
-===================================================== */
 
 recoveryForm.addEventListener(
   "submit",
@@ -4830,22 +4124,18 @@ recoveryForm.addEventListener(
       return;
     }
 
-    recoverySubmit.disabled =
-      true;
+    recoverySubmit.disabled = true;
 
     recoverySubmit.textContent =
       "⏳ Speichern …";
 
-    const {
-      error
-    } =
+    const {error} =
       await supabaseClient.auth
         .updateUser({
           password
         });
 
-    recoverySubmit.disabled =
-      false;
+    recoverySubmit.disabled = false;
 
     recoverySubmit.textContent =
       "🔒 Neues Passwort speichern →";
@@ -4853,9 +4143,7 @@ recoveryForm.addEventListener(
     if(error){
 
       recoveryMessage.textContent =
-        translateAuthError(
-          error
-        );
+        translateAuthError(error);
 
       return;
     }
@@ -4863,9 +4151,7 @@ recoveryForm.addEventListener(
     recoveryMessage.textContent =
       "Dein Passwort wurde erfolgreich geändert.";
 
-    recoveryMessage.classList.add(
-      "success"
-    );
+    recoveryMessage.classList.add("success");
 
     setTimeout(
       closeAuth,
@@ -4874,74 +4160,41 @@ recoveryForm.addEventListener(
   }
 );
 
-
-/* =====================================================
-   AUTH ERROR
-===================================================== */
-
-function translateAuthError(
-  error
-){
+function translateAuthError(error){
 
   if(!error){
     return "Es ist ein unbekannter Fehler aufgetreten.";
   }
 
   const message =
-    String(
-      error.message || ""
-    ).toLowerCase();
+    String(error.message || "").toLowerCase();
 
-  if(
-    message.includes(
-      "invalid login credentials"
-    )
-  ){
+  if(message.includes("invalid login credentials")){
     return "E-Mail oder Passwort ist nicht korrekt.";
   }
 
-  if(
-    message.includes(
-      "email not confirmed"
-    )
-  ){
+  if(message.includes("email not confirmed")){
     return "Bitte bestätige zuerst deine E-Mail-Adresse.";
   }
 
-  if(
-    message.includes(
-      "password should be at least"
-    )
-  ){
+  if(message.includes("password should be at least")){
     return "Das Passwort ist zu kurz.";
   }
 
-  if(
-    message.includes(
-      "rate limit"
-    )
-  ){
+  if(message.includes("rate limit")){
     return "Zu viele Versuche. Bitte warte kurz und versuche es erneut.";
   }
 
   if(
-    message.includes(
-      "user already registered"
-    ) ||
-    message.includes(
-      "already registered"
-    )
+    message.includes("user already registered") ||
+    message.includes("already registered")
   ){
     return "Du hast dich mit dieser Mail bereits registriert. Melde dich stattdessen an.";
   }
 
   if(
-    message.includes(
-      "duplicate key"
-    ) ||
-    message.includes(
-      "unique constraint"
-    )
+    message.includes("duplicate key") ||
+    message.includes("unique constraint")
   ){
     return "Dieser Username ist bereits vergeben. Bitte versuche es erneut.";
   }
@@ -4952,32 +4205,21 @@ function translateAuthError(
   );
 }
 
-
-/* =====================================================
-   AUTH STATE
-===================================================== */
-
 async function handleAuthStateChange(
   event,
   session
 ){
 
-  if(
-    event ===
-    "PASSWORD_RECOVERY"
-  ){
+  if(event === "PASSWORD_RECOVERY"){
 
     currentUser =
-      session?.user ||
-      null;
+      session?.user || null;
 
     if(currentUser){
 
       try{
 
-        await loadProfile(
-          currentUser
-        );
+        await loadProfile(currentUser);
 
       }catch(error){
 
@@ -4997,23 +4239,16 @@ async function handleAuthStateChange(
     return;
   }
 
-
-  if(
-    session?.user
-  ){
+  if(session?.user){
 
     currentUser =
       session.user;
 
     try{
 
-      await loadProfile(
-        currentUser
-      );
+      await loadProfile(currentUser);
 
-      await ensureProfileForUser(
-        currentUser
-      );
+      await ensureProfileForUser(currentUser);
 
       updateUserInterface();
 
@@ -5034,14 +4269,9 @@ async function handleAuthStateChange(
 
   }else{
 
-    currentUser =
-      null;
-
-    currentProfile =
-      null;
-
-    profileNavigationInProgress =
-      false;
+    currentUser = null;
+    currentProfile = null;
+    profileNavigationInProgress = false;
 
     if(profileFrameObserver){
 
@@ -5054,8 +4284,7 @@ async function handleAuthStateChange(
       profileFrameObserver = null;
     }
 
-    loggedProfileFrame.src =
-      "about:blank";
+    loggedProfileFrame.src = "about:blank";
 
     delete loggedProfileFrame.dataset.src;
 
@@ -5065,12 +4294,8 @@ async function handleAuthStateChange(
   }
 }
 
-
 supabaseClient.auth.onAuthStateChange(
-  (
-    event,
-    session
-  ) => {
+  (event,session) => {
 
     Promise.resolve().then(
       () =>
@@ -5082,17 +4307,9 @@ supabaseClient.auth.onAuthStateChange(
   }
 );
 
-
-/* =====================================================
-   INITIALIZE
-===================================================== */
-
 async function initializeAuth(){
 
-  const {
-    data,
-    error
-  } =
+  const {data,error} =
     await supabaseClient.auth
       .getSession();
 
@@ -5112,22 +4329,16 @@ async function initializeAuth(){
     return;
   }
 
-  if(
-    data?.session?.user
-  ){
+  if(data?.session?.user){
 
     currentUser =
       data.session.user;
 
     try{
 
-      await loadProfile(
-        currentUser
-      );
+      await loadProfile(currentUser);
 
-      await ensureProfileForUser(
-        currentUser
-      );
+      await ensureProfileForUser(currentUser);
 
       updateUserInterface();
 
@@ -5153,11 +4364,6 @@ async function initializeAuth(){
     updateUserInterface();
   }
 }
-
-
-/* =====================================================
-   START
-===================================================== */
 
 updateRegistrationGate();
 
