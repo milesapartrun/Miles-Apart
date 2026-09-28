@@ -669,7 +669,6 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
 /* =====================================================
    EINGELOGGTE USER-SEITE
-   GRAUER BEREICH ENTFERNT
 ===================================================== */
 
 .logged-profile-page{
@@ -677,9 +676,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   width:100%;
   max-width:none;
   box-sizing:border-box;
-
-  background:#fff;
-
+  background:#fff!important;
   min-height:calc(100vh - 100px);
   margin:0;
   padding:0;
@@ -689,8 +686,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   display:block;
   width:100%;
   max-width:none;
-
-  background:#fff;
+  background:#fff!important;
 }
 
 .logged-profile-frame{
@@ -698,22 +694,13 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   width:100%;
   max-width:none;
   min-width:0;
-
   min-height:calc(100vh - 100px);
   height:100vh;
-
+  border:0;
   margin:0;
   padding:0;
-
-  border:0;
-
-  background:#fff;
+  background:#fff!important;
 }
-
-/*
- * PROFILSEITE:
- * Kein grauer Außenbereich.
- */
 
 .main:has(.logged-profile-page.active){
   width:100% !important;
@@ -721,8 +708,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   margin-left:0 !important;
   margin-right:0 !important;
   box-sizing:border-box;
-
-  background:#fff !important;
+  background:#fff!important;
 }
 
 .main:has(.logged-profile-page.active) .top{
@@ -735,7 +721,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 .main:has(.logged-profile-page.active) .logged-profile-frame{
   width:100%;
   max-width:none;
-  background:#fff !important;
+  background:#fff!important;
 }
 
 /* =====================================================
@@ -749,9 +735,7 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
   box-sizing:border-box;
   align-items:center;
   justify-content:center;
-
-  background:#fff;
-
+  background:#fff!important;
   color:#777;
   font-size:14px;
 }
@@ -1503,17 +1487,17 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
   .logged-profile-frame{
     min-height:calc(100vh - 80px);
-    background:#fff !important;
+    background:#fff!important;
   }
 
   .logged-profile-page{
-    background:#fff !important;
+    background:#fff!important;
   }
 
   .main:has(.logged-profile-page.active){
-    width:100% !important;
-    max-width:none !important;
-    background:#fff !important;
+    width:100%!important;
+    max-width:none!important;
+    background:#fff!important;
   }
 }
 </style>
@@ -2623,6 +2607,10 @@ h1,h2,h3,h4,h5,h6,strong,b,.kpi,.label,.principle-number,
 
 <script>
 
+/* =====================================================
+   SUPABASE
+===================================================== */
+
 const SUPABASE_URL =
   "https://orbrkdrsihsacsnprewf.supabase.co";
 
@@ -2639,10 +2627,20 @@ const supabaseClient =
     SUPABASE_PUBLISHABLE_KEY
   );
 
+
+/* =====================================================
+   STATE
+===================================================== */
+
 let currentUser = null;
 let currentProfile = null;
 let profileFrameObserver = null;
 let profileNavigationInProgress = false;
+
+
+/* =====================================================
+   DOM
+===================================================== */
 
 const publicSite =
   document.getElementById("publicSite");
@@ -2779,6 +2777,11 @@ const shareWhatsapp =
 const shareInstagram =
   document.getElementById("shareInstagram");
 
+
+/* =====================================================
+   HELPER
+===================================================== */
+
 function getDisplayName(){
 
   if(
@@ -2813,6 +2816,7 @@ function getDisplayName(){
   return "Runner";
 }
 
+
 function getInitials(name){
 
   const parts =
@@ -2836,6 +2840,7 @@ function getInitials(name){
     parts[parts.length - 1].charAt(0)
   ).toUpperCase();
 }
+
 
 function getPublicStorageUrl(
   value,
@@ -2867,6 +2872,11 @@ function getPublicStorageUrl(
   );
 }
 
+
+/* =====================================================
+   USERNAME
+===================================================== */
+
 function slugifyUsername(value){
 
   return String(value || "")
@@ -2882,6 +2892,7 @@ function slugifyUsername(value){
     )
     .slice(0,24);
 }
+
 
 function createFallbackUsername(user){
 
@@ -2910,6 +2921,11 @@ function createFallbackUsername(user){
     `${base}${suffix || Date.now().toString(36)}`
   );
 }
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
 
 async function loadProfile(user){
 
@@ -2949,6 +2965,7 @@ async function loadProfile(user){
 
   return currentProfile;
 }
+
 
 async function ensureProfileForUser(user){
 
@@ -3080,6 +3097,11 @@ async function ensureProfileForUser(user){
   return currentProfile;
 }
 
+
+/* =====================================================
+   PROFILE VIEW
+===================================================== */
+
 function showPublicSite(){
 
   if(profileFrameObserver){
@@ -3110,6 +3132,7 @@ function showPublicSite(){
   });
 }
 
+
 function showLoggedProfile(){
 
   publicSite.style.display =
@@ -3125,6 +3148,7 @@ function showLoggedProfile(){
   });
 }
 
+
 function showProfileLoading(){
 
   publicSite.style.display =
@@ -3139,12 +3163,112 @@ function showProfileLoading(){
   );
 }
 
+
 function hideProfileLoading(){
 
   profileLoading.classList.remove(
     "active"
   );
 }
+
+
+/* =====================================================
+   USER.HTML IFRAME
+===================================================== */
+
+/*
+ * WICHTIG:
+ * user.html läuft im selben GitHub-Pages-Origin.
+ * Deshalb können wir nach dem Laden den Hintergrund
+ * der geladenen Seite direkt aus der index.html setzen.
+ *
+ * Genau damit entfernen wir den grauen Bereich,
+ * der innerhalb des iFrames von user.html erzeugt wird.
+ */
+
+function forceLoggedProfileWhite(){
+
+  try{
+
+    const doc =
+      loggedProfileFrame.contentDocument;
+
+    if(!doc){
+      return;
+    }
+
+    if(doc.documentElement){
+
+      doc.documentElement.style.setProperty(
+        "background",
+        "#fff",
+        "important"
+      );
+
+      doc.documentElement.style.setProperty(
+        "background-color",
+        "#fff",
+        "important"
+      );
+    }
+
+    if(doc.body){
+
+      doc.body.style.setProperty(
+        "background",
+        "#fff",
+        "important"
+      );
+
+      doc.body.style.setProperty(
+        "background-color",
+        "#fff",
+        "important"
+      );
+    }
+
+    let forceStyle =
+      doc.getElementById(
+        "miles-apart-index-profile-fix"
+      );
+
+    if(!forceStyle){
+
+      forceStyle =
+        doc.createElement("style");
+
+      forceStyle.id =
+        "miles-apart-index-profile-fix";
+
+      doc.head.appendChild(
+        forceStyle
+      );
+    }
+
+    forceStyle.textContent = `
+
+      html,
+      body{
+        background:#fff !important;
+        background-color:#fff !important;
+      }
+
+      .user-page{
+        background:#fff !important;
+        background-color:#fff !important;
+      }
+
+    `;
+
+  }catch(error){
+
+    console.error(
+      "Profil-Hintergrund konnte nicht auf weiß gesetzt werden:",
+      error
+    );
+  }
+}
+
 
 function resizeLoggedProfileFrame(){
 
@@ -3156,6 +3280,13 @@ function resizeLoggedProfileFrame(){
     if(!doc){
       return;
     }
+
+    /*
+     * Hintergrund bei jeder Größenanpassung
+     * ebenfalls sicherheitshalber weiß setzen.
+     */
+
+    forceLoggedProfileWhite();
 
     const bodyHeight =
       doc.body
@@ -3200,6 +3331,7 @@ function resizeLoggedProfileFrame(){
   }
 }
 
+
 function observeLoggedProfileFrame(){
 
   try{
@@ -3219,9 +3351,18 @@ function observeLoggedProfileFrame(){
       return;
     }
 
+    /*
+     * Sofort weißen Hintergrund erzwingen.
+     */
+
+    forceLoggedProfileWhite();
+
     profileFrameObserver =
       new ResizeObserver(
         () => {
+
+          forceLoggedProfileWhite();
+
           resizeLoggedProfileFrame();
         }
       );
@@ -3240,17 +3381,26 @@ function observeLoggedProfileFrame(){
     resizeLoggedProfileFrame();
 
     setTimeout(
-      resizeLoggedProfileFrame,
+      () => {
+        forceLoggedProfileWhite();
+        resizeLoggedProfileFrame();
+      },
       100
     );
 
     setTimeout(
-      resizeLoggedProfileFrame,
+      () => {
+        forceLoggedProfileWhite();
+        resizeLoggedProfileFrame();
+      },
       500
     );
 
     setTimeout(
-      resizeLoggedProfileFrame,
+      () => {
+        forceLoggedProfileWhite();
+        resizeLoggedProfileFrame();
+      },
       1000
     );
 
@@ -3263,15 +3413,29 @@ function observeLoggedProfileFrame(){
   }
 }
 
+
 loggedProfileFrame.addEventListener(
   "load",
   () => {
 
     hideProfileLoading();
 
+    /*
+     * Das ist der entscheidende Fix:
+     * Sobald user.html geladen wurde,
+     * wird deren Hintergrund weiß gemacht.
+     */
+
+    forceLoggedProfileWhite();
+
     observeLoggedProfileFrame();
   }
 );
+
+
+/* =====================================================
+   LOAD LOGGED PROFILE
+===================================================== */
 
 async function loadLoggedProfilePage(){
 
@@ -3366,6 +3530,8 @@ async function loadLoggedProfilePage(){
 
       hideProfileLoading();
 
+      forceLoggedProfileWhite();
+
       resizeLoggedProfileFrame();
     }
 
@@ -3390,6 +3556,11 @@ async function loadLoggedProfilePage(){
       false;
   }
 }
+
+
+/* =====================================================
+   UI
+===================================================== */
 
 function updateUserInterface(){
 
@@ -3488,6 +3659,11 @@ function updateUserInterface(){
     };
 }
 
+
+/* =====================================================
+   ACCOUNT MENU
+===================================================== */
+
 avatarButton.addEventListener(
   "click",
   event => {
@@ -3500,6 +3676,7 @@ avatarButton.addEventListener(
     );
   }
 );
+
 
 document.addEventListener(
   "click",
@@ -3518,6 +3695,7 @@ document.addEventListener(
   }
 );
 
+
 profileButton.addEventListener(
   "click",
   async event => {
@@ -3532,6 +3710,11 @@ profileButton.addEventListener(
     await loadLoggedProfilePage();
   }
 );
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
 
 logoutButton.addEventListener(
   "click",
@@ -3581,6 +3764,11 @@ logoutButton.addEventListener(
   }
 );
 
+
+/* =====================================================
+   AUTH
+===================================================== */
+
 function openAuth(){
 
   authOverlay.classList.add(
@@ -3593,6 +3781,7 @@ function openAuth(){
   showLogin();
 }
 
+
 function closeAuth(){
 
   authOverlay.classList.remove(
@@ -3604,6 +3793,7 @@ function closeAuth(){
 
   clearMessages();
 }
+
 
 function clearMessages(){
 
@@ -3636,6 +3826,7 @@ function clearMessages(){
   );
 }
 
+
 function showLogin(){
 
   loginForm.classList.add("active");
@@ -3657,6 +3848,7 @@ function showLogin(){
 
   clearMessages();
 }
+
 
 function showRegister(){
 
@@ -3682,6 +3874,7 @@ function showRegister(){
   updateRegistrationGate();
 }
 
+
 function showForgotPassword(){
 
   loginForm.classList.remove("active");
@@ -3701,6 +3894,7 @@ function showForgotPassword(){
   clearMessages();
 }
 
+
 function showRecovery(){
 
   loginForm.classList.remove("active");
@@ -3719,6 +3913,7 @@ function showRecovery(){
 
   clearMessages();
 }
+
 
 openLoginButton.addEventListener(
   "click",
@@ -3778,7 +3973,13 @@ document.addEventListener(
   }
 );
 
+
+/* =====================================================
+   REGISTRATION
+===================================================== */
+
 let inviteActionCompleted = false;
+
 
 function updateRegistrationGate(){
 
@@ -3844,10 +4045,12 @@ function updateRegistrationGate(){
   }
 }
 
+
 followConfirmation.addEventListener(
   "change",
   updateRegistrationGate
 );
+
 
 inviteConfirmation.addEventListener(
   "change",
@@ -3865,6 +4068,7 @@ inviteConfirmation.addEventListener(
   }
 );
 
+
 function getInviteUrl(){
 
   return(
@@ -3872,6 +4076,7 @@ function getInviteUrl(){
     window.location.pathname
   );
 }
+
 
 function getInviteMessage(){
 
@@ -3882,6 +4087,7 @@ function getInviteMessage(){
     getInviteUrl()
   );
 }
+
 
 function markInviteActionStarted(){
 
@@ -3894,6 +4100,7 @@ function markInviteActionStarted(){
 
   updateRegistrationGate();
 }
+
 
 shareWhatsapp.addEventListener(
   "click",
@@ -3911,6 +4118,7 @@ shareWhatsapp.addEventListener(
     );
   }
 );
+
 
 shareInstagram.addEventListener(
   "click",
@@ -3967,6 +4175,11 @@ shareInstagram.addEventListener(
     );
   }
 );
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
 
 loginForm.addEventListener(
   "submit",
@@ -4050,6 +4263,11 @@ loginForm.addEventListener(
     await loadLoggedProfilePage();
   }
 );
+
+
+/* =====================================================
+   REGISTRATION
+===================================================== */
 
 registerForm.addEventListener(
   "submit",
@@ -4225,6 +4443,11 @@ registerForm.addEventListener(
   }
 );
 
+
+/* =====================================================
+   PASSWORD RESET
+===================================================== */
+
 forgotForm.addEventListener(
   "submit",
   async event => {
@@ -4282,6 +4505,11 @@ forgotForm.addEventListener(
     );
   }
 );
+
+
+/* =====================================================
+   PASSWORD RECOVERY
+===================================================== */
 
 recoveryForm.addEventListener(
   "submit",
@@ -4361,6 +4589,11 @@ recoveryForm.addEventListener(
   }
 );
 
+
+/* =====================================================
+   AUTH ERROR
+===================================================== */
+
 function translateAuthError(
   error
 ){
@@ -4434,6 +4667,11 @@ function translateAuthError(
   );
 }
 
+
+/* =====================================================
+   AUTH STATE
+===================================================== */
+
 async function handleAuthStateChange(
   event,
   session
@@ -4473,6 +4711,7 @@ async function handleAuthStateChange(
 
     return;
   }
+
 
   if(
     session?.user
@@ -4541,6 +4780,7 @@ async function handleAuthStateChange(
   }
 }
 
+
 supabaseClient.auth.onAuthStateChange(
   (
     event,
@@ -4556,6 +4796,11 @@ supabaseClient.auth.onAuthStateChange(
     );
   }
 );
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
 
 async function initializeAuth(){
 
@@ -4623,6 +4868,11 @@ async function initializeAuth(){
     updateUserInterface();
   }
 }
+
+
+/* =====================================================
+   START
+===================================================== */
 
 updateRegistrationGate();
 
