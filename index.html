@@ -2839,8 +2839,7 @@ function hideProfileLoading(){
 
 /* =====================================================
    USER.HTML LAYOUT
-   EINZIGE GEWÜNSCHTE ÄNDERUNG:
-   TEXT WIRD BREITER
+   TEXT / INHALT ETWAS GRÖSSER UND BREITER
 ===================================================== */
 
 function forceLoggedProfileLayout(){
@@ -2987,13 +2986,14 @@ function forceLoggedProfileLayout(){
       .user-page .posts,
       .user-page .content{
         max-width:none !important;
+        width:100% !important;
         box-sizing:border-box !important;
       }
 
       /*
-       * GEWÜNSCHTE ÄNDERUNG:
-       * Textflächen so breit wie der verfügbare
-       * Inhaltsbereich.
+       * INHALT BREITER:
+       * Die Textbereiche dürfen die komplette verfügbare
+       * Breite des eingeloggten Bereichs nutzen.
        */
 
       .user-page p,
@@ -3002,8 +3002,54 @@ function forceLoggedProfileLayout(){
       .user-page h3,
       .user-page h4,
       .user-page h5,
-      .user-page h6{
+      .user-page h6,
+      .user-page li{
+        width:100% !important;
         max-width:none !important;
+        box-sizing:border-box !important;
+      }
+
+      /*
+       * Falls user.html andere Wrapper verwendet,
+       * werden auch diese Text-/Inhaltsbereiche breiter.
+       */
+
+      .user-page .bio,
+      .user-page .description,
+      .user-page .about,
+      .user-page .profile-text,
+      .user-page .profile-description,
+      .user-page .profile-bio,
+      .user-page .content-text,
+      .user-page .text-content,
+      .profile-page p,
+      .profile-page h1,
+      .profile-page h2,
+      .profile-page h3,
+      .profile-page h4,
+      .profile-page h5,
+      .profile-page h6,
+      .profile-page li{
+        width:100% !important;
+        max-width:none !important;
+        box-sizing:border-box !important;
+      }
+
+      /*
+       * Gleiche Breite auch dann, wenn der eigentliche
+       * Profilinhalt nicht direkt unter .user-page liegt.
+       */
+
+      body p,
+      body h1,
+      body h2,
+      body h3,
+      body h4,
+      body h5,
+      body h6,
+      body li{
+        max-width:none !important;
+        box-sizing:border-box !important;
       }
 
       .user-page > section,
@@ -3043,6 +3089,43 @@ function forceLoggedProfileLayout(){
 
       element.style.setProperty(
         "min-width","0","important"
+      );
+
+      element.style.setProperty(
+        "box-sizing","border-box","important"
+      );
+
+    });
+
+    /*
+     * Zusätzlich werden die vorhandenen Profil-Textbereiche
+     * direkt auf die verfügbare Breite gesetzt.
+     */
+
+    const profileTextElements =
+      doc.querySelectorAll(`
+        .user-page p,
+        .user-page h1,
+        .user-page h2,
+        .user-page h3,
+        .user-page h4,
+        .user-page h5,
+        .user-page h6,
+        .user-page li,
+        .profile-page p,
+        .profile-page h1,
+        .profile-page h2,
+        .profile-page h3,
+        .profile-page h4,
+        .profile-page h5,
+        .profile-page h6,
+        .profile-page li
+      `);
+
+    profileTextElements.forEach(element => {
+
+      element.style.setProperty(
+        "max-width","none","important"
       );
 
       element.style.setProperty(
